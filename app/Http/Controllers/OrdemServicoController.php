@@ -19,8 +19,13 @@ class OrdemServicoController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $ordems = $this->osService->getAll();
-        return $ordems;
+        $ordens = $this->osService->getAll();
+
+        if (request()->wantsJson()){
+            return $ordens;
+        }
+
+        return view('ordem_servico', ['ordens' => $ordens, 'title' => "Ordem de Serviço"]);
     }
 
     /**
