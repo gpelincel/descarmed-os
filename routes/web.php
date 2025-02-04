@@ -4,7 +4,9 @@ use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [OrdemServicoController::class, 'index']);
+Route::redirect('/', '/ordem-servico');
+
+Route::resource('/ordem-servico', OrdemServicoController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

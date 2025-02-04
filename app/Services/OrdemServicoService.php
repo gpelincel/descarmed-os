@@ -10,7 +10,7 @@ class OrdemServicoService {
     }
 
     public function getAll() {
-        return OrdemServico::all();
+        return OrdemServico::paginate(10);
     }
 
     public function save(array $ordemServico) {
