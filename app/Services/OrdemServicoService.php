@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\OrdemServico;
+use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
@@ -10,10 +11,14 @@ class OrdemServicoService {
     }
 
     public function getAll() {
-        return OrdemServico::paginate(10);
+        $ordens = OrdemServico::with('cliente')->orderBy('data', 'desc')->paginate(10);
+
+        return $ordens;
     }
 
     public function save(array $ordemServico) {
+        $ordemServico['data'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data'])->format('Y-m-d');
+
         $ordemServico = OrdemServico::create($ordemServico);
 
         return $ordemServico;

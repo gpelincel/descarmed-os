@@ -15,4 +15,8 @@ class Cliente extends Model
         "email",
         "telefone"
     ];
+
+    public function ordens_servico(){
+        return $this->hasMany(OrdemServico::class, 'id_cliente');
+    }
 }

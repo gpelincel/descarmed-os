@@ -5,6 +5,8 @@
 
     <x-os-table :ordens="$ordens"></x-os-table>
 
+    <x-os-cadastro-modal :clientes="$clientes"></x-os-cadastro-modal>
+
     @if (session('status'))
         <x-toasts :status="session('status')"></x-toasts>
     @endif
