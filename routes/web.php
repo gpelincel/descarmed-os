@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/ordem-servico');
 
-Route::resource('/ordem-servico', OrdemServicoController::class);
+Route::get('/ordem-servico', [OrdemServicoController::class,'index']);
+Route::post('/ordem-servico', [OrdemServicoController::class,'store']);
+Route::post('/ordem-servico/delete/{id}', [OrdemServicoController::class,'destroy']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

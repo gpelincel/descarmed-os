@@ -81,6 +81,10 @@ class OrdemServicoController extends Controller {
      */
     public function destroy(string $id) {
         $ordem = $this->osService->delete($id);
-        return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
+        }
+        
+        return redirect()->back()->with('status', 'success')->with('message','Ordem de serviço deletada com sucesso!');
     }
 }
