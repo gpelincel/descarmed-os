@@ -7,12 +7,11 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::findOrFail($id);
+        return OrdemServico::with('cliente')->findOrFail($id);
     }
 
     public function getAll() {
         $ordens = OrdemServico::with('cliente')->orderBy('data', 'desc')->paginate(10);
-
         return $ordens;
     }
 

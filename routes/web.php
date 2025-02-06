@@ -8,6 +8,7 @@ Route::redirect('/', '/ordem-servico');
 
 Route::get('/ordem-servico', [OrdemServicoController::class,'index']);
 Route::post('/ordem-servico', [OrdemServicoController::class,'store']);
+Route::get('/ordem-servico/{id}', [OrdemServicoController::class,'show']);
 Route::post('/ordem-servico/delete/{id}', [OrdemServicoController::class,'destroy']);
 
 Route::get('/dashboard', function () {
