@@ -16,3 +16,4 @@ new Datepicker(datepickerEl, {
    language: 'pt-BR',
    format: 'dd/mm/yyyy'
 });
+
