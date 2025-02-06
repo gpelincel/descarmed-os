@@ -32,6 +32,7 @@ class OrdemServicoService {
 
     public function edit(array $novoOrdemServico, string $id) {
         $ordemServico = OrdemServico::findOrFail($id);
+        $novoOrdemServico['data'] = DateTime::createFromFormat('d/m/Y', $novoOrdemServico['data'])->format('Y-m-d');
         $ordemServico->update($novoOrdemServico);
         return $ordemServico;
     }

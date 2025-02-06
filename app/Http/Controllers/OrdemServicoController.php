@@ -73,7 +73,12 @@ class OrdemServicoController extends Controller {
      */
     public function update(StoreOrdemServicoRequest $request, string $id) {
         $ordem = $this->osService->edit($request->all(), $id);
-        return $ordem;
+
+        if (request()->wantsJson()){
+            return response()->json($ordem);
+        }
+
+        return redirect()->back()->with('status', 'success')->with('message', 'OS atualizada com sucesso!');
     }
 
     /**

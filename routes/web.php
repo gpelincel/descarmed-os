@@ -10,6 +10,7 @@ Route::get('/ordem-servico', [OrdemServicoController::class,'index']);
 Route::post('/ordem-servico', [OrdemServicoController::class,'store']);
 Route::get('/ordem-servico/{id}', [OrdemServicoController::class,'show']);
 Route::post('/ordem-servico/delete/{id}', [OrdemServicoController::class,'destroy']);
+Route::post('/ordem-servico/update/{id}', [OrdemServicoController::class,'update']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

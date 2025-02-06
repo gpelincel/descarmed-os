@@ -36,8 +36,8 @@
                                         class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                         <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
                                             <li>
-                                                <button type="button" data-modal-target="updateProductModal"
-                                                    data-modal-toggle="updateProductModal"
+                                                <button onclick="openModalUpdate({{ $ordem->id }})" type="button"
+                                                    data-modal-target="modal-update" data-modal-toggle="modal-update"
                                                     class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                     <i class="fi fi-rr-edit mr-2"></i>
                                                     Editar
@@ -46,16 +46,14 @@
                                             <li>
                                                 <button type="button"
                                                     onclick="openModalRead(event, {{ $ordem->id }})"
-                                                    data-modal-target="modal-preview"
-                                                    data-modal-toggle="modal-preview"
+                                                    data-modal-target="modal-preview" data-modal-toggle="modal-preview"
                                                     class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                     <i class="fi fi-rr-eye mr-2"></i>
                                                     Ver Detalhes
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button"
-                                                    onclick="openModalDelete({{ $ordem->id }})"
+                                                <button type="button" onclick="openModalDelete({{ $ordem->id }})"
                                                     data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                                                     class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
                                                     <i class="fi fi-rr-trash mr-2"></i>
@@ -122,18 +120,4 @@
 <!-- End block -->
 
 <x-os-preview-modal></x-os-preview-modal>
-<x-delete-modal></x-delete-modal>
 
-<script>
-    function openModalDelete(id) {
-        let formDelete = document.querySelector("#formDelete");
-        formDelete.setAttribute('action', '/ordem-servico/delete/' + id);
-        formDelete.setAttribute('method', 'post');
-    }
-
-    function openModalUpdate(id) {
-        let formDelete = document.querySelector("#formUpdate");
-        formDelete.setAttribute('action', '/ordem-servico/update/' + id);
-        formDelete.setAttribute('method', 'post');
-    }
-</script>
