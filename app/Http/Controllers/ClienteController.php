@@ -23,8 +23,11 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = $this->clienteService->getAll();
+        if (request()->wantsJson()) {
+            return $clientes;
+        }
 
-        return $clientes;
+        return view('clientes', compact('clientes'));
     }
 
     /**
@@ -42,7 +45,11 @@ class ClienteController extends Controller
     {
         $cliente = $this->clienteService->save($request->all());
 
-        return $cliente;
+        if (request()->wantsJson()) {
+            return $cliente;
+        }
+
+        return redirect()->back()->with('status', 'success')->with('message','Cliente cadastrado com sucesso!');
     }
 
     /**
@@ -69,7 +76,11 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, string $id)
     {
         $cliente = $this->clienteService->edit($request->all(), $id);
-        return $cliente;
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Cliente atualizado com sucesso', 'data' => $cliente], 200);
+        }
+
+        return redirect()->back()->with('status', 'success')->with('message','Cliente atualizado com sucesso!');
     }
 
     /**
@@ -79,6 +90,10 @@ class ClienteController extends Controller
     {
         $cliente = $this->clienteService->delete($id);
 
-        return response()->json(['message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
+        }
+
+        return redirect()->back()->with('status', 'success')->with('message','Cliente deletado com sucesso!');
     }
 }
