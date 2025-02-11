@@ -7,8 +7,8 @@
                 <h3 class="text-gray-500 dark:text-gray-400">{{ $cliente->razao_social }}</h3>
             </div>
             <div class="flex gap-2 h-10">
-                <button onclick="openModalClienteUpdate({{ $cliente->id }})" data-modal-target="modal-update"
-                    data-modal-toggle="modal-update" type="button"
+                <button onclick="openModalClienteUpdate({{ $cliente->id }})" data-modal-target="modal-update-cliente"
+                    data-modal-toggle="modal-update-cliente" type="button"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
                         class="fi fi-rr-edit"></i> Editar</button>
                 <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
@@ -38,7 +38,7 @@
             </li>
         </ul>
     </section>
-    
+
     <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)"></x-cliente-tabs>
     
     <x-cliente-update-modal></x-cliente-update-modal>

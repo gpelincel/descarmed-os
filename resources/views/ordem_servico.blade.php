@@ -9,12 +9,7 @@
     <x-os-update-modal :clientes="$clientes"></x-os-update-modal>
     <x-delete-modal></x-delete-modal>
 
-    <script>
-        function openModalDelete(id) {
-            let formDelete = document.querySelector("#formDelete");
-            formDelete.setAttribute('action', '/ordem-servico/delete/' + id);
-        }
-    </script>
+    
 
 
     @if (session('status'))

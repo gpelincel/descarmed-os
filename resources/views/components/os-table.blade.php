@@ -36,7 +36,7 @@
                                     <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
                                         <li>
                                             <button onclick="openModalOSUpdate({{ $ordem->id }})" type="button"
-                                                data-modal-target="modal-update" data-modal-toggle="modal-update"
+                                                data-modal-target="modal-update-os" data-modal-toggle="modal-update-os"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                 <i class="fi fi-rr-edit mr-2"></i>
                                                 Editar
@@ -44,7 +44,7 @@
                                         </li>
                                         <li>
                                             <button type="button" onclick="openModalRead(event, {{ $ordem->id }})"
-                                                data-modal-target="modal-preview" data-modal-toggle="modal-preview"
+                                                data-modal-target="modal-preview-os" data-modal-toggle="modal-preview-os"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                 <i class="fi fi-rr-eye mr-2"></i>
                                                 Ver Detalhes
@@ -71,7 +71,7 @@
 
         <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 w-full"
             aria-label="Table navigation">
-            {{-- {{ $ordens->links() }} --}}
+            {{ $ordens->links() }}
             {{-- <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                     Showing
                     <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
@@ -117,3 +117,9 @@
 <!-- End block -->
 
 <x-os-preview-modal></x-os-preview-modal>
+<script>
+    function openModalDelete(id) {
+        let formDelete = document.querySelector("#formDelete");
+        formDelete.setAttribute('action', '/ordem-servico/delete/' + id);
+    }
+</script>
