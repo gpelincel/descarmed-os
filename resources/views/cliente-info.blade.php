@@ -38,8 +38,10 @@
             </li>
         </ul>
     </section>
+    
+    <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)"></x-cliente-tabs>
+    
     <x-cliente-update-modal></x-cliente-update-modal>
-    <x-os-table :ordens="$cliente->ordens_servico()->paginate(10)"></x-os-table>
     <x-os-cadastro-modal :selected="$cliente" :clientes="null"></x-os-cadastro-modal>
     <x-os-update-modal :selected="$cliente" :clientes="null"></x-os-update-modal>
     <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os-delete-modal>
