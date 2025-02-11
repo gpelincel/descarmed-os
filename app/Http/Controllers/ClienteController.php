@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
-use App\Http\Requests\UpdateClienteRequest;
 use App\Services\ClienteService;
+use Illuminate\Routing\Route;
 
 class ClienteController extends Controller
 {
@@ -98,6 +98,6 @@ class ClienteController extends Controller
             return response()->json(['message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
         }
 
-        return redirect()->back()->with('status', 'success')->with('message','Cliente deletado com sucesso!');
+        return redirect('/cliente')->with('status', 'success')->with('message','Cliente deletado com sucesso!');
     }
 }

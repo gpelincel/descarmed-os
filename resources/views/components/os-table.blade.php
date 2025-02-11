@@ -1,80 +1,78 @@
-<section class="bg-gray-300 dark:bg-gray-900 p-3 sm:p-5 antialiased min-h-screen">
-    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-        <!-- Start coding here -->
-        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+<div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+    <!-- Start coding here -->
+    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
-            {{-- Topbar --}}
-            <x-table-top :label="'OS'"></x-table-top>
+        {{-- Topbar --}}
+        <x-table-top :label="'OS'"></x-table-top>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                    <x-table-header :headers="['Título', 'Status', 'Data', 'Cliente']"></x-table-header>
+                <x-table-header :headers="['Título', 'Status', 'Data', 'Cliente']"></x-table-header>
 
-                    <tbody>
-                        @foreach ($ordens as $ordem)
-                            {{-- Table Body Rows --}}
-                            <tr class="border-b dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $ordem->id }}</th>
-                                <td class="px-4 py-3">{{ $ordem->titulo }}</td>
-                                <td class="px-4 py-3">
-                                    <x-os-status-badge :status="$ordem->status">
-                                    </x-os-status-badge>
-                                </td>
-                                <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y H:i') }}</td>
-                                <td class="px-4 py-3">{{ $ordem->cliente->nome }}</td>
-                                <td class="px-4 py-3 flex items-center justify-end">
-                                    <button id="apple-imac-27-dropdown-button"
-                                        data-dropdown-toggle="{{ $ordem->id }}-dropdown"
-                                        class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                        type="button">
-                                        <i class="fi fi-rs-circle-ellipsis text-xl"></i>
-                                    </button>
-                                    <div id="{{ $ordem->id }}-dropdown"
-                                        class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
-                                            <li>
-                                                <button onclick="openModalUpdate({{ $ordem->id }})" type="button"
-                                                    data-modal-target="modal-update" data-modal-toggle="modal-update"
-                                                    class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
-                                                    <i class="fi fi-rr-edit mr-2"></i>
-                                                    Editar
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button"
-                                                    onclick="openModalRead(event, {{ $ordem->id }})"
-                                                    data-modal-target="modal-preview" data-modal-toggle="modal-preview"
-                                                    class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
-                                                    <i class="fi fi-rr-eye mr-2"></i>
-                                                    Ver Detalhes
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" onclick="openModalDelete({{ $ordem->id }})"
-                                                    data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                                    class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
-                                                    <i class="fi fi-rr-trash mr-2"></i>
-                                                    Deletar
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                <tbody>
+                    @foreach ($ordens as $ordem)
+                        {{-- Table Body Rows --}}
+                        <tr class="border-b dark:border-gray-700">
+                            <th scope="row"
+                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $ordem->id }}</th>
+                            <td class="px-4 py-3">{{ $ordem->titulo }}</td>
+                            <td class="px-4 py-3">
+                                <x-os-status-badge :status="$ordem->status">
+                                </x-os-status-badge>
+                            </td>
+                            <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y H:i') }}</td>
+                            <td class="px-4 py-3">{{ $ordem->cliente->nome }}</td>
+                            <td class="px-4 py-3 flex items-center justify-end">
+                                <button id="apple-imac-27-dropdown-button"
+                                    data-dropdown-toggle="{{ $ordem->id }}-dropdown"
+                                    class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                    type="button">
+                                    <i class="fi fi-rs-circle-ellipsis text-xl"></i>
+                                </button>
+                                <div id="{{ $ordem->id }}-dropdown"
+                                    class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
+                                        <li>
+                                            <button onclick="openModalUpdate({{ $ordem->id }})" type="button"
+                                                data-modal-target="modal-update" data-modal-toggle="modal-update"
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
+                                                <i class="fi fi-rr-edit mr-2"></i>
+                                                Editar
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" onclick="openModalRead(event, {{ $ordem->id }})"
+                                                data-modal-target="modal-preview" data-modal-toggle="modal-preview"
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
+                                                <i class="fi fi-rr-eye mr-2"></i>
+                                                Ver Detalhes
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" onclick="openModalDelete({{ $ordem->id }})"
+                                                data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+                                                class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
+                                                <i class="fi fi-rr-trash mr-2"></i>
+                                                Deletar
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-            {{-- Table footer --}}
+        {{-- Table footer --}}
 
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 w-full"
-                aria-label="Table navigation">
-                {{-- {{ $ordens->links() }} --}}
-                {{-- <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 w-full"
+            aria-label="Table navigation">
+            {{-- {{ $ordens->links() }} --}}
+            {{-- <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                     Showing
                     <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
                     of
@@ -113,11 +111,9 @@
                         </a>
                     </li>
                 </ul> --}}
-            </nav>
-        </div>
+        </nav>
     </div>
-</section>
+</div>
 <!-- End block -->
 
 <x-os-preview-modal></x-os-preview-modal>
-
