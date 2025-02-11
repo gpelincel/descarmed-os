@@ -5,7 +5,7 @@ use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/ordem-servico');
+Route::redirect('/', '/cliente');
 
 Route::get('/ordem-servico', [OrdemServicoController::class,'index']);
 Route::post('/ordem-servico', [OrdemServicoController::class,'store']);

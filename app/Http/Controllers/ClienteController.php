@@ -59,7 +59,11 @@ class ClienteController extends Controller
     {
         $cliente = $this->clienteService->findByID($id);
 
-        return $cliente;
+        if (request()->wantsJson()) {
+            return $cliente;
+        }
+
+        return view('cliente-info', compact('cliente'));
     }
 
     /**

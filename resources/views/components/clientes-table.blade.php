@@ -1,5 +1,5 @@
 <section class="bg-gray-300 dark:bg-gray-900 p-3 sm:p-5 antialiased min-h-screen">
-    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+    <div class="mx-auto max-w-screen-xl px-4 lg:px-8">
         <!-- Start coding here -->
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
@@ -9,7 +9,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                    <x-table-header :headers="['Nome', 'CNPJ', 'Telefone', 'Email']"></x-table-header>
+                    <x-table-header :headers="['Nome', 'CNPJ', 'Telefone', 'Email', '']"></x-table-header>
 
                     <tbody>
                         @foreach ($clientes as $cliente)
@@ -22,9 +22,12 @@
                                 <td class="px-4 py-3">{{ $cliente->cnpj }}</td>
                                 <td class="px-4 py-3">{{ $cliente->telefone }}</td>
                                 <td class="px-4 py-3">{{ $cliente->email }}</td>
+                                <td class="px-4 py-3"><button type="button" data-modal-target="cadastrarModal"
+                                        data-modal-toggle="cadastrarModal"
+                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                                            class="fi fi-rr-plus-small"></i> Adicionar OS</button></td>
                                 <td class="px-4 py-3 flex items-center justify-end">
-                                    <button
-                                        data-dropdown-toggle="{{ $cliente->id }}-dropdown"
+                                    <button data-dropdown-toggle="{{ $cliente->id }}-dropdown"
                                         class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                         type="button">
                                         <i class="fi fi-rs-circle-ellipsis text-xl"></i>
@@ -41,13 +44,11 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <button type="button"
-                                                    onclick="openModalRead(event, {{ $cliente->id }})"
-                                                    data-modal-target="modal-preview" data-modal-toggle="modal-preview"
+                                                <a type="button" href="/cliente/{{ $cliente->id }}"
                                                     class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                     <i class="fi fi-rr-eye mr-2"></i>
                                                     Ver Detalhes
-                                                </button>
+                                                </a>
                                             </li>
                                             <li>
                                                 <button type="button" onclick="openModalDelete({{ $cliente->id }})"
@@ -117,4 +118,4 @@
 <!-- End block -->
 
 <x-cliente-preview-modal></x-cliente-preview-modal>
-
+<x-os-cadastro-modal :clientes="$clientes"></x-os-cadastro-modal>
