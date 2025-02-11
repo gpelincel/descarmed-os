@@ -35,7 +35,7 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
                                         <li>
-                                            <button onclick="openModalUpdate({{ $ordem->id }})" type="button"
+                                            <button onclick="openModalOSUpdate({{ $ordem->id }})" type="button"
                                                 data-modal-target="modal-update" data-modal-toggle="modal-update"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                 <i class="fi fi-rr-edit mr-2"></i>

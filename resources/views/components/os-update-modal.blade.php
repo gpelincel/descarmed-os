@@ -68,10 +68,15 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
                         <select id="id_cliente" name="id_cliente"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">- Selecione -</option>
-                            @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
-                            @endforeach
+                            @if($clientes)
+                                <option selected="">- Selecione -</option>
+                                @foreach ($clientes as $cliente)
+                                    <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                                @endforeach
+                            @endif
+                            @if($selected)
+                                <option selected="" value="{{$selected->id}}">{{$selected->nome}}</option>
+                            @endif
                         </select>
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
@@ -83,7 +88,7 @@
                 </div>
                 <div class="flex w-full justify-end">
                     <button type="submit"
-                        class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800 self-end">
+                        class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 self-end">
                         <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -99,7 +104,7 @@
 </div>
 
 <script>
-    function openModalUpdate(id) {
+    function openModalOSUpdate(id) {
         var formUpdate = document.querySelector("#formUpdate");
         let spinner = document.querySelector("#update-spinner");
 

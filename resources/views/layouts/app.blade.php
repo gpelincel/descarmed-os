@@ -13,7 +13,7 @@
 <body>
     <main class="ml-[15vw]">
         <x-sidenav></x-sidenav>
-        <section class="bg-gray-300 dark:bg-gray-900 p-3 sm:p-5 antialiased min-h-screen">
+        <section class="bg-gray-200 dark:bg-gray-900 p-3 sm:p-5 antialiased min-h-screen">
             {{ $slot }}
         </section>
     </main>
