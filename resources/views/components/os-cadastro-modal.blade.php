@@ -64,7 +64,7 @@
                             @if($clientes)
                                 <option selected="">- Selecione -</option>
                                 @foreach ($clientes as $cliente)
-                                    <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                                    <option value="{{$cliente['id']}}">{{$cliente['nome']}}</option>
                                 @endforeach
                             @endif
                             @if($selected)

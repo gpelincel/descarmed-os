@@ -25,10 +25,11 @@ class OrdemServicoController extends Controller {
      */
     public function index() {
         $ordens = $this->osService->getAll();
-        $clientes = $this->clienteService->getAll();
-
+        
         if (request()->wantsJson()){
             return response()->json($ordens);
+        } else {
+            $clientes = $this->clienteService->getAll();
         }
 
         return view('ordem_servico', compact('ordens','clientes'));

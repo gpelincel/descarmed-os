@@ -39,7 +39,7 @@
         </ul>
     </section>
 
-    <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)"></x-cliente-tabs>
+    <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)"></x-cliente-tabs>
     
     <x-cliente-update-modal></x-cliente-update-modal>
     <x-os-cadastro-modal :selected="$cliente" :clientes="null"></x-os-cadastro-modal>

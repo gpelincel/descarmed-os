@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,15 @@ Route::post('/cliente', [ClienteController::class,'store']);
 Route::get('/cliente/{id}', [ClienteController::class,'show']);
 Route::delete('/cliente/delete/{id}', [ClienteController::class,'destroy']);
 Route::post('/cliente/update/{id}', [ClienteController::class,'update']);
+Route::get('/cliente/search/{name}', [ClienteController::class,'search']);
+
+Route::get('/equipamento', [EquipamentoController::class,'index']);
+Route::post('/equipamento', [EquipamentoController::class,'store']);
+Route::get('/equipamento/{id}', [EquipamentoController::class,'show']);
+Route::delete('/equipamento/delete/{id}', [EquipamentoController::class,'destroy']);
+Route::post('/equipamento/update/{id}', [EquipamentoController::class,'update']);
+Route::get('/equipamento/search/{name}', [EquipamentoController::class,'search']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

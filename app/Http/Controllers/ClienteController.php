@@ -22,11 +22,18 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = $this->clienteService->getAll();
+        $search = request('search');
+
+        $clientes = $this->clienteService->getAll()
+            ->when($search, function ($query) use ($search) {
+                return $query->where('nome', 'like', "%$search%");
+            })
+            ->paginate(10);
+    
         if (request()->wantsJson()) {
             return $clientes;
         }
-
+    
         return view('clientes', compact('clientes'));
     }
 
@@ -80,6 +87,7 @@ class ClienteController extends Controller
     public function update(StoreClienteRequest $request, string $id)
     {
         $cliente = $this->clienteService->edit($request->all(), $id);
+
         if (request()->wantsJson()) {
             return response()->json(['message' => 'Cliente atualizado com sucesso', 'data' => $cliente], 200);
         }

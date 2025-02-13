@@ -13,7 +13,7 @@ class ClienteService
 
     public function getAll()
     {
-        return Cliente::paginate(10);
+        return Cliente::query()->get();
     }
 
     public function save(Array $cliente)
@@ -21,7 +21,6 @@ class ClienteService
         $cliente = Cliente::create($cliente);
 
         return $cliente;
-
     }
 
     public function delete(string $id){
