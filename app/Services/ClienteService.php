@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Cliente;
+use App\Models\Endereco;
 
 class ClienteService
 {
@@ -13,14 +14,20 @@ class ClienteService
 
     public function getAll()
     {
-        return Cliente::query()->get();
+        return Cliente::query();
     }
 
     public function save(Array $cliente)
     {
-        $cliente = Cliente::create($cliente);
+        $clienteReturn = Cliente::create($cliente);
 
-        return $cliente;
+        $cliente['id_cliente'] = $clienteReturn->id;
+
+        $enderecoService = new EnderecoService();
+        $endereco = $enderecoService->save($cliente);
+        $clienteReturn->endereco = $endereco;
+
+        return $clienteReturn;
     }
 
     public function delete(string $id){

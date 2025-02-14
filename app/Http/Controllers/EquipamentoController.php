@@ -6,7 +6,6 @@ use App\Http\Requests\StoreEquipamentoRequest;
 use App\Models\Equipamento;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
-use Illuminate\Http\Request;
 
 class EquipamentoController extends Controller {
     protected $equipamentoService;
@@ -32,7 +31,7 @@ class EquipamentoController extends Controller {
         if (request()->wantsJson()) {
             return $equipamentos;
         }
-        $clientes = $this->clienteService->getAll();
+        $clientes = $this->clienteService->getAll()->get();
 
         return view('equipamentos', compact('equipamentos', 'clientes'));
     }

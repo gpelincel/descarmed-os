@@ -4,7 +4,7 @@
     <div class="h-full px-2 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             <div class="w-full flex justify-center">
-                <img class="w-32" src="/img/project-management.png" alt="">
+                <img class="w-32" src="/img/logo.png" alt="">
             </div>
             <li>
                 <a href="/cliente"

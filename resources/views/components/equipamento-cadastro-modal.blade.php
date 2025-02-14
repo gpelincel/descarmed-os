@@ -19,8 +19,9 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="/cliente" method="POST">
+            <form action="/equipamento" method="POST">
                 @csrf
+                @method("POST")
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="codigo"

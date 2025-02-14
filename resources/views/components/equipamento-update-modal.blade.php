@@ -26,8 +26,9 @@
                 <x-spinner></x-spinner>
             </div>
 
-            <form id="formUpdateEquipamento">
+            <form id="formUpdateEquipamento" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="codigo"

@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Equipamento extends Model
+class Endereco extends Model
 {
     public $timestamps = false;
 
     protected $fillable = [
-        "codigo",
-        "nome",
+        "cep",
+        "logradouro",
+        "numero",
+        "complemento",
+        "bairro",
+        "cidade",
+        "estado",
         "id_cliente"
     ];
 

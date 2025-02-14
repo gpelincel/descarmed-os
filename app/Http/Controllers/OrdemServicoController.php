@@ -29,7 +29,7 @@ class OrdemServicoController extends Controller {
         if (request()->wantsJson()){
             return response()->json($ordens);
         } else {
-            $clientes = $this->clienteService->getAll();
+            $clientes = $this->clienteService->getAll()->get();
         }
 
         return view('ordem_servico', compact('ordens','clientes'));

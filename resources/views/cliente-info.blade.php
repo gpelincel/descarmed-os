@@ -17,7 +17,7 @@
             </div>
         </div>
         <hr class="border-gray-400/50 dark:border-gray-500">
-        <ul class="flex gap-8">
+        <ul class="flex flex-wrap gap-8 text-lg">
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">CNPJ</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
@@ -37,12 +37,59 @@
                 </p>
             </li>
         </ul>
+        <ul class="flex flex-wrap gap-8 text-lg">
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">CEP</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->cep }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Cidade</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->cidade }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Estado</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->estado }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Logradouro</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->logradouro }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Número</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->numero }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Bairro</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    {{ $cliente->endereco->bairro }}
+                </p>
+            </li>
+            <li>
+                <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Complemento</h3>
+                <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    N/A
+                </p>
+            </li>
+        </ul>
     </section>
 
     <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)"></x-cliente-tabs>
-    
+
     <x-cliente-update-modal></x-cliente-update-modal>
     <x-os-cadastro-modal :selected="$cliente" :clientes="null"></x-os-cadastro-modal>
     <x-os-update-modal :selected="$cliente" :clientes="null"></x-os-update-modal>
     <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os-delete-modal>
+
+    <x-equipamento-cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento-cadastro-modal>
+    <x-equipamento-update-modal :clientes="null" :selected="$cliente"></x-equipamento-update-modal>
 </x-app-layout>
