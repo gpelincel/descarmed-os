@@ -40,6 +40,13 @@ class ClienteService
     public function edit(Array $novoCliente, string $id){
         $cliente = Cliente::findOrFail($id);
         $cliente->update($novoCliente);
+
+        $enderecoService = new EnderecoService();
+        $novoCliente['id_cliente'] = $id;
+
+        $endereco = $enderecoService->edit($novoCliente);
+        $cliente->endereco = $endereco;
+
         return $cliente;
     }
 }

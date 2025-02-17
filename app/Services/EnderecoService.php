@@ -30,8 +30,8 @@ class EnderecoService
         return $endereco;
     }
 
-    public function edit(Array $novoEndereco, string $id){
-        $endereco = Endereco::findOrFail($id);
+    public function edit(Array $novoEndereco){
+        $endereco = Endereco::findOrFail($novoEndereco['id_cliente']);
         $endereco->update($novoEndereco);
         return $endereco;
     }

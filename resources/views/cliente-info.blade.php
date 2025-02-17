@@ -77,7 +77,7 @@
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Complemento</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    N/A
+                    {{ $cliente->endereco->complemento }}
                 </p>
             </li>
         </ul>
