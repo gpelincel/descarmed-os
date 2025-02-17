@@ -15,6 +15,12 @@
             let formDelete = document.querySelector("#formDelete");
             formDelete.setAttribute('action', '/cliente/delete/' + id);
         }
+
+        function openModalOSCad(id){
+            let formOSCad = document.querySelector("#formCadOS");
+            let inputs = formOSCad.elements;
+            inputs.id_cliente.value = id;
+        }
     </script>
 
 

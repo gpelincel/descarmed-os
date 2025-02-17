@@ -9,7 +9,7 @@ class ClienteService
 {
     public function findByID(string $id)
     {
-        return Cliente::findOrFail($id);
+        return Cliente::with('endereco')->findOrFail($id);
     }
 
     public function getAll()

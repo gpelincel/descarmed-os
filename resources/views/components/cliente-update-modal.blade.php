@@ -65,6 +65,87 @@
                             placeholder="cliente@email.com" required="">
                     </div>
                 </div>
+                <hr class="my-5 dark:border-gray-600">
+                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                    <div>
+                        <label for="cep"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
+                        <input type="text" name="cep" id="cep"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="00000-000" required="">
+                    </div>
+                    <div>
+                        <label for="logradouro"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logradouro</label>
+                        <input type="text" name="logradouro" id="logradouro"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Rua ABCD" required="">
+                    </div>
+                    <div>
+                        <label for="numero"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
+                        <input type="number" name="numero" id="numero" min="0"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="000" required="">
+                    </div>
+                    <div>
+                        <label for="complemento"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Complemento (opcional)</label>
+                        <input type="text" name="complemento" id="complemento"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Casa 1" value="N/A" required>
+                    </div>
+                    <div>
+                        <label for="bairro"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
+                        <input type="text" name="bairro" id="bairro"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Residencial Exemplo" required="">
+                    </div>
+                    <div>
+                        <label for="cidade"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
+                        <input type="text" name="cidade" id="cidade"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Nome da cidade" required="">
+                    </div>
+                    <div>
+                        <label for="estado"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+                        <select id="estado" name="estado"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected="">- Selecione -</option>
+                            <option value="">Selecione um estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="flex w-full justify-end">
                     <button type="submit"
                         class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 self-end">
@@ -105,6 +186,14 @@
                 form.telefone.value = result.telefone;
                 form.email.value = result.email;
                 form.razao_social.value = result.razao_social;
+
+                form.cep.value = result.endereco.cep;
+                form.logradouro.value = result.endereco.logradouro;
+                form.numero.value = result.endereco.numero;
+                form.complemento.value = result.endereco.complemento;
+                form.bairro.value = result.endereco.bairro;
+                form.cidade.value = result.endereco.cidade;
+                form.estado.value = result.endereco.estado;
 
                 formUpdate.classList.remove('hidden');
                 spinner.classList.add('hidden');
