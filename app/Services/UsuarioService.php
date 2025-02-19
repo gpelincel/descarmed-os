@@ -37,4 +37,12 @@ class UsuarioService
         $usuario->update($novoUsuario);
         return $usuario;
     }
+
+    public function login(Array $login){
+        $usuario = Usuario::where('usuario', $login['usuario'])->first();
+        
+        if($usuario && Hash::check($login['senha'], $usuario->senha)){
+            return $usuario;
+        }
+    }
 }

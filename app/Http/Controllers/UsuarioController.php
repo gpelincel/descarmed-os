@@ -76,6 +76,15 @@ class UsuarioController extends Controller
         return redirect()->back()->with('status', 'success')->with('message', 'Usuário atualizado com sucesso!');
     }
 
+    public function login(Request $request){
+        $usuario = $this->usuarioService->login($request->all());
+        if($usuario){
+            return redirect()->route('cliente');
+        } else {
+            return redirect()->back()->with('status', 'error')->with('message', 'Usuário ou senha inválidos!');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
