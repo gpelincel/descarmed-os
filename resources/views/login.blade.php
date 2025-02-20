@@ -1,6 +1,6 @@
 <x-guest-layout>
     <section class="min-h-screen" style="background-image: url('/img/equipamento-medico.jpg'); background-size: cover;">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 h-full">
             <div>
                 <img class="w-32 mb-2" src="{{asset('/img/logo.png')}}" alt="logo">
             </div>
