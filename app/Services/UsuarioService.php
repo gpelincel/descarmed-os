@@ -42,6 +42,7 @@ class UsuarioService
         $usuario = Usuario::where('usuario', $login['usuario'])->first();
         
         if($usuario && Hash::check($login['senha'], $usuario->senha)){
+            session(['user_id' => $usuario->id]);
             return $usuario;
         }
     }

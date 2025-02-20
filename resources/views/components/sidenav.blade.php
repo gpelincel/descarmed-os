@@ -1,7 +1,7 @@
 <aside id="default-sidebar"
     class="fixed top-0 left-0 z-40 w-[15vw] h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full px-2 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div class="flex flex-col justify-between h-full px-2 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             <div class="w-full flex justify-center">
                 <img class="w-32" src="/img/logo.png" alt="">
@@ -39,5 +39,12 @@
                 </a>
             </li>
         </ul>
+        <form action="/logout" method="POST">
+            @csrf
+            <button type="submit" class="flex items-center p-2 text-red-500 rounded-lg dark:text-red-500 group">
+                <i class="fi fi-rr-sign-out-alt text-xl text-red-500 dark:text-red-500 dark:group-hover:text-red"></i>
+                <span class="flex-1 ms-3 whitespace-nowrap">Sair</span>
+            </button>
+        </form>
     </div>
 </aside>
