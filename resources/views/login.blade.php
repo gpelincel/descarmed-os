@@ -10,7 +10,7 @@
                     <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white uppercase">
                         Bem-vindo
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="/login" method="POST">
+                    <form class="flex flex-col gap-4" action="/login" method="POST">
                         @csrf
                         <div>
                             <label for="usuario" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuário</label>
