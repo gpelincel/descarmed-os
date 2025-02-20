@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <section style="background-image: url('/img/equipamento-medico.jpg'); background-size: cover;">
+    <section class="min-h-screen" style="background-image: url('/img/equipamento-medico.jpg'); background-size: cover;">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div>
                 <img class="w-32 mb-2" src="{{asset('/img/logo.png')}}" alt="logo">
@@ -26,13 +26,6 @@
                                 required="">
                         </div>
                         <div class="flex items-center justify-between">
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="remember" aria-describedby="remember" type="checkbox"
-                                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                        >
-                                </div>
-                            </div>
                             <a href="/cliente"
                                 class="text-sm font-medium text-primary-600 hover:underline dark:text-blue-500">Esqueceu a senha?</a>
                         </div>
