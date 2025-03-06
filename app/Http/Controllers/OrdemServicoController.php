@@ -9,6 +9,7 @@ use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrdemServicoController extends Controller {
 
@@ -92,5 +93,13 @@ class OrdemServicoController extends Controller {
         }
         
         return redirect()->back()->with('status', 'success')->with('message','Ordem de serviço deletada com sucesso!');
+    }
+
+    public function imprimir(string $id){
+        $ordemServico = $this->show($id);
+        $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
+        $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
+        return $pdf->stream();
+        // return view('impressao', compact('ordemServico'));
     }
 }

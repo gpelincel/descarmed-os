@@ -46,4 +46,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
     Route::delete('/usuario/delete/{id}', [UsuarioController::class, 'destroy']);
     Route::post('/usuario/update/{id}', [UsuarioController::class, 'update']);
+
+    Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
 });

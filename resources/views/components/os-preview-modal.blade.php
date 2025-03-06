@@ -76,6 +76,11 @@
                             </svg>
                             Editar
                         </button>
+                        <a id="btn-imprimir" target="_blank"
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <i class="fi fi-rs-print mr-2"></i>
+                            Imprimir
+                        </a>
                     </div>
                     <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                         class="delete-button inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -103,6 +108,8 @@
     function openModalRead(event, id) {
         let modal_content = document.querySelector("#preview-content");
         let spinner = document.querySelector("#preview-spinner");
+
+        document.querySelector('#btn-imprimir').href = `/imprimir/${id}`;
 
         spinner.classList.add('flex');
         spinner.classList.remove('hidden');
