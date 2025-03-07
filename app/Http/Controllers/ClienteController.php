@@ -108,4 +108,8 @@ class ClienteController extends Controller
 
         return redirect('/cliente')->with('status', 'success')->with('message','Cliente deletado com sucesso!');
     }
+
+    public function getEquipamentos(string $id){
+        return $this->clienteService->findEquipamentos($id);
+    }
 }

@@ -34,6 +34,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/cliente/{id}', [ClienteController::class, 'show']);
     Route::delete('/cliente/delete/{id}', [ClienteController::class, 'destroy']);
     Route::post('/cliente/update/{id}', [ClienteController::class, 'update']);
+    Route::get('/cliente/equipamento/{id}', [ClienteController::class, 'getEquipamentos']);
 
     Route::get('/equipamento', [EquipamentoController::class, 'index']);
     Route::post('/equipamento', [EquipamentoController::class, 'store']);

@@ -52,6 +52,7 @@
                             </svg>
                         </div>
                         <input name="data" datepicker id="default-datepicker" type="text"
+                            autocomplete="off"
                             datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="dd/mm/aaaa">
@@ -61,15 +62,24 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
                         <select id="id_cliente" name="id_cliente"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @if($clientes)
-                                <option selected="">- Selecione -</option>
+                            @if ($clientes)
+                                <option value="" selected="">- Selecione -</option>
                                 @foreach ($clientes as $cliente)
-                                    <option value="{{$cliente['id']}}">{{$cliente['nome']}}</option>
+                                    <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
                                 @endforeach
                             @endif
-                            @if($selected)
-                                <option selected="" value="{{$selected->id}}">{{$selected->nome}}</option>
+                            @if ($selected)
+                                <option selected="" value="{{ $selected->id }}">{{ $selected->nome }}</option>
                             @endif
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="id_equipamento"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
+                        <select id="id_equipamento" name="id_equipamento"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            disabled>
+                            <option value="" selected="">- Selecione um cliente -</option>
                         </select>
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
@@ -95,3 +105,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector("#id_cliente").addEventListener('change', (event) => {
+        let id_cliente = event.target.value;
+        let select = document.querySelector("#id_equipamento");
+        select.innerHTML = "";
+        select.disabled = false;
+
+        if (id_cliente !== "") {
+            fetch('/cliente/equipamento/' + id_cliente)
+                .then(response => response.json())
+                .then(result => {
+                    result.forEach(equipamento => {
+                        document.querySelector("#id_equipamento").innerHTML +=
+                            `<option value="${equipamento.id}">${equipamento.nome}</option>`;
+                    });
+                })
+        } else {
+            select.disabled = true;
+            document.querySelector("#id_equipamento").innerHTML +=
+                            `<option value="" selected="">- Selecione um cliente -</option>`;
+        }
+    });
+</script>

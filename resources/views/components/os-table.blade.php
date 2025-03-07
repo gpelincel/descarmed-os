@@ -23,7 +23,7 @@
                                 </x-os-status-badge>
                             </td>
                             <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y H:i') }}</td>
-                            <td class="px-4 py-3">{{ $ordem->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button id="apple-imac-27-dropdown-button"
                                     data-dropdown-toggle="{{ $ordem->id }}-dropdown"

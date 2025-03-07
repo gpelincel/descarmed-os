@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('descricao');
             $table->integer('status');
             $table->date('data');
-            $table->foreignId('id_cliente');
+            $table->foreignId('id_equipamento');
             $table->timestamps();
         });
     }

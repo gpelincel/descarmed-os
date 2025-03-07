@@ -32,6 +32,12 @@
                         ab dolore fugit molestias corrupti sed!
                     </dd>
 
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Código do Equipamento</dt>
+                    <dd id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
+                    <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Histórico</dt>
                     <dd class="mb-6">
                         <ol
@@ -119,9 +125,10 @@
             .then(response => response.json())
             .then(result => {
                 document.querySelector("#titulo-os").innerHTML = result.titulo;
-                document.querySelector("#cliente-os").innerHTML = result.cliente.nome;
+                document.querySelector("#cliente-os").innerHTML = result.equipamento.cliente.nome;
                 document.querySelector("#descricao-os").innerHTML = result.descricao;
-
+                document.querySelector("#id-equipamento-os").innerHTML = result.equipamento.codigo;
+                document.querySelector("#nome-equipamento-os").innerHTML = result.equipamento.nome;
 
                 let activeClass = ["font-medium", "px-2.5", "py-0.5", "rounded-full"];
                 let inactiveClass = ["text-gray-500", "dark:text-gray-400"];

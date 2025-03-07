@@ -4,12 +4,17 @@ namespace App\Services;
 
 use App\Models\Cliente;
 use App\Models\Endereco;
+use App\Models\Equipamento;
 
 class ClienteService
 {
     public function findByID(string $id)
     {
         return Cliente::with('endereco')->findOrFail($id);
+    }
+
+    public function findEquipamentos(string $id){
+        return Equipamento::where('id_cliente', $id)->get();
     }
 
     public function getAll()

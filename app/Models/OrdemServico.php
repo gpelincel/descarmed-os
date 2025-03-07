@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Equipamento;
 
 class OrdemServico extends Model {
     protected $fillable = [
@@ -11,10 +12,10 @@ class OrdemServico extends Model {
         "descricao",
         "status",
         "data",
-        "id_cliente"
+        "id_equipamento"
     ];
 
-    public function cliente(): BelongsTo{
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+    public function equipamento(): BelongsTo{
+        return $this->belongsTo(Equipamento::class, 'id_equipamento');
     }
 }
