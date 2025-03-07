@@ -8,7 +8,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                <x-table-header :headers="['Título', 'Status', 'Data', 'Cliente']"></x-table-header>
+                <x-table-header :headers="['Serviço', 'Status', 'Data de Início', 'Cliente']"></x-table-header>
 
                 <tbody>
                     @foreach ($ordens as $ordem)
@@ -22,7 +22,7 @@
                                 <x-os-status-badge :status="$ordem->status">
                                 </x-os-status-badge>
                             </td>
-                            <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y H:i') }}</td>
+                            <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button id="apple-imac-27-dropdown-button"
@@ -49,6 +49,15 @@
                                                 <i class="fi fi-rr-eye mr-2"></i>
                                                 Ver Detalhes
                                             </button>
+                                        </li>
+                                        <li>
+                                            <a
+                                                target="_blank"
+                                                href="/imprimir/{{$ordem->id}}"
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
+                                                <i class="fi fi-rs-print mr-2"></i>
+                                                Imprimir
+                                            </a>
                                         </li>
                                         <li>
                                             <button type="button" onclick="openModalDelete({{ $ordem->id }})"

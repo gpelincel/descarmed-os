@@ -1,0 +1,118 @@
+INSERT INTO enderecos (logradouro, numero, bairro, cidade, estado, cep, complemento, id_cliente) VALUES
+('Rua das Palmeiras', 123, 'Centro', 'São Paulo', 'SP', '01001-000', 'Apto 12B', 1),
+('Avenida Brasil', 456, 'Jardins', 'Rio de Janeiro', 'RJ', '22041-001', 'Bloco A', 2),
+('Rua das Flores', 789, 'Bela Vista', 'Belo Horizonte', 'MG', '30130-000', 'Casa 2', 3),
+('Praça da Liberdade', 101, 'Savassi', 'Curitiba', 'PR', '80030-110', 'Sala 305', 4),
+('Rua do Comércio', 202, 'Centro', 'Porto Alegre', 'RS', '90010-000', '', 5),
+('Alameda Santos', 303, 'Jardins', 'São Paulo', 'SP', '01419-000', 'Cobertura', 6),
+('Avenida Paulista', 404, 'Cerqueira César', 'São Paulo', 'SP', '01311-000', 'Conjunto 22', 7),
+('Rua XV de Novembro', 505, 'Centro', 'Curitiba', 'PR', '80020-300', '', 8),
+('Estrada das Acácias', 606, 'Alphaville', 'Barueri', 'SP', '06454-000', 'Casa de Esquina', 9),
+('Rodovia dos Bandeirantes', 707, 'Industrial', 'Campinas', 'SP', '13050-000', 'Galpão 3', 10);
+INSERT INTO equipamentos (codigo, nome, id_cliente) VALUES
+('EQP-001-01', 'Computador Dell Inspiron', 1),
+('EQP-001-02', 'Impressora HP LaserJet', 1),
+('EQP-001-03', 'Monitor LG 24"', 1),
+('EQP-001-04', 'Notebook Lenovo ThinkPad', 1),
+('EQP-001-05', 'Scanner Epson', 1),
+
+('EQP-002-01', 'Servidor IBM', 2),
+('EQP-002-02', 'Switch Cisco 24 portas', 2),
+('EQP-002-03', 'Roteador TP-Link', 2),
+('EQP-002-04', 'No-break APC', 2),
+('EQP-002-05', 'Telefone IP Grandstream', 2),
+
+('EQP-003-01', 'Projetor Epson PowerLite', 3),
+('EQP-003-02', 'Câmera de Segurança Hikvision', 3),
+('EQP-003-03', 'Teclado Mecânico HyperX', 3),
+('EQP-003-04', 'Mouse Logitech G Pro', 3),
+('EQP-003-05', 'Tablet Samsung Galaxy', 3),
+
+('EQP-004-01', 'Smart TV Samsung 55"', 4),
+('EQP-004-02', 'Impressora 3D Ender 3', 4),
+('EQP-004-03', 'HD Externo Seagate 2TB', 4),
+('EQP-004-04', 'Microfone Rode NT1', 4),
+('EQP-004-05', 'Caixa de Som JBL', 4),
+
+('EQP-005-01', 'Ar-condicionado Split LG', 5),
+('EQP-005-02', 'Relógio de Ponto Biométrico', 5),
+('EQP-005-03', 'Scanner de Código de Barras', 5),
+('EQP-005-04', 'Webcam Logitech C920', 5),
+('EQP-005-05', 'Impressora de Etiquetas Zebra', 5),
+
+('EQP-006-01', 'Câmera DSLR Canon', 6),
+('EQP-006-02', 'Notebook Asus VivoBook', 6),
+('EQP-006-03', 'Microondas Panasonic', 6),
+('EQP-006-04', 'Monitor Samsung Curvo', 6),
+('EQP-006-05', 'Teclado Sem Fio Microsoft', 6),
+
+('EQP-007-01', 'Servidor Dell PowerEdge', 7),
+('EQP-007-02', 'No-break Eaton 1500VA', 7),
+('EQP-007-03', 'Scanner HP DeskJet', 7),
+('EQP-007-04', 'Telefone Sem Fio Panasonic', 7),
+('EQP-007-05', 'Projetor BenQ', 7),
+
+('EQP-008-01', 'Máquina de Cartão Cielo', 8),
+('EQP-008-02', 'Câmera GoPro Hero 9', 8),
+('EQP-008-03', 'Notebook Apple MacBook Pro', 8),
+('EQP-008-04', 'HD Externo Western Digital', 8),
+('EQP-008-05', 'Teclado Gamer Razer', 8),
+
+('EQP-009-01', 'Smartphone Samsung Galaxy S21', 9),
+('EQP-009-02', 'Impressora Epson EcoTank', 9),
+('EQP-009-03', 'Fone de Ouvido Bose QuietComfort', 9),
+('EQP-009-04', 'Câmera Sony Alpha', 9),
+('EQP-009-05', 'Monitor Dell Ultrasharp', 9),
+
+('EQP-010-01', 'Smartwatch Apple Watch', 10),
+('EQP-010-02', 'Tablet Microsoft Surface', 10),
+('EQP-010-03', 'Soundbar Yamaha', 10),
+('EQP-010-04', 'Mouse Sem Fio Logitech', 10),
+('EQP-010-05', 'SSD NVMe Kingston 1TB', 10);
+INSERT INTO clientes (nome, razao_social, cnpj, email, telefone) VALUES
+('Loja ABC', 'ABC Comércio LTDA', '12.345.678/0001-90', 'contato@abccomercio.com.br', '(11) 98765-4321'),
+('Supermercado Ideal', 'Ideal Supermercados SA', '98.765.432/0001-22', 'suporte@idealsuper.com', '(11) 99876-5432'),
+('Construtora XYZ', 'XYZ Engenharia e Construção LTDA', '33.444.555/0001-10', 'contato@xyzconstrucoes.com', '(11) 91234-5678'),
+('Transportadora Rápida', 'Rápida Cargas LTDA', '11.222.333/0001-55', 'logistica@rapidacargas.com', '(11) 93456-7890'),
+('Auto Peças Nova Era', 'Nova Era Auto Peças LTDA', '22.333.444/0001-77', 'vendas@novaeraauto.com', '(11) 94567-8901'),
+('Farmácia Vida', 'Vida Farma Distribuidora LTDA', '44.555.666/0001-99', 'contato@vidafarma.com', '(11) 95678-9012'),
+('Escola Saber', 'Saber Educação e Ensino LTDA', '55.666.777/0001-88', 'secretaria@saberescola.com', '(11) 96789-0123'),
+('Tech Solutions', 'Tech Solutions Informática SA', '66.777.888/0001-66', 'suporte@techsolutions.com', '(11) 97890-1234'),
+('Gráfica Rápida', 'Rápida Impressões LTDA', '77.888.999/0001-44', 'contato@graficarapida.com', '(11) 98901-2345'),
+('Hotel Confort', 'Confort Hotelaria SA', '88.999.000/0001-33', 'reservas@hotelconfort.com', '(11) 99012-3456');
+INSERT INTO ordem_servicos (titulo, descricao, status, classificacao, data_inicio, data_conclusao, id_equipamento) VALUES
+('Troca de Fonte', 'Equipamento não liga, possível problema na fonte.', 1, 1, '2025-02-13', '2025-02-14', 1),
+('Atualização de Software', 'Necessário atualizar o sistema operacional.', 2, 2, '2025-02-14', '2025-02-15', 2),
+('Reparo na Impressora', 'Folhas saindo borradas, possível problema no toner.', 1, 1, '2025-02-15', '2025-02-16', 3),
+('Configuração de Rede', 'Configurar Wi-Fi e acesso remoto.', 2, 2, '2025-02-16', '2025-02-17', 4),
+('Substituição de HD', 'HD com setores defeituosos, trocar por SSD.', 3, 1, '2025-02-17', '2025-02-18', 5),
+
+('Limpeza Interna', 'Acúmulo de poeira prejudicando o desempenho.', 1, 2, '2025-02-18', '2025-02-19', 6),
+('Troca de Teclado', 'Teclado com teclas falhando.', 2, 1, '2025-02-19', '2025-02-20', 7),
+('Problema na Placa de Vídeo', 'Artefatos na tela ao ligar.', 3, 2, '2025-02-20', '2025-02-21', 8),
+('Reinstalação do Windows', 'Sistema corrompido, necessário reinstalar.', 1, 1, '2025-02-21', '2025-02-22', 9),
+('Manutenção Preventiva', 'Revisão completa do equipamento.', 2, 2, '2025-02-22', '2025-02-23', 10),
+
+('Troca de Bateria', 'Bateria não segura carga.', 1, 1, '2025-02-23', '2025-02-24', 11),
+('Configuração de Impressora', 'Instalar drivers e conectar na rede.', 2, 2, '2025-02-24', '2025-02-25', 12),
+('Troca de Memória RAM', 'Expansão de memória para 16GB.', 3, 1, '2025-02-25', '2025-02-26', 13),
+('Falha na Placa Mãe', 'Equipamento não liga, diagnóstico da placa mãe.', 1, 2, '2025-02-26', '2025-02-27', 14),
+('Ajuste de Monitor', 'Monitor piscando intermitentemente.', 2, 1, '2025-02-27', '2025-02-28', 15),
+
+('Problema de Superaquecimento', 'Processador atingindo temperaturas altas.', 3, 2, '2025-02-28', '2025-03-01', 16),
+('Atualização de Firmware', 'Firmware desatualizado, necessário update.', 1, 1, '2025-03-01', '2025-03-02', 17),
+('Troca de Cabo HDMI', 'Conector HDMI danificado.', 2, 2, '2025-03-02', '2025-03-03', 18),
+('Reparo em Scanner', 'Scanner não reconhecido pelo sistema.', 3, 1, '2025-03-03', '2025-03-04', 19),
+('Ajuste de Brilho no Monitor', 'Tela muito escura, necessário ajuste.', 1, 2, '2025-03-04', '2025-03-05', 20),
+
+('Troca de Pasta Térmica', 'Processador superaquecendo.', 2, 1, '2025-03-05', '2025-03-06', 21),
+('Verificação de Rede', 'Equipamento sem acesso à internet.', 3, 2, '2025-03-06', '2025-03-07', 22),
+('Reparo na Fonte', 'Fonte de alimentação com ruído.', 1, 1, '2025-03-07', '2025-03-08', 23),
+('Configuração de Backup', 'Configurar rotina de backup automática.', 2, 2, '2025-03-08', '2025-03-09', 24),
+('Problema no Áudio', 'Fone de ouvido não reconhecido.', 3, 1, '2025-03-09', '2025-03-10', 25),
+
+('Atualização de Drivers', 'Drivers desatualizados causando lentidão.', 1, 2, '2025-03-10', '2025-03-11', 26),
+('Instalação de Software', 'Instalar pacote de produtividade.', 2, 1, '2025-03-11', '2025-03-12', 27),
+('Falha no Sistema', 'Equipamento reiniciando sozinho.', 3, 2, '2025-03-12', '2025-03-13', 28),
+('Problema na Conexão Bluetooth', 'Bluetooth não detecta dispositivos.', 1, 1, '2025-03-13', '2025-03-14', 29),
+('Configuração de VPN', 'Configurar acesso remoto via VPN.', 2, 2, '2025-03-14', '2025-03-15', 30);

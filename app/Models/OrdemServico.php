@@ -11,11 +11,27 @@ class OrdemServico extends Model {
         "titulo",
         "descricao",
         "status",
-        "data",
+        "classificacao",
+        "data_inicio",
+        "data_conclusao",
         "id_equipamento"
     ];
 
-    public function equipamento(): BelongsTo{
+    public function equipamento(): BelongsTo {
         return $this->belongsTo(Equipamento::class, 'id_equipamento');
+    }
+
+    public function getClassificacao() {
+        switch ($this->classificacao) {
+            case 1:
+                return "Orçamento";
+                break;
+            case 2:
+                return "Ordem de Serviço";
+                break;
+            case 3:
+                return "Relatório de Manutenção";
+                break;
+        }
     }
 }

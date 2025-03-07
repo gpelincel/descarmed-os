@@ -14,7 +14,9 @@ return new class extends Migration {
             $table->string('titulo');
             $table->string('descricao');
             $table->integer('status');
-            $table->date('data');
+            $table->integer('classificacao');
+            $table->date('data_inicio');
+            $table->date('data_conclusao');
             $table->foreignId('id_equipamento');
             $table->timestamps();
         });

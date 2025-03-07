@@ -24,10 +24,52 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="titulo"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serviço</label>
                         <input type="text" name="titulo" id="titulo"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Título da OS" required="">
+                            placeholder="Serviço a ser realizado" required="">
+                    </div>
+                    <div>
+                        <label for="classificacao"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
+                        <select id="classificacao" name="classificacao"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="" selected="">- Selecione -</option>
+                            <option value="1">Orçamento</option>
+                            <option value="2">Ordem de Serviço</option>
+                        </select>
+                    </div>
+                    <div class="relative">
+                        <label for="data_inicio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            Início</label>
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input name="data_inicio" datepicker id="default-datepicker" type="text"
+                            autocomplete="off"
+                            datepicker-format="dd/mm/yyyy"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="dd/mm/aaaa">
+                    </div>
+                    <div class="relative">
+                        <label for="data_conclusao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            de Conclusão</label>
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input name="data_conclusao" datepicker id="default-datetimepicker" type="text"
+                            autocomplete="off"
+                            datepicker-format="dd/mm/yyyy"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="dd/mm/aaaa">
                     </div>
                     <div>
                         <label for="status"
@@ -39,23 +81,6 @@
                             <option value="2">Em andamento</option>
                             <option value="3">Concluída</option>
                         </select>
-                    </div>
-
-                    <div class="relative">
-                        <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            OS</label>
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                            </svg>
-                        </div>
-                        <input name="data" datepicker id="default-datepicker" type="text"
-                            autocomplete="off"
-                            datepicker-format="dd/mm/yyyy"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="dd/mm/aaaa">
                     </div>
                     <div>
                         <label for="id_cliente"

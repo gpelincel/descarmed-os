@@ -97,7 +97,7 @@ class OrdemServicoController extends Controller {
 
     public function imprimir(string $id){
         $ordemServico = $this->show($id);
-        $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
+        $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         return $pdf->stream();
         // return view('impressao', compact('ordemServico'));

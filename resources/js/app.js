@@ -17,3 +17,9 @@ new Datepicker(datepickerEl, {
    format: 'dd/mm/yyyy'
 });
 
+const datetimepickerEl = document.getElementById('default-datetimepicker');
+Datepicker.locales.pt = pt['pt-BR'];
+new Datepicker(datetimepickerEl, {
+   language: 'pt-BR',
+   format: 'dd/mm/yyyy'
+});
