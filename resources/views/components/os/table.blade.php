@@ -19,8 +19,8 @@
                                 {{ $ordem->id }}</th>
                             <td class="px-4 py-3">{{ $ordem->titulo }}</td>
                             <td class="px-4 py-3">
-                                <x-os-status-badge :status="$ordem->status">
-                                </x-os-status-badge>
+                                <x-os.status-badge :status="$ordem->status">
+                                </x-os.status-badge>
                             </td>
                             <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
@@ -125,7 +125,7 @@
 </div>
 <!-- End block -->
 
-<x-os-preview-modal></x-os-preview-modal>
+<x-os.preview-modal></x-os.preview-modal>
 <script>
     function openModalDelete(id) {
         let formDelete = document.querySelector("#formDelete");

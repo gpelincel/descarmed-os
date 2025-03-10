@@ -10,9 +10,9 @@
 </div>
 <div id="default-tab-content">
     <div class="hidden rounded-lg" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <x-os-table :ordens="$ordens"></x-os-table>
+        <x-os.table :ordens="$ordens"></x-os.table>
     </div>
     <div class="hidden rounded-lg" id="equipamento" role="tabpanel" aria-labelledby="equipamento-tab">
-        <x-equipamento-table :equipamentos="$equipamentos" :clientes="null"></x-equipamento-table>
+        <x-equipamento.table :equipamentos="$equipamentos" :clientes="null"></x-equipamento.table>
     </div>
 </div>

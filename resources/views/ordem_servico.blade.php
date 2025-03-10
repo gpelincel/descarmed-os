@@ -3,10 +3,10 @@
         Ordem de Serviço
     </x-slot>
 
-    <x-os-table :ordens="$ordens"></x-os-table>
+    <x-os.table :ordens="$ordens"></x-os.table>
 
-    <x-os-cadastro-modal :clientes="$clientes" :selected="null"></x-os-cadastro-modal>
-    <x-os-update-modal :clientes="$clientes" :selected="null"></x-os-update-modal>
+    <x-os.cadastro-modal :clientes="$clientes" :selected="null"></x-os.cadastro-modal>
+    <x-os.update-modal :clientes="$clientes" :selected="null"></x-os.update-modal>
     <x-delete-modal></x-delete-modal>
 
     @if (session('status'))

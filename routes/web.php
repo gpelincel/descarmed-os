@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\UsuarioController;
@@ -49,4 +50,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::post('/usuario/update/{id}', [UsuarioController::class, 'update']);
 
     Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
+
+    Route::get('/configuracao', [ConfigController::class, 'index']);
 });

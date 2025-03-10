@@ -16,10 +16,6 @@ class Cliente extends Model
         "telefone"
     ];
 
-    public function ordens_servico(){
-        return $this->hasMany(OrdemServico::class, 'id_cliente');
-    }
-
     public function equipamentos(){
         return $this->hasMany(Equipamento::class, 'id_cliente');
     }

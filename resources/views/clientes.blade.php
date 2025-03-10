@@ -3,11 +3,11 @@
         Clientes
     </x-slot>
 
-    <x-clientes-table :clientes="$clientes"></x-clientes-table>
+    <x-cliente.table :clientes="$clientes"></x-cliente.table>
 
-    <x-cliente-cadastro-modal></x-cliente-cadastro-modal>
+    <x-cliente.cadastro-modal></x-cliente.cadastro-modal>
 
-    <x-cliente-update-modal></x-cliente-update-modal>
+    <x-cliente.update-modal></x-cliente.update-modal>
     <x-delete-modal></x-delete-modal>
 
     <script>

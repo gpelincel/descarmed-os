@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
 use App\Services\ClienteService;
+use App\Services\OrdemServicoService;
 use Illuminate\Routing\Route;
 
 class ClienteController extends Controller
 {
 
     protected $clienteService;
+    protected $osService;
 
-    public function __construct(ClienteService $clienteService)
+    public function __construct(ClienteService $clienteService, OrdemServicoService $osService)
     {
         $this->clienteService = $clienteService;
+        $this->osService = $osService;
     }
 
     /**
@@ -65,6 +68,7 @@ class ClienteController extends Controller
     public function show(string $id)
     {
         $cliente = $this->clienteService->findByID($id);
+        $cliente->ordem_servico = $this->getOs($id);
 
         if (request()->wantsJson()) {
             return $cliente;
@@ -111,5 +115,9 @@ class ClienteController extends Controller
 
     public function getEquipamentos(string $id){
         return $this->clienteService->findEquipamentos($id);
+    }
+
+    public function getOs(string $id){
+        return $this->osService->findByCliente($id);
     }
 }

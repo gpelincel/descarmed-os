@@ -80,4 +80,4 @@
 
 <!-- End block -->
 
-<x-os-cadastro-modal :clientes="$clientes" :selected="null"></x-os-cadastro-modal>
+<x-os.cadastro-modal :clientes="$clientes" :selected="null"></x-os.cadastro-modal>

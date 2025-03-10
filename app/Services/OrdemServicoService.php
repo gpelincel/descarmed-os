@@ -10,6 +10,14 @@ class OrdemServicoService {
         return OrdemServico::with('equipamento.cliente')->findOrFail($id);
     }
 
+    public function findByCliente(string $id_cliente) {
+        return OrdemServico::with('equipamento.cliente')
+            ->whereHas('equipamento', function ($query) use ($id_cliente) {
+                $query->where('id_cliente', $id_cliente);
+            });
+    }
+
+
     public function getAll() {
         $ordens = OrdemServico::with('equipamento')->orderBy('data_inicio', 'desc')->paginate(10);
         return $ordens;

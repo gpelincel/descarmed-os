@@ -83,13 +83,13 @@
         </ul>
     </section>
 
-    <x-cliente-tabs :ordens="$cliente->ordens_servico()->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)"></x-cliente-tabs>
+    <x-cliente.tabs :ordens="$cliente->ordem_servico->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)"></x-cliente.tabs>
 
-    <x-cliente-update-modal></x-cliente-update-modal>
-    <x-os-cadastro-modal :selected="$cliente" :clientes="null"></x-os-cadastro-modal>
-    <x-os-update-modal :selected="$cliente" :clientes="null"></x-os-update-modal>
-    <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os-delete-modal>
+    <x-cliente.update-modal></x-cliente.update-modal>
+    <x-os.cadastro-modal :selected="$cliente" :clientes="null"></x-os.cadastro-modal>
+    <x-os.update-modal :selected="$cliente" :clientes="null"></x-os.update-modal>
+    <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os.delete-modal>
 
-    <x-equipamento-cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento-cadastro-modal>
-    <x-equipamento-update-modal :clientes="null" :selected="$cliente"></x-equipamento-update-modal>
+    <x-equipamento.cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento.cadastro-modal>
+    <x-equipamento.update-modal :clientes="null" :selected="$cliente"></x-equipamento.update-modal>
 </x-app-layout>
