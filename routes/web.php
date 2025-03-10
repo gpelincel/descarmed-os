@@ -6,6 +6,7 @@ use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatusOSController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,5 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
+    Route::post('/configuracao/status', [StatusOSController::class, 'store']);
 });

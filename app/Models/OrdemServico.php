@@ -10,7 +10,7 @@ class OrdemServico extends Model {
     protected $fillable = [
         "titulo",
         "descricao",
-        "status",
+        "id_status",
         "classificacao",
         "data_inicio",
         "data_conclusao",
@@ -33,5 +33,9 @@ class OrdemServico extends Model {
                 return "Relatório de Manutenção";
                 break;
         }
+    }
+
+    public function status():BelongsTo {
+        return $this->belongsTo(StatusOS::class, 'id_status');
     }
 }

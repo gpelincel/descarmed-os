@@ -19,8 +19,7 @@
                                 {{ $ordem->id }}</th>
                             <td class="px-4 py-3">{{ $ordem->titulo }}</td>
                             <td class="px-4 py-3">
-                                <x-os.status-badge :status="$ordem->status">
-                                </x-os.status-badge>
+                                {{ $ordem->status->descricao }}
                             </td>
                             <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>

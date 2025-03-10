@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Requests\UpdateOrdemServicoRequest;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
+use App\Services\StatusOSService;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -15,10 +16,12 @@ class OrdemServicoController extends Controller {
 
     private $osService;
     private $clienteService;
+    private $statusService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService) {
+    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService) {
         $this->osService = $osService;
         $this->clienteService = $clienteService;
+        $this->statusService = $statusService;
     }
 
     /**
@@ -26,6 +29,7 @@ class OrdemServicoController extends Controller {
      */
     public function index() {
         $ordens = $this->osService->getAll();
+        $status = $this->statusService->getAll();
         
         if (request()->wantsJson()){
             return response()->json($ordens);
@@ -33,7 +37,7 @@ class OrdemServicoController extends Controller {
             $clientes = $this->clienteService->getAll()->get();
         }
 
-        return view('ordem_servico', compact('ordens','clientes'));
+        return view('ordem_servico', compact('ordens','clientes', 'status'));
     }
 
     /**

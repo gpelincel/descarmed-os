@@ -38,34 +38,9 @@
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
                     <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Histórico</dt>
-                    <dd class="mb-6">
-                        <ol
-                            class="flex items-center w-full space-y-1 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse">
-                            <li
-                                class="flex items-center bg-gray-100 text-gray-800 font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300 space-x-2">
-                                <i class="fi fi-rr-calendar-clock mb-[-3px]"></i>
-                                <span>
-                                    <h3 class="font-medium leading-tight">Agendada</h3>
-                                </span>
-                            </li>
-                            <i class="fi fi-rs-angle-circle-right text-gray-500 dark:text-gray-400"></i>
-                            <li id="status-andamento"
-                                class="flex items-center text-gray-500 dark:text-gray-400 space-x-2 rtl:space-x-reverse">
-                                <i class="fi fi-rr-time-forward mb-[-3px]"></i>
-                                <span>
-                                    <h3 class="font-medium leading-tight">Em andamento</h3>
-                                </span>
-                            </li>
-                            <i class="fi fi-rs-angle-circle-right text-gray-500 dark:text-gray-400"></i>
-                            <li id="status-concluida"
-                                class="flex items-center text-gray-500 dark:text-gray-400 space-x-2 rtl:space-x-reverse">
-                                <i class="fi fi-rs-check-circle mb-[-3px]"></i>
-                                <span>
-                                    <h3 class="font-medium leading-tight">Concluída</h3>
-                                </span>
-                            </li>
-                        </ol>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Status</dt>
+                    <dd class="mb-2">
+                        <dd id="status-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
                     </dd>
                 </dl>
                 <div class="flex justify-between items-center">
@@ -129,36 +104,8 @@
                 document.querySelector("#descricao-os").innerHTML = result.descricao;
                 document.querySelector("#id-equipamento-os").innerHTML = result.equipamento.codigo;
                 document.querySelector("#nome-equipamento-os").innerHTML = result.equipamento.nome;
+                document.querySelector("#status-os").innerHTML = result.status.descricao;
 
-                let activeClass = ["font-medium", "px-2.5", "py-0.5", "rounded-full"];
-                let inactiveClass = ["text-gray-500", "dark:text-gray-400"];
-
-                const andamento = document.querySelector("#status-andamento");
-                const concluida = document.querySelector("#status-concluida");
-                const aguardando = document.querySelector("#status-aguardando"); // Badge do primeiro status
-
-                if (aguardando) atualizarBadge(aguardando, result.status >= 1,
-                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300");
-                if (andamento) atualizarBadge(andamento, result.status >= 2,
-                    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300");
-                if (concluida) atualizarBadge(concluida, result.status === 3,
-                    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300");
-
-                /**
-                 * Atualiza o badge com base no status.
-                 * @param {HTMLElement} elemento - O badge a ser atualizado.
-                 * @param {boolean} ativo - Se o badge deve estar ativo.
-                 * @param {string} corAtiva - As classes para quando estiver ativo.
-                 */
-                function atualizarBadge(elemento, ativo, corAtiva) {
-                    if (ativo) {
-                        elemento.classList.remove(...inactiveClass);
-                        elemento.classList.add(...activeClass, ...corAtiva.split(" "));
-                    } else {
-                        elemento.classList.remove(...activeClass, ...corAtiva.split(" "));
-                        elemento.classList.add(...inactiveClass);
-                    }
-                }
 
                 addDeleteButton(id);
 

@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->id();
             $table->string('titulo');
             $table->string('descricao');
-            $table->integer('status');
+            $table->foreignId('id_status');
             $table->integer('classificacao');
             $table->date('data_inicio');
             $table->date('data_conclusao');

@@ -31,26 +31,25 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="titulo"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serviço</label>
                         <input type="text" name="titulo" id="titulo"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Título da OS" required="">
+                            placeholder="Serviço a ser realizado" required="">
                     </div>
                     <div>
-                        <label for="status"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                        <select id="status" name="status"
+                        <label for="classificacao"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
+                        <select id="classificacao" name="classificacao"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">- Selecione -</option>
-                            <option value="1">Agendada</option>
-                            <option value="2">Em andamento</option>
-                            <option value="3">Concluída</option>
+                            <option value="" selected="">- Selecione -</option>
+                            <option value="1">Orçamento</option>
+                            <option value="2">Ordem de Serviço</option>
                         </select>
                     </div>
-
                     <div class="relative">
-                        <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            OS</label>
+                        <label for="data_inicio"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            Início</label>
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -58,25 +57,60 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input name="data" datepicker id="default-datepicker" type="text"
+                        <input name="data_inicio" datepicker id="default-datepicker" type="text" autocomplete="off"
                             datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="dd/mm/aaaa">
+                    </div>
+                    <div class="relative">
+                        <label for="data_conclusao"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
+                            de Conclusão</label>
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                        </div>
+                        <input name="data_conclusao" datepicker id="default-datetimepicker" type="text"
+                            autocomplete="off" datepicker-format="dd/mm/yyyy"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="dd/mm/aaaa">
+                    </div>
+                    <div>
+                        <label for="id_status"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                        <select id="id_status" name="id_status"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected="">- Selecione -</option>
+                            @foreach ($status as $stat)
+                                <option value="{{ $stat->id }}">{{ $stat->descricao }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label for="id_cliente"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
                         <select id="id_cliente" name="id_cliente"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @if($clientes)
-                                <option selected="">- Selecione -</option>
+                            @if ($clientes)
+                                <option value="" selected="">- Selecione -</option>
                                 @foreach ($clientes as $cliente)
-                                    <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                                    <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
                                 @endforeach
                             @endif
-                            @if($selected)
-                                <option selected="" value="{{$selected->id}}">{{$selected->nome}}</option>
+                            @if ($selected)
+                                <option selected="" value="{{ $selected->id }}">{{ $selected->nome }}</option>
                             @endif
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="id_equipamento_update"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
+                        <select id="id_equipamento_update" name="id_equipamento"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="" selected="">- Selecione um cliente -</option>
                         </select>
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
@@ -88,7 +122,7 @@
                 </div>
                 <div class="flex w-full justify-end">
                     <button type="submit"
-                        class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 self-end">
+                        class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700  dark:focus:ring-primary-800 self-end">
                         <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -104,6 +138,39 @@
 </div>
 
 <script>
+    function getEquipamentos(id_cliente, id_equipamento = null) {
+        let select = document.querySelector("#id_equipamento_update");
+        select.innerHTML = "";
+        select.disabled = false;
+
+        if (id_cliente !== "") {
+            fetch('/cliente/equipamento/' + id_cliente)
+                .then(response => response.json())
+                .then(result => {
+                    result.forEach(equipamento => {
+                        if (id_equipamento && equipamento.id == id_equipamento) {
+
+                            select.innerHTML +=
+                                `<option selected value="${equipamento.id}">${equipamento.nome}</option>`;
+                        } else {
+                            select.innerHTML +=
+                                `<option value="${equipamento.id}">${equipamento.nome}</option>`;
+                        }
+
+                    });
+                })
+        } else {
+            select.disabled = true;
+            select.innerHTML +=
+                `<option value="" selected="">- Selecione um cliente -</option>`;
+        }
+    }
+
+    document.querySelector("#id_cliente").addEventListener('change', (event) => {
+        let id_cliente = event.target.value;
+        getEquipamentos(id_cliente);
+    });
+
     function openModalOSUpdate(id) {
         var formUpdate = document.querySelector("#formUpdateOS");
         let spinner = document.querySelector("#update-spinner");
@@ -119,10 +186,12 @@
                 let os_data = new Date(result.data).toLocaleString().split(',')[0];
 
                 form.titulo.value = result.titulo;
-                form.status.value = result.status;
-                form.id_cliente.value = result.id_cliente;
+                form.id_status.value = result.id_status;
+                form.id_cliente.value = result.equipamento.id_cliente;
+                getEquipamentos(result.equipamento.id_cliente, result.id_equipamento);
                 form.descricao.value = result.descricao;
-                form.data.value = os_data;
+                form.data_conclusao.value = result.data_conclusao;
+                form.data_inicio.value = result.data_inicio;
 
                 formUpdate.classList.remove('hidden');
                 spinner.classList.add('hidden');

@@ -80,7 +80,9 @@ INSERT INTO clientes (nome, razao_social, cnpj, email, telefone) VALUES
 ('Tech Solutions', 'Tech Solutions Informática SA', '66.777.888/0001-66', 'suporte@techsolutions.com', '(11) 97890-1234'),
 ('Gráfica Rápida', 'Rápida Impressões LTDA', '77.888.999/0001-44', 'contato@graficarapida.com', '(11) 98901-2345'),
 ('Hotel Confort', 'Confort Hotelaria SA', '88.999.000/0001-33', 'reservas@hotelconfort.com', '(11) 99012-3456');
-INSERT INTO ordem_servicos (titulo, descricao, status, classificacao, data_inicio, data_conclusao, id_equipamento) VALUES
+
+
+INSERT INTO ordem_servicos (titulo, descricao, id_status, classificacao, data_inicio, data_conclusao, id_equipamento) VALUES
 ('Troca de Fonte', 'Equipamento não liga, possível problema na fonte.', 1, 1, '2025-02-13', '2025-02-14', 1),
 ('Atualização de Software', 'Necessário atualizar o sistema operacional.', 2, 2, '2025-02-14', '2025-02-15', 2),
 ('Reparo na Impressora', 'Folhas saindo borradas, possível problema no toner.', 1, 1, '2025-02-15', '2025-02-16', 3),

@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
+use App\Services\StatusOSService;
 use Illuminate\Routing\Route;
 
 class ClienteController extends Controller
@@ -13,11 +14,13 @@ class ClienteController extends Controller
 
     protected $clienteService;
     protected $osService;
+    protected $statusService;
 
-    public function __construct(ClienteService $clienteService, OrdemServicoService $osService)
+    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService)
     {
         $this->clienteService = $clienteService;
         $this->osService = $osService;
+        $this->statusService = $statusService;
     }
 
     /**
@@ -36,8 +39,10 @@ class ClienteController extends Controller
         if (request()->wantsJson()) {
             return $clientes;
         }
+
+        $status = $this->statusService->getAll();
     
-        return view('clientes', compact('clientes'));
+        return view('clientes', compact('clientes', 'status'));
     }
 
     /**
@@ -69,12 +74,13 @@ class ClienteController extends Controller
     {
         $cliente = $this->clienteService->findByID($id);
         $cliente->ordem_servico = $this->getOs($id);
-
+        
         if (request()->wantsJson()) {
             return $cliente;
         }
-
-        return view('cliente-info', compact('cliente'));
+        
+        $status = $this->statusService->getAll();
+        return view('cliente-info', compact('cliente', 'status'));
     }
 
     /**

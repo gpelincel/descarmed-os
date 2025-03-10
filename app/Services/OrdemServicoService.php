@@ -7,11 +7,11 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::with('equipamento.cliente')->findOrFail($id);
+        return OrdemServico::with(['equipamento.cliente', 'status'])->findOrFail($id);
     }
 
     public function findByCliente(string $id_cliente) {
-        return OrdemServico::with('equipamento.cliente')
+        return OrdemServico::with(['equipamento.cliente', 'status'])
             ->whereHas('equipamento', function ($query) use ($id_cliente) {
                 $query->where('id_cliente', $id_cliente);
             });
@@ -19,7 +19,7 @@ class OrdemServicoService {
 
 
     public function getAll() {
-        $ordens = OrdemServico::with('equipamento')->orderBy('data_inicio', 'desc')->paginate(10);
+        $ordens = OrdemServico::with(['equipamento', 'status'])->orderBy('data_inicio', 'desc')->paginate(10);
         return $ordens;
     }
 
