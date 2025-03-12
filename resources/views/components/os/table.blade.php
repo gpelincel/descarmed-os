@@ -8,7 +8,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                <x-table-header :headers="['Serviço', 'Status', 'Data de Início', 'Cliente']"></x-table-header>
+                <x-table-header :headers="['Serviço', 'Status', 'Data de Início', 'Cliente', 'Classificação']"></x-table-header>
 
                 <tbody>
                     @foreach ($ordens as $ordem)
@@ -23,6 +23,7 @@
                             </td>
                             <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ $ordem->getClassificacao() }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button id="apple-imac-27-dropdown-button"
                                     data-dropdown-toggle="{{ $ordem->id }}-dropdown"

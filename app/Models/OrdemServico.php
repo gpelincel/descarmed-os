@@ -14,6 +14,7 @@ class OrdemServico extends Model {
         "classificacao",
         "data_inicio",
         "data_conclusao",
+        "preco",
         "id_equipamento"
     ];
 

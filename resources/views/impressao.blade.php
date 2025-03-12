@@ -106,6 +106,7 @@
         </div>
     </header>
     <main>
+        <h1 class="font-bold text-2xl uppercase" style="margin-top: 10px;">{{$id}} - {{ $classificacao }}</h1>
         <hr>
         <table class="table">
             <tr style="column-span: 2;">
@@ -135,8 +136,11 @@
                 <td><b>Equipamento:</b> <span class="uppercase">{{ $equipamento['nome'] }}</span></td>
             </tr>
             <tr>
+                <td><b>Data de Início:</b> <span class="uppercase">{{ date_format(date_create($data_inicio), 'd/m/Y') }}</span></td>
+                <td><b>Data de Conclusão:</b> <span class="uppercase">{{ date_format(date_create($data_conclusao), 'd/m/Y') }}</span></td>
+            </tr>
+            <tr>
                 <td><b>Serviço:</b> <span class="uppercase">{{ $titulo }}</span></td>
-                <td><b>Data:</b> <span class="uppercase">{{ date_format(date_create($data_conclusao), 'd/m/Y') }}</span></td>
             </tr>
             <tr>
                 <td>
@@ -144,7 +148,19 @@
                     <span class="uppercase">{{ $descricao }}</span>
                 </td>
             </tr>
+            
         </table>
+        @if ($preco)
+        <hr>
+        <table>
+            <tr>
+                <td>
+                    <b>VALOR TOTAL:</b>
+                    <span class="uppercase">R$ {{ number_format($preco, 2, ',', '.') }}</span>
+                </td>
+            </tr>
+        </table>
+        @endif
         <hr>
         <table class="table text-center" style="margin-top: 200px;">
             <tr>

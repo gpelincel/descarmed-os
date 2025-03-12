@@ -82,39 +82,50 @@ INSERT INTO clientes (nome, razao_social, cnpj, email, telefone) VALUES
 ('Hotel Confort', 'Confort Hotelaria SA', '88.999.000/0001-33', 'reservas@hotelconfort.com', '(11) 99012-3456');
 
 
-INSERT INTO ordem_servicos (titulo, descricao, id_status, classificacao, data_inicio, data_conclusao, id_equipamento) VALUES
-('Troca de Fonte', 'Equipamento não liga, possível problema na fonte.', 1, 1, '2025-02-13', '2025-02-14', 1),
-('Atualização de Software', 'Necessário atualizar o sistema operacional.', 2, 2, '2025-02-14', '2025-02-15', 2),
-('Reparo na Impressora', 'Folhas saindo borradas, possível problema no toner.', 1, 1, '2025-02-15', '2025-02-16', 3),
-('Configuração de Rede', 'Configurar Wi-Fi e acesso remoto.', 2, 2, '2025-02-16', '2025-02-17', 4),
-('Substituição de HD', 'HD com setores defeituosos, trocar por SSD.', 3, 1, '2025-02-17', '2025-02-18', 5),
+INSERT INTO ordem_servicos 
+(titulo, descricao, id_status, classificacao, data_inicio, data_conclusao, id_equipamento, preco) 
+VALUES
+('Troca de Fonte', 'Equipamento não liga, possível problema na fonte.', 1, 1, '2025-02-13', '2025-02-14', 1, 250.00),
+('Atualização de Software', 'Necessário atualizar o sistema operacional.', 2, 2, '2025-02-14', '2025-02-15', 2, NULL),
+('Reparo na Impressora', 'Folhas saindo borradas, possível problema no toner.', 1, 1, '2025-02-15', '2025-02-16', 3, 150.00),
+('Configuração de Rede', 'Configurar Wi-Fi e acesso remoto.', 2, 2, '2025-02-16', '2025-02-17', 4, NULL),
+('Substituição de HD', 'HD com setores defeituosos, trocar por SSD.', 3, 1, '2025-02-17', '2025-02-18', 5, 350.00),
 
-('Limpeza Interna', 'Acúmulo de poeira prejudicando o desempenho.', 1, 2, '2025-02-18', '2025-02-19', 6),
-('Troca de Teclado', 'Teclado com teclas falhando.', 2, 1, '2025-02-19', '2025-02-20', 7),
-('Problema na Placa de Vídeo', 'Artefatos na tela ao ligar.', 3, 2, '2025-02-20', '2025-02-21', 8),
-('Reinstalação do Windows', 'Sistema corrompido, necessário reinstalar.', 1, 1, '2025-02-21', '2025-02-22', 9),
-('Manutenção Preventiva', 'Revisão completa do equipamento.', 2, 2, '2025-02-22', '2025-02-23', 10),
+('Limpeza Interna', 'Acúmulo de poeira prejudicando o desempenho.', 1, 2, '2025-02-18', '2025-02-19', 6, NULL),
+('Troca de Teclado', 'Teclado com teclas falhando.', 2, 1, '2025-02-19', '2025-02-20', 7, 200.00),
+('Problema na Placa de Vídeo', 'Artefatos na tela ao ligar.', 3, 2, '2025-02-20', '2025-02-21', 8, NULL),
+('Reinstalação do Windows', 'Sistema corrompido, necessário reinstalar.', 1, 1, '2025-02-21', '2025-02-22', 9, 180.00),
+('Manutenção Preventiva', 'Revisão completa do equipamento.', 2, 2, '2025-02-22', '2025-02-23', 10, NULL),
 
-('Troca de Bateria', 'Bateria não segura carga.', 1, 1, '2025-02-23', '2025-02-24', 11),
-('Configuração de Impressora', 'Instalar drivers e conectar na rede.', 2, 2, '2025-02-24', '2025-02-25', 12),
-('Troca de Memória RAM', 'Expansão de memória para 16GB.', 3, 1, '2025-02-25', '2025-02-26', 13),
-('Falha na Placa Mãe', 'Equipamento não liga, diagnóstico da placa mãe.', 1, 2, '2025-02-26', '2025-02-27', 14),
-('Ajuste de Monitor', 'Monitor piscando intermitentemente.', 2, 1, '2025-02-27', '2025-02-28', 15),
+('Troca de Bateria', 'Bateria não segura carga.', 1, 1, '2025-02-23', '2025-02-24', 11, 300.00),
+('Configuração de Impressora', 'Instalar drivers e conectar na rede.', 2, 2, '2025-02-24', '2025-02-25', 12, NULL),
+('Troca de Memória RAM', 'Expansão de memória para 16GB.', 3, 1, '2025-02-25', '2025-02-26', 13, 400.00),
+('Falha na Placa Mãe', 'Equipamento não liga, diagnóstico da placa mãe.', 1, 2, '2025-02-26', '2025-02-27', 14, NULL),
+('Ajuste de Monitor', 'Monitor piscando intermitentemente.', 2, 1, '2025-02-27', '2025-02-28', 15, 120.00),
 
-('Problema de Superaquecimento', 'Processador atingindo temperaturas altas.', 3, 2, '2025-02-28', '2025-03-01', 16),
-('Atualização de Firmware', 'Firmware desatualizado, necessário update.', 1, 1, '2025-03-01', '2025-03-02', 17),
-('Troca de Cabo HDMI', 'Conector HDMI danificado.', 2, 2, '2025-03-02', '2025-03-03', 18),
-('Reparo em Scanner', 'Scanner não reconhecido pelo sistema.', 3, 1, '2025-03-03', '2025-03-04', 19),
-('Ajuste de Brilho no Monitor', 'Tela muito escura, necessário ajuste.', 1, 2, '2025-03-04', '2025-03-05', 20),
+('Problema de Superaquecimento', 'Processador atingindo temperaturas altas.', 3, 2, '2025-02-28', '2025-03-01', 16, NULL),
+('Atualização de Firmware', 'Firmware desatualizado, necessário update.', 1, 1, '2025-03-01', '2025-03-02', 17, 220.00),
+('Troca de Cabo HDMI', 'Conector HDMI danificado.', 2, 2, '2025-03-02', '2025-03-03', 18, NULL),
+('Reparo em Scanner', 'Scanner não reconhecido pelo sistema.', 3, 1, '2025-03-03', '2025-03-04', 19, 130.00),
+('Ajuste de Brilho no Monitor', 'Tela muito escura, necessário ajuste.', 1, 2, '2025-03-04', '2025-03-05', 20, NULL),
 
-('Troca de Pasta Térmica', 'Processador superaquecendo.', 2, 1, '2025-03-05', '2025-03-06', 21),
-('Verificação de Rede', 'Equipamento sem acesso à internet.', 3, 2, '2025-03-06', '2025-03-07', 22),
-('Reparo na Fonte', 'Fonte de alimentação com ruído.', 1, 1, '2025-03-07', '2025-03-08', 23),
-('Configuração de Backup', 'Configurar rotina de backup automática.', 2, 2, '2025-03-08', '2025-03-09', 24),
-('Problema no Áudio', 'Fone de ouvido não reconhecido.', 3, 1, '2025-03-09', '2025-03-10', 25),
+('Troca de Pasta Térmica', 'Processador superaquecendo.', 2, 1, '2025-03-05', '2025-03-06', 21, 180.00),
+('Verificação de Rede', 'Equipamento sem acesso à internet.', 3, 2, '2025-03-06', '2025-03-07', 22, NULL),
+('Reparo na Fonte', 'Fonte de alimentação com ruído.', 1, 1, '2025-03-07', '2025-03-08', 23, 260.00),
+('Configuração de Backup', 'Configurar rotina de backup automática.', 2, 2, '2025-03-08', '2025-03-09', 24, NULL),
+('Problema no Áudio', 'Fone de ouvido não reconhecido.', 3, 1, '2025-03-09', '2025-03-10', 25, 90.00),
 
-('Atualização de Drivers', 'Drivers desatualizados causando lentidão.', 1, 2, '2025-03-10', '2025-03-11', 26),
-('Instalação de Software', 'Instalar pacote de produtividade.', 2, 1, '2025-03-11', '2025-03-12', 27),
-('Falha no Sistema', 'Equipamento reiniciando sozinho.', 3, 2, '2025-03-12', '2025-03-13', 28),
-('Problema na Conexão Bluetooth', 'Bluetooth não detecta dispositivos.', 1, 1, '2025-03-13', '2025-03-14', 29),
-('Configuração de VPN', 'Configurar acesso remoto via VPN.', 2, 2, '2025-03-14', '2025-03-15', 30);
+('Atualização de Drivers', 'Drivers desatualizados causando lentidão.', 1, 2, '2025-03-10', '2025-03-11', 26, NULL),
+('Instalação de Software', 'Instalar pacote de produtividade.', 2, 1, '2025-03-11', '2025-03-12', 27, 140.00),
+('Falha no Sistema', 'Equipamento reiniciando sozinho.', 3, 2, '2025-03-12', '2025-03-13', 28, NULL),
+('Problema na Conexão Bluetooth', 'Bluetooth não detecta dispositivos.', 1, 1, '2025-03-13', '2025-03-14', 29, 110.00),
+('Configuração de VPN', 'Configurar acesso remoto via VPN.', 2, 2, '2025-03-14', '2025-03-15', 30, NULL);
+
+INSERT INTO `usuarios` (`id`, `nome`, `usuario`, `senha`) VALUES
+(3, 'Gabriel Pelincel Ramalho', 'gabr2', '$2y$12$BsS/D3RcTgNSq/p5OUXZ.eJJyauVLDskC9PB69Xv1MaWrpDQP.qg6'),
+(4, 'Marcelo', 'marcelo_adm', '$2y$12$7n0bAKUN3FLnrNbbqjQIuOc5.wgV0A4Tq/ciMf7QviU.ZCABG0Mgm');
+
+INSERT INTO `status_os` (`id`, `descricao`) VALUES
+(1, 'Em andamento'),
+(2, 'Concluída'),
+(3, 'Pendente');

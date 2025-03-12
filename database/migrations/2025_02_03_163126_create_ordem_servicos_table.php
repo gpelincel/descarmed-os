@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('classificacao');
             $table->date('data_inicio');
             $table->date('data_conclusao');
+            $table->decimal('preco', 8, 2)->nullable();
             $table->foreignId('id_equipamento');
             $table->timestamps();
         });

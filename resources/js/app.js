@@ -23,3 +23,4 @@ new Datepicker(datetimepickerEl, {
    language: 'pt-BR',
    format: 'dd/mm/yyyy'
 });
+
