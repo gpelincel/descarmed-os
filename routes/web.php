@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\EquipamentoController;
@@ -54,4 +55,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);
+
+    Route::get('/agenda', [AgendaController::class, 'index']);
+    Route::post('/agenda', [AgendaController::class,'store']);
 });
