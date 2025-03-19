@@ -4,8 +4,11 @@
     </x-slot>
 
     <x-agenda.table :agendas="$agendas"></x-agenda.table>
-    <x-agenda.cadastro-modal :equipamentos="$equipamentos" :status="$status" :clientes="$clientes" :selected="null"></x-agenda.cadastro-modal>
-    {{-- <x-agenda.update-modal :clientes="$clientes" :selected="null"></x-agenda.update-modal> --}}
+    <x-agenda.cadastro-modal :equipamentos="$equipamentos" :status="$status" :clientes="$clientes"
+        :selected="null"></x-agenda.cadastro-modal>
+    <x-agenda.preview-modal></x-agenda.preview-modal>
+    <x-agenda.update-modal :equipamentos="$equipamentos" :status="$status" :clientes="$clientes"
+        :selected="null"></x-agenda.update-modal>
     <x-delete-modal></x-delete-modal>
 
     @if (session('status'))

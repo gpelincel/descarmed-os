@@ -57,5 +57,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);
 
     Route::get('/agenda', [AgendaController::class, 'index']);
+    Route::get('/agenda/{id}', [AgendaController::class,'show']);
     Route::post('/agenda', [AgendaController::class,'store']);
+    Route::post('/agenda/update/{id}', [AgendaController::class,'update']);
+    Route::delete('/agenda/delete/{id}', [AgendaController::class, 'destroy']);
 });
