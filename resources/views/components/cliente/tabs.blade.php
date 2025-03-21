@@ -6,6 +6,9 @@
         <li class="me-2" role="presentation">
             <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="equipamento-tab" data-tabs-target="#equipamento" type="button" role="tab" aria-controls="equipamento" aria-selected="false">Equipamentos</button>
         </li>
+        <li class="me-2" role="presentation">
+            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="agenda-tab" data-tabs-target="#agenda" type="button" role="tab" aria-controls="agenda" aria-selected="false">Agenda</button>
+        </li>
     </ul>
 </div>
 <div id="default-tab-content">
@@ -14,5 +17,8 @@
     </div>
     <div class="hidden rounded-lg" id="equipamento" role="tabpanel" aria-labelledby="equipamento-tab">
         <x-equipamento.table :equipamentos="$equipamentos" :clientes="null"></x-equipamento.table>
+    </div>
+    <div class="hidden rounded-lg" id="agenda" role="tabpanel" aria-labelledby="agenda-tab">
+        <x-agenda.table :agendas="$agendas"></x-agenda.table>
     </div>
 </div>

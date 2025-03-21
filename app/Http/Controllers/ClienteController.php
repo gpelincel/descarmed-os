@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
+use App\Services\AgendaService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
@@ -15,12 +16,14 @@ class ClienteController extends Controller
     protected $clienteService;
     protected $osService;
     protected $statusService;
+    protected $agendaService;
 
-    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService)
+    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService, AgendaService $agendaService)
     {
         $this->clienteService = $clienteService;
         $this->osService = $osService;
         $this->statusService = $statusService;
+        $this->agendaService = $agendaService;
     }
 
     /**
@@ -74,6 +77,7 @@ class ClienteController extends Controller
     {
         $cliente = $this->clienteService->findByID($id);
         $cliente->ordem_servico = $this->getOs($id);
+        $cliente->agendas = $this->getAgenda($id);
         
         if (request()->wantsJson()) {
             return $cliente;
@@ -125,5 +129,9 @@ class ClienteController extends Controller
 
     public function getOs(string $id){
         return $this->osService->findByCliente($id);
+    }
+
+    public function getAgenda(string $id){
+        return $this->agendaService->getByCliente($id);
     }
 }

@@ -14,7 +14,7 @@ class Agenda extends Model
         "data_aviso"
     ];
 
-    public function ordemServico(){
+    public function ordem_servico(){
         return $this->belongsTo(OrdemServico::class, 'id_os');
     }
 }

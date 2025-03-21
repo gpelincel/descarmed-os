@@ -15,20 +15,20 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-            <div id="preview-content" class="hidden">
+            <div id="preview-content-agenda" class="hidden">
                 <!-- Modal header -->
                 <div class="flex gap-2 flex-col mb-4 rounded-t sm:mb-5 text-gray-900 dark:text-white">
-                    <h3 id="classificacao-os"
+                    <h3 id="classificacao-agenda"
                         class="font-bold text-3xl uppercase rounded-t border-b dark:border-gray-600 pb-2">Classificação
                         OS</h3>
                     <div class="text-gray-900 dark:text-white">
-                        <h3 id="titulo-os" class="font-semibold text-xl">Título da OS</h3>
-                        <p id="cliente-os" class="font-bold text-gray-900 dark:text-gray-400">Nome do cliente</p>
+                        <h3 id="titulo-agenda" class="font-semibold text-xl">Título da OS</h3>
+                        <p id="cliente-agenda" class="font-bold text-gray-900 dark:text-gray-400">Nome do cliente</p>
                     </div>
                 </div>
                 <dl>
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Descrição</dt>
-                    <dd id="descricao-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    <dd id="descricao-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, recusandae iure vitae,
                         architecto sequi at minima neque, quo repudiandae accusantium quaerat laboriosam? Dignissimos
                         quas
@@ -36,32 +36,32 @@
                     </dd>
 
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Código do Equipamento</dt>
-                    <dd id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                    <dd id="id-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
-                    <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                    <dd id="nome-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                     <div class="flex gap-8">
                         <div>
                             <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Início</h4>
-                            <p id="data-inicio-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <p id="data-inicio-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>
                             <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Conclusão</h4>
-                            <p id="data-conclusao-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <p id="data-conclusao-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>
                             <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Status</h4>
-                            <p id="status-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <p id="status-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                     </div>
 
                     <div id="preco-container">
                         <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Valor Total</dt>
-                        <dd id="preco-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                        <dd id="preco-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
                         </dd>
                     </div>
                 </dl>
@@ -97,7 +97,7 @@
                     </button>
                 </div>
             </div>
-            <div id="preview-spinner">
+            <div id="preview-spinner-agenda">
                 <x-spinner></x-spinner>
             </div>
         </div>
@@ -108,9 +108,9 @@
         document.querySelector(".delete-button").addEventListener("click", openModalDelete(id));
     }
 
-    function openModalRead(event, id) {
-        let modal_content = document.querySelector("#preview-content");
-        let spinner = document.querySelector("#preview-spinner");
+    function openAgendaModalRead(event, id) {
+        let modal_content = document.querySelector("#preview-content-agenda");
+        let spinner = document.querySelector("#preview-spinner-agenda");
 
         document.querySelector('#btn-imprimir').href = `/imprimir/${id}`;
 
@@ -121,31 +121,23 @@
         fetch('/ordem-servico/' + id)
             .then(response => response.json())
             .then(result => {
-                document.querySelector("#titulo-os").innerHTML = result.titulo;
-                document.querySelector("#cliente-os").innerHTML = result.equipamento.cliente.nome;
-                document.querySelector("#descricao-os").innerHTML = result.descricao;
-                document.querySelector("#id-equipamento-os").innerHTML = result.equipamento.codigo;
-                document.querySelector("#nome-equipamento-os").innerHTML = result.equipamento.nome;
-                document.querySelector("#status-os").innerHTML = result.status.descricao;
-                document.querySelector("#data-inicio-os").innerHTML = new Date(result.data_inicio).toLocaleDateString('pt-BR');
-                document.querySelector("#data-conclusao-os").innerHTML = new Date(result.data_conclusao).toLocaleDateString('pt-BR');
+                document.querySelector("#titulo-agenda").innerHTML = result.titulo;
+                document.querySelector("#cliente-agenda").innerHTML = result.equipamento.cliente.nome;
+                document.querySelector("#descricao-agenda").innerHTML = result.descricao;
+                document.querySelector("#id-equipamento-agenda").innerHTML = result.equipamento.codigo;
+                document.querySelector("#nome-equipamento-agenda").innerHTML = result.equipamento.nome;
+                document.querySelector("#status-agenda").innerHTML = result.status.descricao;
+                document.querySelector("#data-inicio-agenda").innerHTML = new Date(result.data_inicio).toLocaleDateString('pt-BR');
+                document.querySelector("#data-conclusao-agenda").innerHTML = new Date(result.data_conclusao).toLocaleDateString('pt-BR');
 
                 if (result.preco) {
                     document.querySelector("#preco-container").style.display = "block";
-                    document.querySelector("#preco-os").innerHTML = "R$ " + result.preco;
+                    document.querySelector("#preco-agenda").innerHTML = "R$ " + result.preco;
                 } else {
                     document.querySelector("#preco-container").style.display = "none";
                 }
 
-                let classificacao = "";
-                switch (result.classificacao) {
-                    case 1:
-                        classificacao = 'Orçamento';
-                    case 2:
-                        classificacao = 'Ordem de Serviço';
-                }
-
-                document.querySelector("#classificacao-os").innerHTML = classificacao;
+                document.querySelector("#classificacao-agenda").innerHTML = "Manutenção preventiva";
 
                 addDeleteButton(id);
 

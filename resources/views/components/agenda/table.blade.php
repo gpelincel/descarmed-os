@@ -18,8 +18,8 @@
                             <th scope="row"
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $agenda->id }}</th>
-                            <td class="px-4 py-3">{{ $agenda->ordemServico->equipamento->nome }}</td>
-                            <td class="px-4 py-3">{{ $agenda->ordemServico->equipamento->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ $agenda->ordem_servico->equipamento->nome }}</td>
+                            <td class="px-4 py-3">{{ $agenda->ordem_servico->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ date_format(date_create($agenda->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button id="apple-imac-27-dropdown-button"
@@ -42,7 +42,7 @@
                                         </li>
                                         <li>
                                             <button type="button"
-                                                onclick="openModalRead(event, {{ $agenda->id_os }})"
+                                                onclick="openAgendaModalRead(event, {{ $agenda->id_os }})"
                                                 data-modal-target="modal-preview-agenda" data-modal-toggle="modal-preview-agenda"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                 <i class="fi fi-rr-eye mr-2"></i>
@@ -113,6 +113,7 @@
         </nav>
     </div>
 </div>
+<x-agenda.preview-modal></x-agenda.preview-modal>
 <!-- End block -->
 <script>
     function openModalDelete(id) {

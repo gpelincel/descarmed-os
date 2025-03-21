@@ -137,12 +137,15 @@
                     document.querySelector("#preco-container").style.display = "none";
                 }
 
-                let classificacao = "";
+                let classificacao;
+
                 switch (result.classificacao) {
                     case 1:
                         classificacao = 'Orçamento';
+                        break;
                     case 2:
                         classificacao = 'Ordem de Serviço';
+                        break;
                 }
 
                 document.querySelector("#classificacao-os").innerHTML = classificacao;
