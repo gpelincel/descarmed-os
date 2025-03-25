@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('titulo');
             $table->string('descricao');
             $table->foreignId('id_status');
-            $table->integer('classificacao');
+            $table->foreignId('id_classificacao');
             $table->date('data_inicio');
             $table->date('data_conclusao')->nullable();
             $table->decimal('preco', 8, 2)->nullable();

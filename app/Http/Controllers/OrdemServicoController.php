@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Requests\UpdateOrdemServicoRequest;
+use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
@@ -17,11 +18,13 @@ class OrdemServicoController extends Controller {
     private $osService;
     private $clienteService;
     private $statusService;
+    private $classificacaoService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService) {
+    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService) {
         $this->osService = $osService;
         $this->clienteService = $clienteService;
         $this->statusService = $statusService;
+        $this->classificacaoService = $classificacaoService;
     }
 
     /**
@@ -30,6 +33,7 @@ class OrdemServicoController extends Controller {
     public function index() {
         $ordens = $this->osService->getAll();
         $status = $this->statusService->getAll();
+        $classificacao = $this->classificacaoService->getAll();
         
         if (request()->wantsJson()){
             return response()->json($ordens);
@@ -37,7 +41,7 @@ class OrdemServicoController extends Controller {
             $clientes = $this->clienteService->getAll()->get();
         }
 
-        return view('ordem_servico', compact('ordens','clientes', 'status'));
+        return view('ordem_servico', compact('ordens','clientes', 'status', 'classificacao'));
     }
 
     /**
@@ -101,7 +105,6 @@ class OrdemServicoController extends Controller {
 
     public function imprimir(string $id){
         $ordemServico = $this->show($id);
-        $ordemServico->classificacao = $ordemServico->getClassificacao();
         $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         return $pdf->stream();

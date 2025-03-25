@@ -64,7 +64,7 @@
                             <option value="1">1 dia</option>
                             <option value="7">7 dias</option>
                             <option value="15">15 dias</option>
-                            <option value="30">30 diaas</option>
+                            <option value="30">30 dias</option>
                         </select>
                     </div>
                     <div>

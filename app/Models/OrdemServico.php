@@ -11,7 +11,7 @@ class OrdemServico extends Model {
         "titulo",
         "descricao",
         "id_status",
-        "classificacao",
+        "id_classificacao",
         "data_inicio",
         "data_conclusao",
         "preco",
@@ -38,5 +38,9 @@ class OrdemServico extends Model {
 
     public function status():BelongsTo {
         return $this->belongsTo(StatusOS::class, 'id_status');
+    }
+
+    public function classificacao():BelongsTo {
+        return $this->belongsTo(ClassificacaoOS::class, 'id_classificacao');
     }
 }

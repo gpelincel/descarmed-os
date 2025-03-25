@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ClassificacaoOSController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatusOSController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +55,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);
+    Route::post('/configuracao/classificacao', [ClassificacaoOSController::class, 'store']);
 
     Route::get('/agenda', [AgendaController::class, 'index']);
     Route::get('/agenda/{id}', [AgendaController::class,'show']);
