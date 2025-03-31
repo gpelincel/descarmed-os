@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
+use App\Models\ClassificacaoOS;
 use App\Services\AgendaService;
+use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
@@ -17,13 +19,15 @@ class ClienteController extends Controller
     protected $osService;
     protected $statusService;
     protected $agendaService;
+    protected $classificacaoService;
 
-    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService, AgendaService $agendaService)
+    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService, AgendaService $agendaService, ClassificacaoOSService $classificacaoOSService)
     {
         $this->clienteService = $clienteService;
         $this->osService = $osService;
         $this->statusService = $statusService;
         $this->agendaService = $agendaService;
+        $this->classificacaoService = $classificacaoOSService;
     }
 
     /**
@@ -44,8 +48,9 @@ class ClienteController extends Controller
         }
 
         $status = $this->statusService->getAll();
+        $classificacao = $this->classificacaoService->getAll();
     
-        return view('clientes', compact('clientes', 'status'));
+        return view('clientes', compact('clientes', 'status', 'classificacao'));
     }
 
     /**
@@ -84,7 +89,9 @@ class ClienteController extends Controller
         }
         
         $status = $this->statusService->getAll();
-        return view('cliente-info', compact('cliente', 'status'));
+        $classificacao = $this->classificacaoService->getAll();
+
+        return view('cliente-info', compact('cliente', 'status', 'classificacao'));
     }
 
     /**

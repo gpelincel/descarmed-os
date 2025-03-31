@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
-use App\Http\Requests\UpdateOrdemServicoRequest;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Redirect;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class OrdemServicoController extends Controller {
 
@@ -105,6 +103,16 @@ class OrdemServicoController extends Controller {
 
     public function imprimir(string $id){
         $ordemServico = $this->show($id);
+        $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
+        $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
+        return $pdf->stream();
+        // return view('impressao', compact('ordemServico'));
+    }
+
+    public function imprimir_personalizado(Request $request){
+        $dados = $request->all();
+        $ordemServico = $this->show($dados['os_id']);
+        $ordemServico->checkboxes = $dados;
         $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         return $pdf->stream();

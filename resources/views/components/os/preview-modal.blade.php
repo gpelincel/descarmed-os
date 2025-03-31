@@ -15,7 +15,8 @@
                 <span class="sr-only">Close modal</span>
             </button>
 
-            <div id="preview-content" class="hidden">
+            <form action="/imprimir" target="_blank" method="POST" id="preview-content" class="hidden">
+                @csrf
                 <!-- Modal header -->
                 <div class="flex gap-2 flex-col mb-4 rounded-t sm:mb-5 text-gray-900 dark:text-white">
                     <h3 id="classificacao-os"
@@ -26,8 +27,47 @@
                         <p id="cliente-os" class="font-bold text-gray-900 dark:text-gray-400">Nome do cliente</p>
                     </div>
                 </div>
+                <div class="flex flex-wrap gap-x-4">
+                    <div>
+                        <h4
+                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="cnpj_cliente" id="cnpj_cliente"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            CNPJ</h4>
+                        <p id="cnpj-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                    </div>
+                    <div>
+                        <h4
+                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="telefone_cliente" id="telefone_cliente"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Telefone</h4>
+                        <p id="telefone-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                    </div>
+                    <div>
+                        <h4
+                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="email_cliente" id="email_cliente"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Email</h4>
+                        <p id="email-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                    </div>
+                    <div>
+                        <h4
+                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="endereco_cliente" id="endereco_cliente"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Endereço</h4>
+                        <p id="endereco-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                    </div>
+                </div>
                 <dl>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Descrição</dt>
+                    <input type="hidden" name="os_id" id="os_id">
+                    <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="descricao" id="descricao"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        Descrição
+                    </dt>
                     <dd id="descricao-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, recusandae iure vitae,
                         architecto sequi at minima neque, quo repudiandae accusantium quaerat laboriosam? Dignissimos
@@ -35,32 +75,58 @@
                         ab dolore fugit molestias corrupti sed!
                     </dd>
 
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Código do Equipamento</dt>
+                    <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="cod_equipamento" id="cod_equipamento"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Código
+                        do Equipamento
+                    </dt>
                     <dd id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
+                    <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                        <input checked type="checkbox" value="true" name="nome_equipamento" id="nome_equipamento"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Equipamento
+                    </dt>
                     <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                     <div class="flex gap-8">
                         <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Início</h4>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" name="data_inicio" id="data_inicio"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
+                                Início
+                            </h4>
                             <p id="data-inicio-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Conclusão</h4>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" name="data_conclusao" id="data_conclusao"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
+                                Conclusão
+                            </h4>
                             <p id="data-conclusao-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Status</h4>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" name="status" id="status"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Status
+                            </h4>
                             <p id="status-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                     </div>
 
                     <div id="preco-container">
-                        <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Valor Total</dt>
+                        <dt
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="valor" id="valor"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Valor
+                            Total
+                        </dt>
                         <dd id="preco-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
                         </dd>
                     </div>
@@ -69,8 +135,8 @@
                     <div class="flex items-center space-x-3 sm:space-x-4">
                         <button type="button"
                             class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor"
+                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                 <path fill-rule="evenodd"
@@ -79,11 +145,11 @@
                             </svg>
                             Editar
                         </button>
-                        <a id="btn-imprimir" target="_blank"
+                        <button type="submit" id="btn-imprimir"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <i class="fi fi-rs-print mr-2"></i>
                             Imprimir
-                        </a>
+                        </button>
                     </div>
                     <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                         class="delete-button inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -96,7 +162,7 @@
                         Deletar
                     </button>
                 </div>
-            </div>
+            </form>
             <div id="preview-spinner">
                 <x-spinner></x-spinner>
             </div>
@@ -121,14 +187,28 @@
         fetch('/ordem-servico/' + id)
             .then(response => response.json())
             .then(result => {
+                let equipamento = result.equipamento;
+                let cliente = equipamento.cliente;
+                let endereco = cliente.endereco;
+
+                document.querySelector("#cnpj-cliente").innerHTML = cliente.cnpj;
+                document.querySelector("#telefone-cliente").innerHTML = cliente.telefone;
+                document.querySelector("#email-cliente").innerHTML = cliente.email;
+                document.querySelector("#endereco-cliente").innerHTML = `${endereco.cidade}/${endereco.estado} - ${endereco.cep} - ${endereco.logradouro}  Nº ${endereco.numero}`;
+
+
+                document.querySelector("#os_id").value = id;
                 document.querySelector("#titulo-os").innerHTML = result.titulo;
-                document.querySelector("#cliente-os").innerHTML = result.equipamento.cliente.nome;
+                document.querySelector("#cliente-os").innerHTML = equipamento.cliente.nome;
                 document.querySelector("#descricao-os").innerHTML = result.descricao;
-                document.querySelector("#id-equipamento-os").innerHTML = result.equipamento.codigo;
-                document.querySelector("#nome-equipamento-os").innerHTML = result.equipamento.nome;
+                document.querySelector("#id-equipamento-os").innerHTML = equipamento.codigo;
+                document.querySelector("#nome-equipamento-os").innerHTML = equipamento.nome;
                 document.querySelector("#status-os").innerHTML = result.status.descricao;
-                document.querySelector("#data-inicio-os").innerHTML = new Date(result.data_inicio).toLocaleDateString('pt-BR');
-                document.querySelector("#data-conclusao-os").innerHTML = new Date(result.data_conclusao).toLocaleDateString('pt-BR');
+                document.querySelector("#data-inicio-os").innerHTML = new Date(result.data_inicio)
+                    .toLocaleDateString('pt-BR');
+                document.querySelector("#data-conclusao-os").innerHTML = new Date(result.data_conclusao)
+                    .toLocaleDateString('pt-BR');
+                document.querySelector("#classificacao-os").innerHTML = result.classificacao.descricao;
 
                 if (result.preco) {
                     document.querySelector("#preco-container").style.display = "block";
@@ -136,19 +216,6 @@
                 } else {
                     document.querySelector("#preco-container").style.display = "none";
                 }
-
-                let classificacao;
-
-                switch (result.classificacao) {
-                    case 1:
-                        classificacao = 'Orçamento';
-                        break;
-                    case 2:
-                        classificacao = 'Ordem de Serviço';
-                        break;
-                }
-
-                document.querySelector("#classificacao-os").innerHTML = classificacao;
 
                 addDeleteButton(id);
 

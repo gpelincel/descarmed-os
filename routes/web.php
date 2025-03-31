@@ -51,7 +51,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::delete('/usuario/delete/{id}', [UsuarioController::class, 'destroy']);
     Route::post('/usuario/update/{id}', [UsuarioController::class, 'update']);
 
-    Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
+    // Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
+    Route::post('/imprimir', [OrdemServicoController::class, 'imprimir_personalizado']);
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);

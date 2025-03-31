@@ -7,7 +7,7 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::with(['equipamento.cliente', 'status'])->findOrFail($id);
+        return OrdemServico::with(['equipamento.cliente.endereco', 'status', 'classificacao'])->findOrFail($id);
     }
 
     public function findByCliente(string $id_cliente) {
