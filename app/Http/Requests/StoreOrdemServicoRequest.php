@@ -19,7 +19,14 @@ class StoreOrdemServicoRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            //
+            'titulo' => ['required', 'string', 'max:255'],
+            'descricao' => ['nullable', 'string'],
+            'id_status' => ['required', 'integer', 'exists:statuses,id'],
+            'id_classificacao' => ['required', 'integer', 'exists:classificacoes,id'],
+            'data_inicio' => ['required', 'date', 'before_or_equal:data_conclusao'],
+            'data_conclusao' => ['nullable', 'date', 'after_or_equal:data_inicio'],
+            'preco' => ['required', 'numeric', 'min:0'],
+            'id_equipamento' => ['required', 'integer', 'exists:equipamentos,id'],
         ];
     }
 }
