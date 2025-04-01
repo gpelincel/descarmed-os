@@ -27,4 +27,8 @@
     @if (session('status'))
         <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
     @endif
+
+    @if ($errors->any())
+        <x-toasts :status="'error'" :message="$errors->all()[0]"></x-toasts>
+    @endif
 </x-app-layout>

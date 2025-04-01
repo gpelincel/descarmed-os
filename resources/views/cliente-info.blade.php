@@ -95,4 +95,11 @@
 
     <x-equipamento.cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento.cadastro-modal>
     <x-equipamento.update-modal :clientes="null" :selected="$cliente"></x-equipamento.update-modal>
+
+    @if ($errors->any())
+        <x-toasts :status="'error'" :message="$errors->all()[0]"></x-toasts>
+    @endif
+    @if (session('status'))
+        <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
+    @endif
 </x-app-layout>
