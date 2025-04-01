@@ -24,11 +24,17 @@ class OrdemServicoService {
     }
 
     public function save(array $ordemServico) {
-        $ordemServico['data'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data'])->format('Y-m-d');
+        try {
+            $ordemServico['data_conclusao'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao'])->format('Y-m-d');
+            $ordemServico['data_inicio'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio'])->format('Y-m-d');
+    
+            $ordemServico = OrdemServico::create($ordemServico);
 
-        $ordemServico = OrdemServico::create($ordemServico);
+            return $ordemServico;
+        } catch (\Throwable $th) {
+            return $th;
+        }
 
-        return $ordemServico;
     }
 
     public function delete(string $id) {

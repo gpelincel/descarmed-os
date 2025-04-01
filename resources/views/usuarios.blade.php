@@ -8,6 +8,6 @@
     <x-delete-modal></x-delete-modal>
 
     @if (session('status'))
-        <x-toasts :status="session('status')"></x-toasts>
+        <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
     @endif
 </x-app-layout>

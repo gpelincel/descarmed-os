@@ -19,9 +19,27 @@ class StoreEquipamentoRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'codigo' => ['required', 'string', 'max:50', 'unique'],
-            'nome' => ['required', 'string', 'max:255'],
-            'id_cliente' => ['required', 'integer', 'exists:clientes,id']
+            'codigo' => 'required|string|max:50|unique:equipamentos,codigo',
+            'nome' => 'required|string|max:255',
+            'id_cliente' => 'required|integer|exists:clientes,id'
         ];
     }
+
+    public function messages(): array {
+        return [
+            'codigo.required' => 'O código é obrigatório',
+            'codigo.string' => 'O código deve ser um texto',
+            'codigo.max' => 'O código deve ter no máximo 50 caracteres',
+            'codigo.unique' => 'Este código já está cadastrado',
+    
+            'nome.required' => 'O nome é obrigatório',
+            'nome.string' => 'O nome deve ser um texto',
+            'nome.max' => 'O nome deve ter no máximo 255 caracteres',
+    
+            'id_cliente.required' => 'O cliente é obrigatório',
+            'id_cliente.integer' => 'O cliente deve ser um número inteiro',
+            'id_cliente.exists' => 'O cliente selecionado é inválido',
+        ];
+    }
+    
 }

@@ -53,7 +53,7 @@ class OrdemServicoController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(StoreOrdemServicoRequest $request) {
-        $ordem = $this->osService->save($request->all());
+        $ordem = $this->osService->save($request->validated());
 
         if (request()->wantsJson()){
             return response()->json($ordem);

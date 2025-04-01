@@ -92,7 +92,7 @@
                         <div>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" name="data_inicio" id="data_inicio"
+                                <input checked type="checkbox" value="true" readonly name="data_inicio" id="data_inicio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
                                 Início
                             </h4>
@@ -102,7 +102,7 @@
                         <div>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" name="data_conclusao" id="data_conclusao"
+                                <input checked type="checkbox" value="true" readonly name="data_conclusao" id="data_conclusao"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
                                 Conclusão
                             </h4>
