@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
+use App\Http\Requests\UpdateClienteRequest;
 use App\Models\ClassificacaoOS;
 use App\Services\AgendaService;
 use App\Services\ClassificacaoOSService;
@@ -105,7 +106,7 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreClienteRequest $request, string $id)
+    public function update(UpdateClienteRequest $request, string $id)
     {
         $cliente = $this->clienteService->edit($request->all(), $id);
 

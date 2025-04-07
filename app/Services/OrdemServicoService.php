@@ -24,17 +24,23 @@ class OrdemServicoService {
     }
 
     public function save(array $ordemServico) {
-        try {
-            $ordemServico['data_conclusao'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao'])->format('Y-m-d');
-            $ordemServico['data_inicio'] = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio'])->format('Y-m-d');
-    
-            $ordemServico = OrdemServico::create($ordemServico);
-
-            return $ordemServico;
-        } catch (\Throwable $th) {
-            return $th;
+        if (!empty($ordemServico['data_conclusao'])) {
+            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
+            if ($data) {
+                $ordemServico['data_conclusao'] = $data->format('Y-m-d');
+            }
+        }
+        
+        if (!empty($ordemServico['data_inicio'])) {
+            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
+            if ($data) {
+                $ordemServico['data_inicio'] = $data->format('Y-m-d');
+            }
         }
 
+        $ordemServico = OrdemServico::create($ordemServico);
+
+        return $ordemServico;
     }
 
     public function delete(string $id) {

@@ -9,13 +9,16 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-const datepickerEl = document.getElementById("default-datepicker");
+const datepickerEls = document.querySelectorAll(".datepicker");
 Datepicker.locales.pt = pt["pt-BR"];
 
-new Datepicker(datepickerEl, {
-    language: "pt-BR",
-    format: "dd/mm/yyyy",
-});
+datepickerEls.forEach(e => {
+    new Datepicker(e, {
+        language: "pt-BR",
+        format: "dd/mm/yyyy",
+    });
+})
+
 
 const datetimepickerEl = document.getElementById("default-datetimepicker");
 Datepicker.locales.pt = pt["pt-BR"];
@@ -26,7 +29,7 @@ new Datepicker(datetimepickerEl, {
 
 document.querySelectorAll(".telefone-input").forEach((e) => {
     IMask(e, {
-        mask: "(00) 0000-0000",
+        mask: "(00) 9 0000-0000",
     });
 });
 

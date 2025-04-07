@@ -51,9 +51,9 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input readonly name="data_inicio" datepicker id="default-datepicker" type="text" autocomplete="off"
-                            datepicker-format="dd/mm/yyyy"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        <input readonly name="data_inicio" datepicker type="text"
+                            autocomplete="off" datepicker-format="dd/mm/yyyy"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
                             placeholder="dd/mm/aaaa">
                     </div>
                     <div class="relative">
@@ -67,9 +67,9 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input readonly name="data_conclusao" datepicker id="default-datetimepicker" type="text"
+                        <input readonly name="data_conclusao" datepicker  type="text"
                             autocomplete="off" datepicker-format="dd/mm/yyyy"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
                             placeholder="dd/mm/aaaa">
                     </div>
                     <div>
@@ -140,25 +140,39 @@
 </div>
 
 <script>
+    verifyClienteID(document.querySelector("#id_cliente").value);
+
     document.querySelector("#id_cliente").addEventListener('change', (event) => {
         let id_cliente = event.target.value;
-        let select = document.querySelector("#id_equipamento");
-        select.innerHTML = "";
-        select.disabled = false;
+        verifyClienteID(id_cliente);
+    });
+
+    function verifyClienteID(id_cliente) {
+        var select = document.querySelector("#id_equipamento");
 
         if (id_cliente !== "") {
             fetch('/cliente/equipamento/' + id_cliente)
                 .then(response => response.json())
                 .then(result => {
-                    result.forEach(equipamento => {
-                        document.querySelector("#id_equipamento").innerHTML +=
-                            `<option value="${equipamento.id}">${equipamento.nome}</option>`;
-                    });
+                    select.innerHTML = "";
+
+                    if (result.length > 0) {
+                        result.forEach(equipamento => {
+                            select.innerHTML +=
+                                `<option value="${equipamento.id}">${equipamento.nome}</option>`;
+                        });
+
+                        select.disabled = false;
+                    } else {
+                        select.innerHTML =
+                            `<option value="" selected="">- Nenhum equipamento cadastrado -</option>`;
+                    }
+
                 })
         } else {
             select.disabled = true;
             document.querySelector("#id_equipamento").innerHTML +=
                 `<option value="" selected="">- Selecione um cliente -</option>`;
         }
-    });
+    }
 </script>

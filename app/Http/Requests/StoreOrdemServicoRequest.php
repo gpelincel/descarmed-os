@@ -12,6 +12,35 @@ class StoreOrdemServicoRequest extends FormRequest {
         return true;
     }
 
+    protected function prepareForValidation() {
+        $this->merge([
+            'data_inicio' => $this->convertDate($this->data_inicio),
+            'data_conclusao' => $this->convertDate($this->data_conclusao),
+            'preco' => $this->convertPreco($this->preco),
+        ]);
+    }
+
+    private function convertDate($date) {
+        if (!$date) return null;
+
+        try {
+            return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return $date;
+        }
+    }
+
+    private function convertPreco($valor) {
+        if (!$valor) return 0;
+
+        // Remove "R$", pontos e troca vírgula por ponto
+        $limpo = str_replace(['R$', '.', ','], ['', '', '.'], $valor);
+
+        return is_numeric($limpo) ? $limpo : 0;
+    }
+
+
+
     /**
      * Get the validation rules that apply to the request.
      *

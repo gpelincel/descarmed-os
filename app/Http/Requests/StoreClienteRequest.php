@@ -21,8 +21,8 @@ class StoreClienteRequest extends FormRequest {
         return [
             'nome' => 'required|string|max:255',
             'razao_social' => 'nullable|string|max:255',
-            'cnpj' => 'required|string|max:20|unique:cliente,cnpj',
-            'email' => 'required|string|email|max:255|unique:cliente,email',
+            'cnpj' => 'required|string|max:20|unique:clientes,cnpj',
+            'email' => 'required|string|email|max:255|unique:clientes,email',
             'telefone' => 'required|string|max:20',
         ];
     }
