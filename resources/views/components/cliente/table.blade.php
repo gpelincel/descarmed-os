@@ -22,8 +22,8 @@
                             <td class="px-4 py-3">{{ $cliente->telefone }}</td>
                             <td class="px-4 py-3">{{ $cliente->email }}</td>
                             <td class="px-4 py-3">
-                                <button  onclick="openModalOSCad({{$cliente->id}})" type="button" data-modal-target="cadastrarOSModal"
-                                    data-modal-toggle="cadastrarOSModal"
+                                <button onclick="openModalOSCad({{ $cliente->id }})" type="button"
+                                    data-modal-target="cadastrarOSModal" data-modal-toggle="cadastrarOSModal"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
                                         class="fi fi-rr-plus-small"></i> Adicionar OS</button>
                             </td>
@@ -37,10 +37,9 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm">
                                         <li>
-                                            <button onclick="openModalClienteUpdate({{ $cliente->id }})" type="button"
-                                                data-modal-target="modal-update-cliente"
-                                                data-modal-toggle="modal-update-cliente"
-                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
+                                            <button type="button" data-modal-target="modal-update-cliente"
+                                                data-modal-toggle="modal-update-cliente" data-id="{{ $cliente->id }}"
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-update-cliente">
                                                 <i class="fi fi-rr-edit mr-2"></i>
                                                 Editar
                                             </button>
@@ -53,9 +52,9 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <button type="button" onclick="openModalDelete({{ $cliente->id }})"
+                                            <button type="button" data-id="{{ $cliente->id }}"
                                                 data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                                class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
+                                                class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-cliente">
                                                 <i class="fi fi-rr-trash mr-2"></i>
                                                 Deletar
                                             </button>
@@ -81,3 +80,4 @@
 <!-- End block -->
 
 <x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
+@vite('resources/js/components/clientes.js')

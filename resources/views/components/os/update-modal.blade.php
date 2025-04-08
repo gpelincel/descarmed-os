@@ -58,8 +58,8 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input readonly name="data_inicio" datepicker type="text"
-                            autocomplete="off" datepicker-format="dd/mm/yyyy"
+                        <input readonly name="data_inicio" datepicker type="text" autocomplete="off"
+                            datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
                             placeholder="dd/mm/aaaa">
                     </div>
@@ -74,8 +74,8 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input readonly name="data_conclusao" datepicker  type="text"
-                            autocomplete="off" datepicker-format="dd/mm/yyyy"
+                        <input readonly name="data_conclusao" datepicker type="text" autocomplete="off"
+                            datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
                             placeholder="dd/mm/aaaa">
                     </div>
@@ -110,8 +110,7 @@
                         <label for="id_equipamento"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
                         <select id="id_equipamento" name="id_equipamento"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            disabled>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="" selected="">- Selecione um cliente -</option>
                         </select>
                     </div>
@@ -145,67 +144,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function getEquipamentos(id_cliente, id_equipamento = null) {
-        let select = document.querySelector("#id_equipamento_update");
-        select.innerHTML = "";
-        select.disabled = false;
-
-        if (id_cliente !== "") {
-            fetch('/cliente/equipamento/' + id_cliente)
-                .then(response => response.json())
-                .then(result => {
-                    result.forEach(equipamento => {
-                        if (id_equipamento && equipamento.id == id_equipamento) {
-
-                            select.innerHTML +=
-                                `<option selected value="${equipamento.id}">${equipamento.nome}</option>`;
-                        } else {
-                            select.innerHTML +=
-                                `<option value="${equipamento.id}">${equipamento.nome}</option>`;
-                        }
-
-                    });
-                })
-        } else {
-            select.disabled = true;
-            select.innerHTML +=
-                `<option value="" selected="">- Selecione um cliente -</option>`;
-        }
-    }
-
-    document.querySelector("#id_cliente").addEventListener('change', (event) => {
-        let id_cliente = event.target.value;
-        getEquipamentos(id_cliente);
-    });
-
-    function openModalOSUpdate(id) {
-        var formUpdate = document.querySelector("#formUpdateOS");
-        let spinner = document.querySelector("#update-spinner");
-
-        formUpdate.setAttribute('action', '/ordem-servico/update/' + id);
-        formUpdate.classList.add('hidden');
-        spinner.classList.remove('hidden');
-
-        fetch('/ordem-servico/' + id)
-            .then(response => response.json())
-            .then(result => {
-                let form = formUpdate.elements;
-                let os_data = new Date(result.data).toLocaleString().split(',')[0];
-
-                form.titulo.value = result.titulo;
-                form.id_status.value = result.id_status;
-                form.id_cliente.value = result.equipamento.id_cliente;
-                getEquipamentos(result.equipamento.id_cliente, result.id_equipamento);
-                form.descricao.value = result.descricao;
-                form.data_conclusao.value = result.data_conclusao.replaceAll('-', '/').split("/").reverse().join(
-                    "/");
-                form.data_inicio.value = result.data_inicio.replaceAll('-', '/').split("/").reverse().join("/");
-                form.id_classificacao.value = result.id_classificacao;
-
-                formUpdate.classList.remove('hidden');
-                spinner.classList.add('hidden');
-            })
-    }
-</script>

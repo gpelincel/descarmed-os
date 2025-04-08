@@ -19,14 +19,6 @@ datepickerEls.forEach(e => {
     });
 })
 
-
-const datetimepickerEl = document.getElementById("default-datetimepicker");
-Datepicker.locales.pt = pt["pt-BR"];
-new Datepicker(datetimepickerEl, {
-    language: "pt-BR",
-    format: "dd/mm/yyyy",
-});
-
 document.querySelectorAll(".telefone-input").forEach((e) => {
     IMask(e, {
         mask: "(00) 9 0000-0000",
@@ -46,7 +38,7 @@ document.querySelectorAll(".cnpj-input").forEach((e) => {
 });
 
 document.querySelectorAll(".valor-input").forEach((e) => {
-    IMask(e, {
+    const mask = IMask(e, {
         mask: "R$ num",
         blocks: {
             num: {
@@ -60,4 +52,7 @@ document.querySelectorAll(".valor-input").forEach((e) => {
             },
         },
     });
+
+    e.mask = mask;
 });
+
