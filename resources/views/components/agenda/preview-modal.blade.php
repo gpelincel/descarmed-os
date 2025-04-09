@@ -104,10 +104,6 @@
     </div>
 </div>
 <script>
-    function addDeleteButton(id) {
-        document.querySelector(".delete-button").addEventListener("click", openModalDelete(id));
-    }
-
     function openAgendaModalRead(event, id) {
         let modal_content = document.querySelector("#preview-content-agenda");
         let spinner = document.querySelector("#preview-spinner-agenda");
@@ -138,8 +134,6 @@
                 }
 
                 document.querySelector("#classificacao-agenda").innerHTML = "Manutenção preventiva";
-
-                addDeleteButton(id);
 
                 spinner.classList.remove("flex");
                 spinner.classList.add("hidden");

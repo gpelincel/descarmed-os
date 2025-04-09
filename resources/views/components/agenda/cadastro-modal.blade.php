@@ -126,27 +126,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelector("#id_cliente").addEventListener('change', (event) => {
-        let id_cliente = event.target.value;
-        let select = document.querySelector("#id_equipamento");
-        select.innerHTML = "";
-        select.disabled = false;
-
-        if (id_cliente !== "") {
-            fetch('/cliente/equipamento/' + id_cliente)
-                .then(response => response.json())
-                .then(result => {
-                    result.forEach(equipamento => {
-                        document.querySelector("#id_equipamento").innerHTML +=
-                            `<option value="${equipamento.id}">${equipamento.nome}</option>`;
-                    });
-                })
-        } else {
-            select.disabled = true;
-            document.querySelector("#id_equipamento").innerHTML +=
-                            `<option value="" selected="">- Selecione um cliente -</option>`;
-        }
-    });
-</script>

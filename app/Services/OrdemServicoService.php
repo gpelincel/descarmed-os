@@ -52,7 +52,19 @@ class OrdemServicoService {
 
     public function edit(array $novoOrdemServico, string $id) {
         $ordemServico = OrdemServico::findOrFail($id);
-        $novoOrdemServico['data'] = DateTime::createFromFormat('d/m/Y', $novoOrdemServico['data'])->format('Y-m-d');
+        if (!empty($ordemServico['data_conclusao'])) {
+            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
+            if ($data) {
+                $novoOrdemServico['data_conclusao'] = $data->format('Y-m-d');
+            }
+        }
+        
+        if (!empty($ordemServico['data_inicio'])) {
+            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
+            if ($data) {
+                $novoOrdemServico['data_inicio'] = $data->format('Y-m-d');
+            }
+        }
         $ordemServico->update($novoOrdemServico);
         return $ordemServico;
     }

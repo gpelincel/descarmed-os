@@ -99,6 +99,6 @@ class EquipamentoController extends Controller {
             return response()->json(['message' => 'Equipamento deletado com sucesso', 'data' => $equipamento], 200);
         }
 
-        return redirect('/equipamento')->with('status', 'success')->with('message', 'Equipamento deletado com sucesso!');
+        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento deletado com sucesso!');
     }
 }

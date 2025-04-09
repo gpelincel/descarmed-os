@@ -7,12 +7,13 @@
                 <h3 class="text-gray-500 dark:text-gray-400">{{ $cliente->razao_social }}</h3>
             </div>
             <div class="flex gap-2 h-10">
-                <button onclick="openModalClienteUpdate({{ $cliente->id }})" data-modal-target="modal-update-cliente"
+                <button data-modal-target="modal-update-cliente" data-id="{{ $cliente->id }}"
                     data-modal-toggle="modal-update-cliente" type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><i
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 btn-update-cliente"><i
                         class="fi fi-rr-edit"></i> Editar</button>
                 <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"><i
+                    data-id="{{ $cliente->id }}"
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 btn-delete-cliente"><i
                         class="fi fi-rr-trash"></i> Deletar</button>
             </div>
         </div>
@@ -90,16 +91,18 @@
     <x-os.update-modal :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>
     <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os.delete-modal>
 
-    <x-agenda.update-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.update-modal>
-    <x-agenda.cadastro-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.cadastro-modal>
+        <x-agenda.update-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.update-modal>
+        <x-agenda.cadastro-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.cadastro-modal>
 
-    <x-equipamento.cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento.cadastro-modal>
-    <x-equipamento.update-modal :clientes="null" :selected="$cliente"></x-equipamento.update-modal>
+        <x-equipamento.cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento.cadastro-modal>
+        <x-equipamento.update-modal :clientes="null" :selected="$cliente"></x-equipamento.update-modal>
 
-    @if ($errors->any())
-        <x-toasts :status="'error'" :message="$errors->all()[0]"></x-toasts>
-    @endif
-    @if (session('status'))
-        <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
-    @endif
+        @if ($errors->any())
+            <x-toasts :status="'error'" :message="$errors->all()[0]"></x-toasts>
+        @endif
+        @if (session('status'))
+            <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
+        @endif
+
+        @vite('resources/js/components/clientes.js')
 </x-app-layout>

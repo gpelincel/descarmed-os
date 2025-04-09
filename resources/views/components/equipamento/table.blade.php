@@ -31,18 +31,18 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
                                         <li>
-                                            <button onclick="openModalEquipamentoUpdate({{ $equipamento->id }})"
+                                            <button data-id="{{$equipamento->id}}"
                                                 type="button" data-modal-target="modal-update-equipamento"
                                                 data-modal-toggle="modal-update-equipamento"
-                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-update-equipamento">
                                                 <i class="fi fi-rr-edit mr-2"></i>
                                                 Editar
                                             </button>
                                         </li>
                                         <li>
-                                            <button type="button" onclick="openModalDelete({{ $equipamento->id }})"
+                                            <button type="button" data-id="{{$equipamento->id}}"
                                                 data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                                class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
+                                                class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-equipamento">
                                                 <i class="fi fi-rr-trash mr-2"></i>
                                                 Deletar
                                             </button>
@@ -105,9 +105,4 @@
 </div>
 <!-- End block -->
 
-<script>
-    function openModalDelete(id) {
-        let formDelete = document.querySelector("#formDelete");
-        formDelete.setAttribute('action', '/equipamento/delete/' + id);
-    }
-</script>
+@vite('resources/js/components/equipamento.js')

@@ -1,7 +1,7 @@
 function toBRL(valor) {
-    return valor.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
     });
 }
 
@@ -11,7 +11,10 @@ document.querySelector("#id_cliente").addEventListener("change", (event) => {
     verifyClienteID(id_cliente, form);
 });
 
-verifyClienteID(document.querySelector("#id_cliente").value, document.querySelector("#formCadOS"));
+verifyClienteID(
+    document.querySelector("#id_cliente").value,
+    document.querySelector("#formCadOS")
+);
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
@@ -136,15 +139,8 @@ function openModalRead(id) {
             document.querySelector("#classificacao-os").innerHTML =
                 result.classificacao.descricao;
 
-            if (result.preco) {
-                document.querySelector("#preco-container").style.display =
-                    "block";
-                document.querySelector("#preco-os").innerHTML =
-                    toBRL(result.preco);
-            } else {
-                document.querySelector("#preco-container").style.display =
-                    "none";
-            }
+            document.querySelector("#preco-os").innerHTML =
+                toBRL(Number(result.preco)) ?? "N/A";
 
             addDeleteButton(id);
 

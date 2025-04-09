@@ -29,7 +29,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/ordem-servico', [OrdemServicoController::class, 'index']);
     Route::post('/ordem-servico', [OrdemServicoController::class, 'store']);
     Route::get('/ordem-servico/{id}', [OrdemServicoController::class, 'show']);
-    Route::post('/ordem-servico/delete/{id}', [OrdemServicoController::class, 'destroy']);
+    Route::delete('/ordem-servico/delete/{id}', [OrdemServicoController::class, 'destroy']);
     Route::post('/ordem-servico/update/{id}', [OrdemServicoController::class, 'update']);
 
     Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente');
@@ -43,7 +43,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::post('/equipamento', [EquipamentoController::class, 'store']);
     Route::get('/equipamento/{id}', [EquipamentoController::class, 'show']);
     Route::delete('/equipamento/delete/{id}', [EquipamentoController::class, 'destroy']);
-    Route::post('/equipamento/update/{id}', [EquipamentoController::class, 'update']);
+    Route::put('/equipamento/update/{id}', [EquipamentoController::class, 'update']);
 
     Route::get('/usuario', [UsuarioController::class, 'index']);
     Route::post('/usuario', [UsuarioController::class, 'store']);
