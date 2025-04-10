@@ -91,8 +91,8 @@
     <x-os.update-modal :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>
     <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os.delete-modal>
 
-        <x-agenda.update-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.update-modal>
-        <x-agenda.cadastro-modal :status="$status" :clientes="null" :selected="$cliente"></x-agenda.cadastro-modal>
+        <x-agenda.update-modal :status="$status" :clientes="null" :selected="$cliente" :classificacao="$classificacao"></x-agenda.update-modal>
+        <x-agenda.cadastro-modal :status="$status" :clientes="null" :selected="$cliente" :classificacao="$classificacao"></x-agenda.cadastro-modal>
 
         <x-equipamento.cadastro-modal :clientes="null" :selected="$cliente"></x-equipamento.cadastro-modal>
         <x-equipamento.update-modal :clientes="null" :selected="$cliente"></x-equipamento.update-modal>

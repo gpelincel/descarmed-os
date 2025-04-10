@@ -172,4 +172,3 @@ document.addEventListener("click", (e) => {
         openModalOSUpdate(e.target.dataset.id);
     }
 });
-console.log("OS JS importado");

@@ -70,6 +70,7 @@ function openModalClienteUpdate(id) {
         })
 }
 
+
 document.addEventListener("click", (e) => {
     if (e.target.matches(".btn-delete-cliente")) {
         openModalDelete(e.target.dataset.id);
