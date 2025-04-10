@@ -73,7 +73,14 @@ function openModalAgendaUpdate(id) {
                 form,
                 result.ordem_servico.id_equipamento
             );
+
             form.descricao.value = result.ordem_servico.descricao;
+            form.id_classificacao.value = result.ordem_servico.id_classificacao;
+
+            form.id_cliente.addEventListener("change", (event) => {
+                let id_cliente = event.target.value;
+                verifyClienteID(id_cliente, form);
+            });
 
             formUpdate.classList.remove('hidden');
             spinner.classList.add('hidden');

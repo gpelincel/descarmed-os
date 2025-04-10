@@ -29,16 +29,39 @@ class AgendaService {
 
     public function delete(string $id) {
         $agenda = Agenda::findOrFail($id);
+        $id_os = $agenda['id_os'];
+        $os = OrdemServico::findOrFail($id_os);
+
+        $os->delete();
         $agenda->delete();
 
         return $agenda;
     }
 
     public function edit(array $novoAgenda, string $id) {
+        // Formatar datas
+        $novoAgenda['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data_inicio'])->format('Y-m-d');
+        $novoAgenda['data_inicio'] = $novoAgenda['data'];
+        $novoAgenda['data_aviso'] = date('Y-m-d', strtotime($novoAgenda['data'] . ' -' . (int)$novoAgenda['tempo_aviso'] . ' days'));
+    
+        // Busca a agenda existente
         $agenda = Agenda::findOrFail($id);
+    
+        // Atualiza ou recria a OS associada
+        if ($agenda->id_os) {
+            $os = OrdemServico::findOrFail($agenda->id_os);
+            $os->update($novoAgenda);
+        } else {
+            $os = OrdemServico::create($novoAgenda);
+            $novoAgenda['id_os'] = $os->id;
+        }
+    
+        // Atualiza a agenda com os novos dados
         $agenda->update($novoAgenda);
+    
         return $agenda;
     }
+    
 
     public function getByCliente($id_cliente) {
         return Agenda::with(['ordem_servico.equipamento.cliente'])
