@@ -25,7 +25,7 @@
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ $ordem->classificacao->descricao }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button id="apple-imac-27-dropdown-button"
+                                <button 
                                     data-dropdown-toggle="{{ $ordem->id }}-dropdown"
                                     class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                     type="button">
@@ -33,7 +33,7 @@
                                 </button>
                                 <div id="{{ $ordem->id }}-dropdown"
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
+                                    <ul class="py-1 text-sm">
                                         <li>
                                             <button type="button"
                                                 data-modal-target="modal-update-os" data-modal-toggle="modal-update-os" data-id="{{$ordem->id}}"

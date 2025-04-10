@@ -28,7 +28,7 @@
                                 </button>
                                 <div id="{{ $usuario->id }}-usuario-dropdown"
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul class="py-1 text-sm" aria-labelledby="apple-imac-27-dropdown-button">
+                                    <ul class="py-1 text-sm">
                                         <li>
                                             <button onclick="openModalEquipamentoUpdate({{ $usuario->id }})"
                                                 type="button" data-modal-target="modal-update-usuario"

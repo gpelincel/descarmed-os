@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\AgendaService;
+use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
 use App\Services\StatusOSService;
@@ -13,12 +14,14 @@ class AgendaController extends Controller {
     protected $equipamentoService;
     protected $statusOSService;
     protected $clienteService;
+    protected $classificacaoService;
 
-    public function __construct(AgendaService $agendaService, EquipamentoService $equipamentoService, StatusOSService $statusOSService, ClienteService $clienteService) {
+    public function __construct(AgendaService $agendaService, EquipamentoService $equipamentoService, StatusOSService $statusOSService, ClienteService $clienteService, ClassificacaoOSService $classificacaoService) {
         $this->agendaService = $agendaService;
         $this->equipamentoService = $equipamentoService;
         $this->statusOSService = $statusOSService;
         $this->clienteService = $clienteService;
+        $this->classificacaoService = $classificacaoService;
     }
 
     /**
@@ -40,8 +43,9 @@ class AgendaController extends Controller {
         $equipamentos = $this->equipamentoService->getAll()->get();
         $status = $this->statusOSService->getAll();
         $clientes = $this->clienteService->getAll()->get();
+        $classificacao = $this->classificacaoService->getAll();
 
-        return view('agenda', compact('agendas', 'equipamentos', 'status', 'clientes'));
+        return view('agenda', compact('agendas', 'equipamentos', 'status', 'clientes', 'classificacao'));
     }
 
     /**

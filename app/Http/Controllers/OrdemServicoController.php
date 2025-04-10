@@ -30,16 +30,16 @@ class OrdemServicoController extends Controller {
      */
     public function index() {
         $ordens = $this->osService->getAll();
+
+        if (request()->wantsJson()) {
+            return response()->json($ordens);
+        }
+        
+        $clientes = $this->clienteService->getAll()->get();
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
-        
-        if (request()->wantsJson()){
-            return response()->json($ordens);
-        } else {
-            $clientes = $this->clienteService->getAll()->get();
-        }
 
-        return view('ordem_servico', compact('ordens','clientes', 'status', 'classificacao'));
+        return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao'));
     }
 
     /**
@@ -55,7 +55,7 @@ class OrdemServicoController extends Controller {
     public function store(StoreOrdemServicoRequest $request) {
         $ordem = $this->osService->save($request->all());
 
-        if (request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response()->json($ordem);
         }
 
@@ -82,7 +82,7 @@ class OrdemServicoController extends Controller {
     public function update(StoreOrdemServicoRequest $request, string $id) {
         $ordem = $this->osService->edit($request->all(), $id);
 
-        if (request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response()->json($ordem);
         }
 
@@ -97,11 +97,11 @@ class OrdemServicoController extends Controller {
         if (request()->wantsJson()) {
             return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
         }
-        
-        return redirect()->back()->with('status', 'success')->with('message','Ordem de serviço deletada com sucesso!');
+
+        return redirect()->back()->with('status', 'success')->with('message', 'Ordem de serviço deletada com sucesso!');
     }
 
-    public function imprimir(string $id){
+    public function imprimir(string $id) {
         $ordemServico = $this->show($id);
         $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
@@ -109,7 +109,7 @@ class OrdemServicoController extends Controller {
         // return view('impressao', compact('ordemServico'));
     }
 
-    public function imprimir_personalizado(Request $request){
+    public function imprimir_personalizado(Request $request) {
         $dados = $request->all();
         $ordemServico = $this->show($dados['os_id']);
         $ordemServico->checkboxes = $dados;

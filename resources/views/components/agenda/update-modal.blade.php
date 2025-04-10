@@ -103,9 +103,9 @@
                         </select>
                     </div>
                     <div class="col-span-2">
-                        <label for="id_equipamento_update"
+                        <label for="id_equipamento"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
-                        <select id="id_equipamento_update" name="id_equipamento_update"
+                        <select id="id_equipamento" name="id_equipamento"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             disabled>
                             <option value="" selected="">- Selecione um cliente -</option>
@@ -134,75 +134,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function getEquipamentos(id_cliente, id_equipamento = null) {
-        let select = document.querySelector("#id_equipamento_update");
-        select.innerHTML = "";
-        select.disabled = false;
-
-        if (id_cliente !== "") {
-            fetch('/cliente/equipamento/' + id_cliente)
-                .then(response => response.json())
-                .then(result => {
-                    result.forEach(equipamento => {
-                        if (id_equipamento && equipamento.id == id_equipamento) {
-
-                            select.innerHTML +=
-                                `<option selected value="${equipamento.id}">${equipamento.nome}</option>`;
-                        } else {
-                            select.innerHTML +=
-                                `<option value="${equipamento.id}">${equipamento.nome}</option>`;
-                        }
-
-                    });
-                })
-        } else {
-            select.disabled = true;
-            select.innerHTML +=
-                `<option value="" selected="">- Selecione um cliente -</option>`;
-        }
-    }
-
-    document.querySelector("#id_cliente").addEventListener('change', (event) => {
-        let id_cliente = event.target.value;
-        getEquipamentos(id_cliente);
-    });
-
-    function openModalAgendaUpdate(id) {
-        var formUpdate = document.querySelector("#formUpdateAgendamento");
-        let spinner = document.querySelector("#update-agenda-spinner");
-
-        formUpdate.setAttribute('action', '/agenda/update/' + id);
-        formUpdate.classList.add('hidden');
-        spinner.classList.remove('hidden');
-
-        fetch('/agenda/' + id, {
-                headers: {
-                    'accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(result => {
-                let form = formUpdate.elements;
-
-                let dataInicio = new Date(result.ordem_servico.data_inicio);
-                let dataAviso = new Date(result.data_aviso);
-
-                let diffMs = Math.abs(dataAviso - dataInicio); // Diferença em milissegundos
-                let days = Math.floor(diffMs / (1000 * 60 * 60 * 24)); // Converter para dias
-
-                form.titulo.value = result.ordem_servico.titulo;
-                form.data_inicio.value = dataInicio.toLocaleString().split(',')[0];
-                form.tempo_aviso.value = days;
-                form.id_status.value = result.ordem_servico.id_status;
-                form.id_cliente.value = result.ordem_servico.equipamento.id_cliente;
-                form.id_equipamento_update.value = getEquipamentos(result.ordem_servico.equipamento.id_cliente,
-                    result.ordem_servico.id_equipamento);
-                form.descricao.value = result.ordem_servico.descricao;
-
-                formUpdate.classList.remove('hidden');
-                spinner.classList.add('hidden');
-            })
-    }
-</script>
