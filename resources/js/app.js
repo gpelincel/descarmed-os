@@ -58,19 +58,27 @@ document.querySelectorAll(".valor-input").forEach((e) => {
     e.mask = mask;
 });
 
-const clienteSelect = document.getElementById("id_cliente");
+let classSelect =
+    "choices bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mb-0";
+classSelect = classSelect.split(" ");
+
+const clienteSelect = document.querySelectorAll(".select-cliente");
+
 if (clienteSelect) {
-    new Choices(clienteSelect, {
-        searchEnabled: true,
-        shouldSort: false,
-        placeholder: true,
-        placeholderValue: "- Selecione -",
-        classNames: {
-            containerOuter: "choices",
-            containerInner: "choices__inner",
-            input: "choices__input",
-            listDropdown: "choices__list--dropdown",
-            itemSelectable: "choices__item--selectable",
-        },
+    clienteSelect.forEach((e) => {
+        e.choices = new Choices(e, {
+            searchEnabled: true,
+            shouldSort: false,
+            placeholder: true,
+            placeholderValue: "- Selecione -",
+            itemSelectText: "",
+            classNames: {
+                containerOuter: "choices",
+                containerInner: classSelect,
+                input: "choices__input",
+                listDropdown: "choices__list--dropdown",
+                itemSelectable: "choices__item--selectable",
+            },
+        });
     });
 }

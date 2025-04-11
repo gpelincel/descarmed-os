@@ -63,6 +63,8 @@ function openModalOSUpdate(id) {
             let form = formUpdate.elements;
             let os_data = new Date(result.data).toLocaleString().split(",")[0];
 
+            form.id_cliente.choices.setChoiceByValue(String(result.equipamento.id_cliente));
+
             verifyClienteID(
                 result.equipamento.id_cliente,
                 formUpdate,
@@ -71,7 +73,7 @@ function openModalOSUpdate(id) {
 
             form.titulo.value = result.titulo;
             form.id_status.value = result.id_status;
-            form.id_cliente.value = result.equipamento.id_cliente;
+            // form.id_cliente.value = result.equipamento.id_cliente;
             form.descricao.value = result.descricao;
             if (result.data_conclusao) {
                 form.data_conclusao.value = result.data_conclusao
@@ -86,7 +88,9 @@ function openModalOSUpdate(id) {
                 .reverse()
                 .join("/");
             form.id_classificacao.value = result.id_classificacao;
-            form.preco.mask.unmaskedValue = result.preco;
+            if (result.preco) {
+                form.preco.mask.unmaskedValue = result.preco;
+            }
 
             formUpdate.classList.remove("hidden");
             spinner.classList.add("hidden");
