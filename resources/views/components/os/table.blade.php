@@ -125,5 +125,3 @@
 <!-- End block -->
 
 <x-os.preview-modal></x-os.preview-modal>
-
-@vite(['resources/js/components/os.js'])
