@@ -80,4 +80,4 @@
 <!-- End block -->
 
 <x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
-@vite('resources/js/components/clientes.js')
+

@@ -18,5 +18,5 @@
         <x-toasts :status="'error'" :message="$errors->all()[0]"></x-toasts>
     @endif
 
-    @vite('resources/js/components/os.js')
+    
 </x-app-layout>

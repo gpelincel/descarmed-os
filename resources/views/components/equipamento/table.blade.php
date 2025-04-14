@@ -104,5 +104,3 @@
     </div>
 </div>
 <!-- End block -->
-
-@vite('resources/js/components/equipamento.js')

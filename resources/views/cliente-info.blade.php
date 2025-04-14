@@ -104,5 +104,5 @@
             <x-toasts :status="session('status')" :message="session('message')"></x-toasts>
         @endif
 
-        @vite('resources/js/components/clientes.js')
+        
 </x-app-layout>

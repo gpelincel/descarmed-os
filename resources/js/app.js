@@ -6,6 +6,10 @@ import pt from "../../node_modules/flowbite-datepicker/js/i18n/locales/pt-BR";
 import IMask from "imask";
 import Choices from "choices.js";
 import "choices.js/public/assets/styles/choices.css";
+import "./components/agenda.js";
+import "./components/clientes.js";
+import "./components/equipamento.js";
+import "./components/os.js";
 
 window.Alpine = Alpine;
 

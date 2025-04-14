@@ -79,4 +79,4 @@
 </div>
 <x-agenda.preview-modal></x-agenda.preview-modal>
 
-@vite('resources/js/components/agenda.js')
+
