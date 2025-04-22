@@ -3,8 +3,10 @@
     aria-label="Sidebar">
     <div class="flex flex-col justify-between h-full px-2 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-            <div class="w-full flex justify-center">
-                <img class="w-32" src="/img/logo.png" alt="">
+            <div class="w-full flex flex-col gap-3 justify-center text-center dark:text-gray-400 text-gray-500 mb-8">
+                {{-- <img class="w-32" src="/img/logo.png" alt=""> --}}
+                <i class="fi fi-sr-circle-user text-8xl"></i>
+                <p>{{session('username')}}</p>
             </div>
             <li>
                 <a href="/cliente"
