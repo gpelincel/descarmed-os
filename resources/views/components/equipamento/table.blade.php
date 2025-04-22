@@ -3,7 +3,16 @@
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden w-full">
 
         {{-- Topbar --}}
-        <x-table-top :label="'equipamento'"></x-table-top>
+        <x-table-top :label="'equipamento'" :options="[
+            [
+                'name' => 'Nome do equipamento',
+                'value' => 'nome',
+            ],
+            [
+                'name' => 'Cód. do equipamento',
+                'value' => 'codigo',
+            ],
+        ]"></x-table-top>
 
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

@@ -29,7 +29,20 @@ class OrdemServicoController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $ordens = $this->osService->getAll();
+
+        $search = request('search');
+        $field = request('field', 'titulo'); // Valor padrão: 'nome'
+
+        // Lista de campos permitidos para busca
+        $allowedFields = ['titulo'];
+        if (!in_array($field, $allowedFields)) {
+            $field = 'titulo';
+        }
+
+        $ordens = $this->osService->getAll()->when($search, function ($query) use ($search, $field) {
+            return $query->where($field, 'like', "%$search%");
+        })
+        ->paginate(10);
 
         if (request()->wantsJson()) {
             return response()->json($ordens);

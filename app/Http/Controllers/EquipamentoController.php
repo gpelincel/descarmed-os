@@ -21,12 +21,19 @@ class EquipamentoController extends Controller {
      */
     public function index() {
         $search = request('search');
+        $field = request('field', 'nome'); // Valor padrão: 'nome'
+
+        // Lista de campos permitidos para busca
+        $allowedFields = ['nome', 'codigo'];
+        if (!in_array($field, $allowedFields)) {
+            $field = 'nome';
+        }
 
         $equipamentos = $this->equipamentoService->getAll()
-            ->when($search, function ($query) use ($search) {
-                return $query->where('nome', 'like', "%$search%");
-            })
-            ->paginate(10);
+        ->when($search, function ($query) use ($search, $field) {
+            return $query->where($field, 'like', "%$search%");
+        })
+        ->paginate(10);
 
         if (request()->wantsJson()) {
             return $equipamentos;

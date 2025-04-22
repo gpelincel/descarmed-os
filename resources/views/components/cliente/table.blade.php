@@ -3,7 +3,16 @@
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
         {{-- Topbar --}}
-        <x-table-top :label="'cliente'"></x-table-top>
+        <x-table-top :label="'cliente'" :options="[
+            [
+                'name' => 'Nome',
+                'value' => 'nome',
+            ],
+            [
+                'name' => 'CNPJ',
+                'value' => 'cnpj',
+            ],
+        ]"></x-table-top>
 
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -80,4 +89,3 @@
 <!-- End block -->
 
 <x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
-
