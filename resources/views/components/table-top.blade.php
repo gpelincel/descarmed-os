@@ -1,37 +1,39 @@
 {{-- Topbar --}}
-<div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-    @if(isset($options))
-    {{-- Search Input --}}
-    <div class="w-full md:w-3/4">
-        <form class="flex items-center gap-4">
-            <label for="search" class="sr-only">Buscar</label>
-            <div class="relative w-1/2">
-                <input type="text" id="search" name="search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 pl-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Buscar" value="{{ request('search') }}">
+<div class="flex flex-col md:flex-row items-end justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+    @if (isset($options))
+        {{-- Search Input --}}
+        <div class="w-full md:w-3/4">
+            <form class="flex items-end gap-4">
+                <label for="search" class="sr-only">Buscar</label>
+                <div class="relative w-1/2">
+                    <input type="text" id="search" name="search"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 pl-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Buscar" value="{{ request('search') }}">
+                </div>
+                <div>
+                    <label for="field" class="text-xs dark:text-white">Buscar por:</label>
+                    <select id="field" name="field"
+                        class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @foreach ($options as $opt)
+                            <option value="{{ $opt['value'] }}"
+                                {{ request('field') === $opt['value'] ? 'selected' : '' }}>
+                                {{ $opt['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                {{ $slot }}
                 <button type="submit"
-                    class="absolute end-0 top-0 h-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-r-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-4"><i
-                        class="fi fi-rr-search mt-2"></i></button>
-            </div>
-            <div>
-                <select id="field" name="field"
-                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    @foreach ($options as $opt)
-                    <option value="{{ $opt['value'] }}" {{ request('field') === $opt['value'] ? 'selected' : '' }}>
-                        {{ $opt['name'] }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-        </form>
-    </div>
+                    class="p-2.5 h-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 px-4">Filtrar</button>
+            </form>
+        </div>
     @endif
     {{-- Tools menu --}}
     <div
-        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+        class="flex items-end">
         <button type="button" data-modal-target="cadastrar{{ $label }}Modal"
             data-modal-toggle="cadastrar{{ $label }}Modal"
-            class="flex items-center justify-center dark:text-white text-gray-800 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 uppercase">
+            class="flex uppercase items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
             <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true">
                 <path clip-rule="evenodd" fill-rule="evenodd"

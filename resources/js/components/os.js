@@ -11,10 +11,12 @@ document.querySelector("#id_cliente").addEventListener("change", (event) => {
     verifyClienteID(id_cliente, form);
 });
 
-verifyClienteID(
-    document.querySelector("#id_cliente").value,
-    document.querySelector("#formCadOS")
-);
+if (document.querySelector("#formCadOS")) {
+    verifyClienteID(
+        document.querySelector("#id_cliente").value,
+        document.querySelector("#formCadOS")
+    );
+}
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;

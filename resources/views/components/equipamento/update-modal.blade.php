@@ -32,7 +32,7 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="codigo"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Série</label>
                         <input type="text" name="codigo" id="codigo"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="ABC-000000000" required="">
@@ -50,7 +50,6 @@
                         <select id="id_cliente" name="id_cliente"
                             class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             @if ($clientes)
-                                <option selected="">- Selecione -</option>
                                 @foreach ($clientes as $cliente)
                                     <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
                                 @endforeach

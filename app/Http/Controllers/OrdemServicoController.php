@@ -32,6 +32,7 @@ class OrdemServicoController extends Controller {
 
         $search = request('search');
         $field = request('field', 'titulo'); // Valor padrão: 'nome'
+        $id_status = request('id_status');
 
         // Lista de campos permitidos para busca
         $allowedFields = ['titulo'];
@@ -39,15 +40,19 @@ class OrdemServicoController extends Controller {
             $field = 'titulo';
         }
 
-        $ordens = $this->osService->getAll()->when($search, function ($query) use ($search, $field) {
-            return $query->where($field, 'like', "%$search%");
-        })
-        ->paginate(10);
+        $ordens = $this->osService->getAll()
+            ->when($search, function ($query) use ($search, $field) {
+                return $query->where($field, 'like', "%$search%");
+            })
+            ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
+                return $query->where('id_status', $id_status);
+            })
+            ->paginate(10);
 
         if (request()->wantsJson()) {
             return response()->json($ordens);
         }
-        
+
         $clientes = $this->clienteService->getAll()->get();
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();

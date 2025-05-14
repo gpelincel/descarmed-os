@@ -156,7 +156,7 @@
         <table class="table">
             <tr>
                 @if (isset($checkboxes['cod_equipamento']))
-                    <td><b>Código Equipamento:</b> <span class="uppercase">{{ $equipamento['codigo'] }}</span></td>
+                    <td><b>Número de Série:</b> <span class="uppercase">{{ $equipamento['codigo'] }}</span></td>
                 @endif
                 @if (isset($checkboxes['nome_equipamento']))
                     <td><b>Equipamento:</b> <span class="uppercase">{{ $equipamento['nome'] }}</span></td>

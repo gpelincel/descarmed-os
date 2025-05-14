@@ -10,7 +10,8 @@ class Equipamento extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        "codigo",
+        "numero_serie",
+        "numero_patrimonio",
         "nome",
         "id_cliente"
     ];

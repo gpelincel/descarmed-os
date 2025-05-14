@@ -19,7 +19,8 @@ class StoreEquipamentoRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'codigo' => 'required|string|max:50|unique:equipamentos,codigo',
+            'numero_serie' => 'required|string|max:50|unique:equipamentos,numero_serie',
+            'numero_patrimonio' => 'required|string|max:50|unique:equipamentos,numero_patrimonio',
             'nome' => 'required|string|max:255',
             'id_cliente' => 'required|integer|exists:clientes,id'
         ];
@@ -27,10 +28,15 @@ class StoreEquipamentoRequest extends FormRequest {
 
     public function messages(): array {
         return [
-            'codigo.required' => 'O código é obrigatório',
-            'codigo.string' => 'O código deve ser um texto',
-            'codigo.max' => 'O código deve ter no máximo 50 caracteres',
-            'codigo.unique' => 'Este código já está cadastrado',
+            'numero_serie.required' => 'O número de série é obrigatório',
+            'numero_serie.string' => 'O número de série deve ser um texto',
+            'numero_serie.max' => 'O número de série deve ter no máximo 50 caracteres',
+            'numero_serie.unique' => 'Este número de série já está cadastrado',
+
+            'numero_patrimonio.required' => 'O número de patrimônio é obrigatório',
+            'numero_patrimonio.string' => 'O número de patrimônio deve ser um texto',
+            'numero_patrimonio.max' => 'O número de patrimônio deve ter no máximo 50 caracteres',
+            'numero_patrimonio.unique' => 'Este número de patrimônio já está cadastrado',
     
             'nome.required' => 'O nome é obrigatório',
             'nome.string' => 'O nome deve ser um texto',

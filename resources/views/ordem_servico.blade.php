@@ -3,7 +3,7 @@
         Ordem de Serviço
     </x-slot>
 
-    <x-os.table :ordens="$ordens"></x-os.table>
+    <x-os.table :ordens="$ordens" :status="$status"></x-os.table>
 
     <x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
     <x-os.update-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>

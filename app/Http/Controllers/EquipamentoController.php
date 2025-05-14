@@ -24,7 +24,7 @@ class EquipamentoController extends Controller {
         $field = request('field', 'nome'); // Valor padrão: 'nome'
 
         // Lista de campos permitidos para busca
-        $allowedFields = ['nome', 'codigo'];
+        $allowedFields = ['nome', 'numero_serie', 'numero_patrimonio', 'id'];
         if (!in_array($field, $allowedFields)) {
             $field = 'nome';
         }

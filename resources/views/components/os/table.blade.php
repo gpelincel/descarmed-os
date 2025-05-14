@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+<div class="mx-auto max-w-screen-xl px-8">
     <!-- Start coding here -->
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
@@ -7,8 +7,28 @@
             [
                 'name' => 'Serviço',
                 'value' => 'titulo',
-            ]
-        ]"></x-table-top>
+            ],
+            [
+                'name' => 'Equipamento',
+                'value' => 'equipamentos.nome',
+            ],
+            [
+                'name' => 'Cliente',
+                'value' => 'cliente',
+            ],
+        ]">
+            <div>
+                <label for="field" class="text-xs dark:text-white">Status OS:</label>
+                <select id="id_status" name="id_status" value="{{ request('id_status') }}"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="0">Todos</option>
+                    @foreach ($status as $stat)
+                        <option value="{{ $stat->id }}" {{ request('id_status') == $stat->id ? 'selected' : '' }}>
+                            {{ $stat->descricao }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </x-table-top>
 
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -30,8 +50,7 @@
                             <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ $ordem->classificacao->descricao }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button 
-                                    data-dropdown-toggle="{{ $ordem->id }}-dropdown"
+                                <button data-dropdown-toggle="{{ $ordem->id }}-dropdown"
                                     class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                     type="button">
                                     <i class="fi fi-rs-circle-ellipsis text-xl"></i>
@@ -40,8 +59,8 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm">
                                         <li>
-                                            <button type="button"
-                                                data-modal-target="modal-update-os" data-modal-toggle="modal-update-os" data-id="{{$ordem->id}}"
+                                            <button type="button" data-modal-target="modal-update-os"
+                                                data-modal-toggle="modal-update-os" data-id="{{ $ordem->id }}"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-update-os">
                                                 <i class="fi fi-rr-edit mr-2"></i>
                                                 Editar
@@ -64,8 +83,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <button type="button"
-                                                data-modal-target="deleteModal" data-modal-toggle="deleteModal" data-id="{{ $ordem->id }}"
+                                            <button type="button" data-modal-target="deleteModal"
+                                                data-modal-toggle="deleteModal" data-id="{{ $ordem->id }}"
                                                 class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-os">
                                                 <i class="fi fi-rr-trash mr-2"></i>
                                                 Deletar

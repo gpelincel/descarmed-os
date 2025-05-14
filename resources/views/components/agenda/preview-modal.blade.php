@@ -35,7 +35,7 @@
                         ab dolore fugit molestias corrupti sed!
                     </dd>
 
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Código do Equipamento</dt>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Número de Série</dt>
                     <dd id="id-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
 
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
