@@ -25,7 +25,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                <x-table-header :headers="['Nº Série', 'Nome', 'Cliente']"></x-table-header>
+                <x-table-header :headers="['Nº Série', 'Nº Patrimônio','Nome', 'Cliente']"></x-table-header>
 
                 <tbody>
                     @foreach ($equipamentos as $equipamento)
@@ -34,7 +34,8 @@
                             <th scope="row"
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $equipamento->id }}</th>
-                            <td class="px-4 py-3">{{ $equipamento->numero_serie }}</td>
+                                <td class="px-4 py-3">{{ $equipamento->numero_serie }}</td>
+                                <td class="px-4 py-3">{{ $equipamento->numero_patrimonio }}</td>
                             <td class="px-4 py-3">{{ $equipamento->nome }}</td>
                             <td class="px-4 py-3">{{ $equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">

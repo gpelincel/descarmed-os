@@ -21,8 +21,9 @@ function openModalEquipamentoUpdate(id) {
             let form = formUpdate.elements;
 
             form.nome.value = result.nome;
-            form.id_cliente.value = result.id_cliente;
-            form.codigo.value = result.codigo;
+            form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
+            form.numero_serie.value = result.numero_serie;
+            form.numero_patrimonio.value = result.numero_patrimonio;
 
             formUpdate.classList.remove('hidden');
             spinner.classList.add('hidden');

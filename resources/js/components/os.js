@@ -75,7 +75,7 @@ function openModalOSUpdate(id) {
 
             form.titulo.value = result.titulo;
             form.id_status.value = result.id_status;
-            // form.id_cliente.value = result.equipamento.id_cliente;
+            form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
             form.descricao.value = result.descricao;
             if (result.data_conclusao) {
                 form.data_conclusao.value = result.data_conclusao

@@ -67,7 +67,7 @@ function openModalAgendaUpdate(id) {
             form.data_inicio.value = dataInicio.toLocaleString().split(',')[0];
             form.tempo_aviso.value = days;
             form.id_status.value = result.ordem_servico.id_status;
-            form.id_cliente.value = result.ordem_servico.equipamento.id_cliente;
+            form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
             verifyClienteID(
                 result.ordem_servico.equipamento.id_cliente,
                 form,

@@ -26,14 +26,22 @@
                 <x-spinner></x-spinner>
             </div>
 
-            <form id="formUpdateEquipamento" method="POST">
+            <form id="formUpdateEquipamento" action="/equipamento" method="POST">
                 @csrf
-                @method('PUT')
+                @method('POST')
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
-                        <label for="codigo"
+                        <label for="numero_serie"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Série</label>
-                        <input type="text" name="codigo" id="codigo"
+                        <input type="text" name="numero_serie" id="numero_serie"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="ABC-000000000" required="">
+                    </div>
+                    <div>
+                        <label for="numero_patrimonio"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de
+                            Patrimônio</label>
+                        <input type="text" name="numero_patrimonio" id="numero_patrimonio"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="ABC-000000000" required="">
                     </div>
@@ -69,7 +77,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Cadastrar
+                        Atualizar
                     </button>
                 </div>
             </form>
