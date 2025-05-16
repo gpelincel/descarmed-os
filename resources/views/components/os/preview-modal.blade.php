@@ -30,34 +30,38 @@
                 <div class="flex flex-wrap gap-x-4">
                     <div>
                         <h4
-                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="cnpj_cliente" id="cnpj_cliente"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            CNPJ</h4>
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="cnpj_cliente" id="cnpj_cliente"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            CNPJ
+                        </h4>
                         <p id="cnpj-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
                     </div>
                     <div>
                         <h4
-                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="telefone_cliente" id="telefone_cliente"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            Telefone</h4>
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="telefone_cliente" id="telefone_cliente"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Telefone
+                        </h4>
                         <p id="telefone-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
                     </div>
                     <div>
                         <h4
-                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="email_cliente" id="email_cliente"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            Email</h4>
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="email_cliente" id="email_cliente"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Email
+                        </h4>
                         <p id="email-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
                     </div>
                     <div>
                         <h4
-                        class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="endereco_cliente" id="endereco_cliente"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            Endereço</h4>
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="endereco_cliente" id="endereco_cliente"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            Endereço
+                        </h4>
                         <p id="endereco-cliente" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
                     </div>
                 </div>
@@ -76,22 +80,51 @@
                     </dd>
 
                     <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="cod_equipamento" id="cod_equipamento"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número de Série
-                    </dt>
-                    <dd id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
-
-                    <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
                         <input checked type="checkbox" value="true" name="nome_equipamento" id="nome_equipamento"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Equipamento
                     </dt>
-                    <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                    <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    </dd>
 
                     <div class="flex gap-8">
                         <div>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" readonly name="data_inicio" id="data_inicio"
+                                <input checked type="checkbox" value="true" readonly name="numero_serie"
+                                    id="numero_serie"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número de Série
+                            </h4>
+                            <p id="numero-serie-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+                        <div>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" readonly name="numero_patrimonio"
+                                    id="numero_patrimonio"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número de Patrimônio
+                            </h4>
+                            <p id="numero-patrimonio-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+                        <div>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" readonly name="id_equipamento"
+                                    id="id_equipamento"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Cód. Descarmed
+                            </h4>
+                            <p id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-8">
+                        <div>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" readonly name="data_inicio"
+                                    id="data_inicio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
                                 Início
                             </h4>
@@ -101,11 +134,13 @@
                         <div>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" readonly name="data_conclusao" id="data_conclusao"
+                                <input checked type="checkbox" value="true" readonly name="data_conclusao"
+                                    id="data_conclusao"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Data
                                 Conclusão
                             </h4>
-                            <p id="data-conclusao-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <p id="data-conclusao-os"
+                                class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>

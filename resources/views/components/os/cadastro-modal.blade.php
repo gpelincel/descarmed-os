@@ -1,5 +1,5 @@
 <div id="cadastrarOSModal" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -21,7 +21,7 @@
             <!-- Modal body -->
             <form id="formCadOS" action="/ordem-servico" method="POST">
                 @csrf
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                <div class="grid gap-4 mb-4 grid-cols-2">
                     <div>
                         <label for="titulo"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serviço</label>
@@ -99,9 +99,41 @@
                             @endif
                         </select>
                     </div>
+                    <div id="equipamento-form-os" class="grid gap-4 mb-4 grid-cols-2 border-gray-500 border-t border-b col-span-2 py-5 hidden">
+                        <input type="hidden" id="novo-eqp" name="novo-eqp" value="0">
+                        <div>
+                            <label for="numero_serie"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de
+                                Série</label>
+                            <input type="text" name="numero_serie" id="numero_serie"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="ABC-000000000">
+                        </div>
+                        <div>
+                            <label for="numero_patrimonio"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de
+                                Patrimônio</label>
+                            <input type="text" name="numero_patrimonio" id="numero_patrimonio"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="ABC-000000000">
+                        </div>
+                        <div>
+                            <label for="nome"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+                            <input type="text" name="nome" id="nome"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Nome do equipamento">
+                        </div>
+                    </div>
                     <div>
                         <label for="id_equipamento"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
+                            class="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <span>Equipamento</span>
+                            <button id="btn-add-equipamento"
+                                class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
+                                <i class="fi fi-rr-plus-small"></i>
+                            </button>
+                        </label>
                         <select id="id_equipamento" name="id_equipamento"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             disabled>

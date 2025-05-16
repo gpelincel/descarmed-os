@@ -155,11 +155,20 @@
         <hr>
         <table class="table">
             <tr>
-                @if (isset($checkboxes['cod_equipamento']))
-                    <td><b>Número de Série:</b> <span class="uppercase">{{ $equipamento['codigo'] }}</span></td>
-                @endif
                 @if (isset($checkboxes['nome_equipamento']))
                     <td><b>Equipamento:</b> <span class="uppercase">{{ $equipamento['nome'] }}</span></td>
+                @endif
+            </tr>
+            <tr>
+                @if (isset($checkboxes['id_equipamento']))
+                    <td><b>Cód. Descarmed:</b> <span class="uppercase">{{ $equipamento['id'] }}</span></td>
+                @endif
+                @if (isset($checkboxes['numero_serie']))
+                    <td><b>Nº de Série:</b> <span class="uppercase">{{ $equipamento['numero_serie'] }}</span></td>
+                @endif
+                @if (isset($checkboxes['numero_patrimonio']))
+                    <td><b>Nº de Patrimônio:</b> <span class="uppercase">{{ $equipamento['numero_patrimonio'] }}</span>
+                    </td>
                 @endif
             </tr>
             <tr>

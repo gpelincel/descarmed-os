@@ -76,13 +76,6 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <a target="_blank" href="/imprimir/{{ $ordem->id }}"
-                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
-                                                <i class="fi fi-rs-print mr-2"></i>
-                                                Imprimir
-                                            </a>
-                                        </li>
-                                        <li>
                                             <button type="button" data-modal-target="deleteModal"
                                                 data-modal-toggle="deleteModal" data-id="{{ $ordem->id }}"
                                                 class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-os">

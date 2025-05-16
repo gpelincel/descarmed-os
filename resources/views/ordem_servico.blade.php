@@ -7,6 +7,7 @@
 
     <x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
     <x-os.update-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>
+    <x-equipamento.cadastro-modal :clientes="$clientes" :selected="null"></x-equipamento.cadastro-modal>
     <x-delete-modal></x-delete-modal>
 
     @if (session('status'))

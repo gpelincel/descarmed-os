@@ -11,17 +11,25 @@ document.querySelector("#id_cliente").addEventListener("change", (event) => {
     verifyClienteID(id_cliente, form);
 });
 
-if (document.querySelector("#formCadOS")) {
-    verifyClienteID(
-        document.querySelector("#id_cliente").value,
-        document.querySelector("#formCadOS")
-    );
-}
+document
+    .querySelector("#btn-add-equipamento")
+    .addEventListener("click", (event) => {
+        event.preventDefault();
+
+        let equipamento_form = document.querySelector("#equipamento-form-os");
+        let novo = document.querySelector("#novo-eqp");
+
+        novo.value = novo.value == "0" ? "1" : "0";
+        document.querySelector("#id_equipamento").disabled = novo.value == "1";
+        equipamento_form.classList.toggle("hidden");
+    });
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
 
-    if (id_cliente !== "") {
+    console.log(document.querySelector("#novo-eqp").value == "0");
+
+    if (id_cliente !== "" && document.querySelector("#novo-eqp").value == "0") {
         fetch("/cliente/equipamento/" + id_cliente)
             .then((response) => response.json())
             .then((result) => {
@@ -65,7 +73,9 @@ function openModalOSUpdate(id) {
             let form = formUpdate.elements;
             let os_data = new Date(result.data).toLocaleString().split(",")[0];
 
-            form.id_cliente.choices.setChoiceByValue(String(result.equipamento.id_cliente));
+            form.id_cliente.choices.setChoiceByValue(
+                String(result.equipamento.id_cliente)
+            );
 
             verifyClienteID(
                 result.equipamento.id_cliente,
@@ -130,10 +140,14 @@ function openModalRead(id) {
                 equipamento.cliente.nome;
             document.querySelector("#descricao-os").innerHTML =
                 result.descricao;
-            document.querySelector("#id-equipamento-os").innerHTML =
-                equipamento.codigo;
             document.querySelector("#nome-equipamento-os").innerHTML =
                 equipamento.nome;
+            document.querySelector("#numero-serie-equipamento-os").innerHTML =
+                equipamento.numero_serie;
+            document.querySelector("#numero-patrimonio-equipamento-os").innerHTML =
+                equipamento.numero_patrimonio;
+            document.querySelector("#id-equipamento-os").innerHTML =
+                equipamento.id;
             document.querySelector("#status-os").innerHTML =
                 result.status.descricao;
             document.querySelector("#data-inicio-os").innerHTML = new Date(

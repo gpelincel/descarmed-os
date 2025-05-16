@@ -38,6 +38,12 @@ class OrdemServicoService {
             }
         }
 
+        if ($ordemServico['novo-eqp'] == "1") {
+            $equipamentoService = new EquipamentoService();
+            $equipamentoNovo = $equipamentoService->save($ordemServico);
+            $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
+        }
+
         $ordemServico = OrdemServico::create($ordemServico);
 
         return $ordemServico;
