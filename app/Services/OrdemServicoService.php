@@ -7,19 +7,16 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::with(['equipamento.cliente.endereco', 'status', 'classificacao'])->findOrFail($id);
+        return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao'])->findOrFail($id);
     }
 
     public function findByCliente(string $id_cliente) {
-        return OrdemServico::with(['equipamento.cliente', 'status'])
-            ->whereHas('equipamento', function ($query) use ($id_cliente) {
-                $query->where('id_cliente', $id_cliente);
-            });
+        return OrdemServico::with(['cliente', 'status'])->where('id_cliente', $id_cliente);
     }
 
 
     public function getAll() {
-        $ordens = OrdemServico::with(['equipamento', 'status'])->orderBy('data_inicio', 'desc');
+        $ordens = OrdemServico::with(['equipamento', 'status', 'cliente'])->orderBy('data_inicio', 'desc');
         return $ordens;
     }
 
@@ -36,6 +33,14 @@ class OrdemServicoService {
             if ($data) {
                 $ordemServico['data_inicio'] = $data->format('Y-m-d');
             }
+        }
+
+        if ($ordemServico['id_status'] == 0) {
+            $ordemServico['id_status'] = null;
+        }
+
+        if (isset($ordemServico['nota_fiscal'])) {
+            $ordemServico['id_status'] = 2;
         }
 
         if ($ordemServico['novo-eqp'] == "1") {
@@ -71,6 +76,21 @@ class OrdemServicoService {
                 $novoOrdemServico['data_inicio'] = $data->format('Y-m-d');
             }
         }
+
+        if ($ordemServico['id_status'] == 0) {
+            $ordemServico['id_status'] = null;
+        }
+
+        if (isset($ordemServico['nota_fiscal'])) {
+            $ordemServico['id_status'] = 2;
+        }
+
+        if ($ordemServico['novo-eqp'] == "1") {
+            $equipamentoService = new EquipamentoService();
+            $equipamentoNovo = $equipamentoService->save($ordemServico);
+            $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
+        }
+
         $ordemServico->update($novoOrdemServico);
         return $ordemServico;
     }

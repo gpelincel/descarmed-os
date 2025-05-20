@@ -150,9 +150,15 @@ class OrdemServicoController extends Controller {
 
     public function imprimir_personalizado(Request $request) {
         $dados = $request->all();
+
         $ordemServico = $this->show($dados['os_id']);
         $ordemServico->checkboxes = $dados;
-        $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
+
+        if ($ordemServico->equipamento) {
+            $ordemServico->equipamento = $ordemServico->equipamento->toArray();
+        }
+
+        $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         return $pdf->stream();
         // return view('impressao', compact('ordemServico'));

@@ -36,6 +36,7 @@ function verifyClienteID(id_cliente, form, selected = null) {
                 select.innerHTML = "";
 
                 if (result.length > 0) {
+                    select.innerHTML += `<option value="0" selected="">- Selecione um equipamento -</option>`;
                     result.forEach((equipamento) => {
                         select.innerHTML += `<option ${
                             selected && equipamento.id == selected
@@ -48,7 +49,7 @@ function verifyClienteID(id_cliente, form, selected = null) {
 
                     select.disabled = false;
                 } else {
-                    select.innerHTML = `<option value="" selected="">- Nenhum equipamento cadastrado -</option>`;
+                    select.innerHTML = `<option value="0" selected="">- Nenhum equipamento cadastrado -</option>`;
                 }
             });
     } else {
@@ -73,20 +74,18 @@ function openModalOSUpdate(id) {
             let form = formUpdate.elements;
             let os_data = new Date(result.data).toLocaleString().split(",")[0];
 
-            form.id_cliente.choices.setChoiceByValue(
-                String(result.equipamento.id_cliente)
-            );
-
             verifyClienteID(
-                result.equipamento.id_cliente,
+                result.id_cliente,
                 formUpdate,
                 result.id_equipamento
             );
 
             form.titulo.value = result.titulo;
-            form.id_status.value = result.id_status;
+            form.id_status.value = result.id_status ?? 0;
             form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
             form.descricao.value = result.descricao;
+            form.codigo_compra.value = result.codigo_compra;
+            form.nota_fiscal.value = result.nota_fiscal;
             if (result.data_conclusao) {
                 form.data_conclusao.value = result.data_conclusao
                     .replaceAll("-", "/")
@@ -123,7 +122,7 @@ function openModalRead(id) {
         .then((response) => response.json())
         .then((result) => {
             let equipamento = result.equipamento;
-            let cliente = equipamento.cliente;
+            let cliente = result.cliente;
             let endereco = cliente.endereco;
 
             document.querySelector("#cnpj-cliente").innerHTML = cliente.cnpj;
@@ -136,26 +135,52 @@ function openModalRead(id) {
 
             document.querySelector("#os_id").value = id;
             document.querySelector("#titulo-os").innerHTML = result.titulo;
-            document.querySelector("#cliente-os").innerHTML =
-                equipamento.cliente.nome;
-            document.querySelector("#descricao-os").innerHTML =
-                result.descricao;
-            document.querySelector("#nome-equipamento-os").innerHTML =
-                equipamento.nome;
-            document.querySelector("#numero-serie-equipamento-os").innerHTML =
-                equipamento.numero_serie;
-            document.querySelector("#numero-patrimonio-equipamento-os").innerHTML =
-                equipamento.numero_patrimonio;
-            document.querySelector("#id-equipamento-os").innerHTML =
-                equipamento.id;
-            document.querySelector("#status-os").innerHTML =
-                result.status.descricao;
+            document.querySelector("#cliente-os").innerHTML = cliente.nome;
+            document.querySelector("#descricao-os").innerHTML = result.descricao;
+
+            document.querySelector("#codigo-compra-os").innerHTML = result.codigo_compra ?? "N/A";
+            document.querySelector("#nota-fiscal-os").innerHTML = result.nota_fiscal ?? "N/A";
+
+            if (equipamento) {
+                document.querySelector("#equipamento-container").hidden = false;
+                document.querySelector("#nome-equipamento-os").innerHTML =
+                    equipamento.nome;
+                document.querySelector(
+                    "#numero-serie-equipamento-os"
+                ).innerHTML = equipamento.numero_serie;
+                document.querySelector(
+                    "#numero-patrimonio-equipamento-os"
+                ).innerHTML = equipamento.numero_patrimonio;
+                document.querySelector("#id-equipamento-os").innerHTML =
+                    equipamento.id;
+            } else {
+                document.querySelector("#equipamento-container").hidden = true;
+            }
+
+            if (result.status) {
+                document.querySelector("#status-container").hidden = false;
+                document.querySelector("#status-os").innerHTML =
+                    result.status.descricao;
+            } else {
+                document.querySelector("#status-container").hidden = true;
+            }
+
             document.querySelector("#data-inicio-os").innerHTML = new Date(
                 result.data_inicio
             ).toLocaleDateString("pt-BR");
-            document.querySelector("#data-conclusao-os").innerHTML = new Date(
-                result.data_conclusao
-            ).toLocaleDateString("pt-BR");
+
+            if (result.data_conclusao) {
+                document.querySelector(
+                    "#data-conclusao-container"
+                ).hidden = false;
+                document.querySelector("#data-conclusao-os").innerHTML =
+                    new Date(result.data_conclusao).toLocaleDateString("pt-BR");
+            } else {
+                document.querySelector(
+                    "#data-conclusao-container"
+                ).hidden = true;
+            }
+
             document.querySelector("#classificacao-os").innerHTML =
                 result.classificacao.descricao;
 

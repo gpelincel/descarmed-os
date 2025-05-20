@@ -79,43 +79,53 @@
                         ab dolore fugit molestias corrupti sed!
                     </dd>
 
-                    <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                        <input checked type="checkbox" value="true" name="nome_equipamento" id="nome_equipamento"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Equipamento
-                    </dt>
-                    <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    </dd>
-
-                    <div class="flex gap-8">
-                        <div>
-                            <h4
-                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" readonly name="numero_serie"
-                                    id="numero_serie"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número de Série
-                            </h4>
-                            <p id="numero-serie-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            </p>
-                        </div>
-                        <div>
-                            <h4
-                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" readonly name="numero_patrimonio"
-                                    id="numero_patrimonio"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número de Patrimônio
-                            </h4>
-                            <p id="numero-patrimonio-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            </p>
-                        </div>
-                        <div>
-                            <h4
-                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                <input checked type="checkbox" value="true" readonly name="id_equipamento"
-                                    id="id_equipamento"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Cód. Descarmed
-                            </h4>
-                            <p id="id-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            </p>
+                    <div id="equipamento-container" hidden>
+                        <dt class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" name="nome_equipamento" id="nome_equipamento"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Equipamento
+                        </dt>
+                        <dd id="nome-equipamento-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                        </dd>
+                        <div class="flex gap-8">
+    
+                            <div>
+                                <h4
+                                    class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                    <input checked type="checkbox" value="true" readonly name="numero_serie"
+                                        id="numero_serie"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número
+                                    de Série
+                                </h4>
+                                <p id="numero-serie-equipamento-os"
+                                    class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">N/A
+                                </p>
+                            </div>
+                            <div>
+                                <h4
+                                    class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                    <input checked type="checkbox" value="true" readonly name="numero_patrimonio"
+                                        id="numero_patrimonio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Número
+                                    de Patrimônio
+                                </h4>
+                                <p id="numero-patrimonio-equipamento-os"
+                                    class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                    N/A
+                                </p>
+                            </div>
+                            <div>
+                                <h4
+                                    class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                    <input checked type="checkbox" value="true" readonly name="id_equipamento"
+                                        id="id_equipamento"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Cód.
+                                    Descarmed
+                                </h4>
+                                <p id="id-equipamento-os"
+                                    class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                    N/A
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -131,7 +141,7 @@
                             <p id="data-inicio-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
-                        <div>
+                        <div id="data-conclusao-container" hidden>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
                                 <input checked type="checkbox" value="true" readonly name="data_conclusao"
@@ -143,13 +153,36 @@
                                 class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
-                        <div>
+                        <div id="status-container" hidden>
                             <h4
                                 class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
                                 <input checked type="checkbox" value="true" name="status" id="status"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Status
                             </h4>
                             <p id="status-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-8">
+                        <div>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" readonly name="nota_fiscal"
+                                    id="nota_fiscal"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Nota Fiscal
+                            </h4>
+                            <p id="nota-fiscal-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+                        <div>
+                            <h4
+                                class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                <input checked type="checkbox" value="true" readonly name="codigo_compra"
+                                    id="codigo_compra"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Código de Compra
+                            </h4>
+                            <p id="codigo-compra-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                     </div>

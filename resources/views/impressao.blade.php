@@ -112,42 +112,42 @@
         <hr>
         <table class="table">
             <tr style="column-span: 2;">
-                <td><b>Cliente:</b> <span class="uppercase">{{ $equipamento['cliente']['nome'] }}</span></td>
-                <td><b>Razão social:</b> <span class="uppercase">{{ $equipamento['cliente']['razao_social'] }}</span>
+                <td><b>Cliente:</b> <span class="uppercase">{{ $cliente['nome'] }}</span></td>
+                <td><b>Razão social:</b> <span class="uppercase">{{ $cliente['razao_social'] }}</span>
                 </td>
             </tr>
             @if (isset($checkboxes['cnpj_cliente']))
                 <tr>
-                    <td><b>CNPJ:</b> <span class="uppercase">{{ $equipamento['cliente']['cnpj'] }}</span></td>
+                    <td><b>CNPJ:</b> <span class="uppercase">{{ $cliente['cnpj'] }}</span></td>
                 </tr>
             @endif
             @if (isset($checkboxes['telefone_cliente']) || isset($checkboxes['email_cliente']))
                 <tr>
                     @if (isset($checkboxes['telefone_cliente']))
-                        <td><b>Telefone:</b> <span class="uppercase">{{ $equipamento['cliente']['telefone'] }}</span>
+                        <td><b>Telefone:</b> <span class="uppercase">{{ $cliente['telefone'] }}</span>
                         </td>
                     @endif
                     @if (isset($checkboxes['email_cliente']))
-                        <td><b>Email:</b> <span>{{ $equipamento['cliente']['email'] }}</span></td>
+                        <td><b>Email:</b> <span>{{ $cliente['email'] }}</span></td>
                     @endif
                 </tr>
             @endif
             @if (isset($checkboxes['endereco_cliente']))
                 <tr>
                     <td><b>Logradouro:</b> <span
-                            class="uppercase">{{ $equipamento['cliente']['endereco']['logradouro'] }}</span></td>
+                            class="uppercase">{{ $cliente['endereco']['logradouro'] }}</span></td>
                     <td><b>Número:</b> <span
-                            class="uppercase">{{ $equipamento['cliente']['endereco']['numero'] }}</span></td>
+                            class="uppercase">{{ $cliente['endereco']['numero'] }}</span></td>
                     <td><b>Complemento:</b> <span
-                            class="uppercase">{{ $equipamento['cliente']['endereco']['complemento'] }}</span></td>
+                            class="uppercase">{{ $cliente['endereco']['complemento'] }}</span></td>
                 </tr>
                 <tr>
                     <td><b>Bairro:</b> <span
-                            class="uppercase">{{ $equipamento['cliente']['endereco']['bairro'] }}</span></td>
+                            class="uppercase">{{ $cliente['endereco']['bairro'] }}</span></td>
                     <td><b>Cidade:</b> <span
-                            class="uppercase">{{ $equipamento['cliente']['endereco']['cidade'] }}-{{ $equipamento['cliente']['endereco']['estado'] }}</span>
+                            class="uppercase">{{ $cliente['endereco']['cidade'] }}-{{ $cliente['endereco']['estado'] }}</span>
                     </td>
-                    <td><b>CEP:</b> <span class="uppercase">{{ $equipamento['cliente']['endereco']['cep'] }}</span>
+                    <td><b>CEP:</b> <span class="uppercase">{{ $cliente['endereco']['cep'] }}</span>
                     </td>
                 </tr>
             @endif
@@ -155,18 +155,18 @@
         <hr>
         <table class="table">
             <tr>
-                @if (isset($checkboxes['nome_equipamento']))
+                @if (isset($checkboxes['nome_equipamento']) && isset($equipamento))
                     <td><b>Equipamento:</b> <span class="uppercase">{{ $equipamento['nome'] }}</span></td>
                 @endif
             </tr>
             <tr>
-                @if (isset($checkboxes['id_equipamento']))
+                @if (isset($checkboxes['id_equipamento']) && isset($equipamento))
                     <td><b>Cód. Descarmed:</b> <span class="uppercase">{{ $equipamento['id'] }}</span></td>
                 @endif
-                @if (isset($checkboxes['numero_serie']))
+                @if (isset($checkboxes['numero_serie']) && isset($equipamento))
                     <td><b>Nº de Série:</b> <span class="uppercase">{{ $equipamento['numero_serie'] }}</span></td>
                 @endif
-                @if (isset($checkboxes['numero_patrimonio']))
+                @if (isset($checkboxes['numero_patrimonio']) && isset($equipamento))
                     <td><b>Nº de Patrimônio:</b> <span class="uppercase">{{ $equipamento['numero_patrimonio'] }}</span>
                     </td>
                 @endif
@@ -176,9 +176,17 @@
                     <td><b>Data de Início:</b> <span
                             class="uppercase">{{ date_format(date_create($data_inicio), 'd/m/Y') }}</span></td>
                 @endif
-                @if (isset($checkboxes['data_conclusao']))
+                @if (isset($checkboxes['data_conclusao']) && isset($data_conclusao))
                     <td><b>Data de Conclusão:</b> <span
                             class="uppercase">{{ date_format(date_create($data_conclusao), 'd/m/Y') }}</span></td>
+                @endif
+            </tr>
+            <tr>
+                @if (isset($checkboxes['codigo_compra']) && isset($codigo_compra))
+                    <td><b>Código de Compra:</b> <span class="uppercase">{{ $codigo_compra }}</span></td>
+                @endif
+                @if (isset($checkboxes['nota_fiscal']) && isset($nota_fiscal))
+                    <td><b>Nota Fiscal:</b> <span class="uppercase">{{ $nota_fiscal }}</span></td>
                 @endif
             </tr>
             <tr>
@@ -194,7 +202,7 @@
             @endif
 
         </table>
-        @if ($preco && isset($checkboxes['valor']))
+        @if (isset($preco) && isset($checkboxes['valor']))
             <hr>
             <table>
                 <tr>

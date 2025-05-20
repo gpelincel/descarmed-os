@@ -44,10 +44,10 @@
                                 {{ $ordem->id }}</th>
                             <td class="px-4 py-3">{{ $ordem->titulo }}</td>
                             <td class="px-4 py-3">
-                                {{ $ordem->status->descricao }}
+                                {{ $ordem->status->descricao ?? 'N/A' }}
                             </td>
-                            <td class="px-4 py-3">{{ date_format(date_create($ordem->data), 'd/m/Y') }}</td>
-                            <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ date_format(date_create($ordem->data_inicio), 'd/m/Y') }}</td>
+                            <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome ?? $ordem->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ $ordem->classificacao->descricao }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button data-dropdown-toggle="{{ $ordem->id }}-dropdown"

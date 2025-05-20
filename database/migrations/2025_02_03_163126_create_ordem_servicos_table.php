@@ -13,12 +13,15 @@ return new class extends Migration {
             $table->id();
             $table->string('titulo');
             $table->string('descricao');
-            $table->foreignId('id_status');
-            $table->foreignId('id_classificacao');
+            $table->string('codigo_compra')->nullable();
+            $table->string('nota_fiscal')->nullable();
             $table->date('data_inicio');
             $table->date('data_conclusao')->nullable();
             $table->decimal('preco', 8, 2)->nullable();
-            $table->foreignId('id_equipamento');
+            $table->foreignId('id_classificacao');
+            $table->foreignId('id_cliente');
+            $table->foreignId('id_status')->nullable();
+            $table->foreignId('id_equipamento')->nullable();
             $table->timestamps();
         });
     }

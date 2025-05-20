@@ -10,11 +10,14 @@ class OrdemServico extends Model {
     protected $fillable = [
         "titulo",
         "descricao",
-        "id_status",
-        "id_classificacao",
+        "codigo_compra",
+        "nota_fiscal",
         "data_inicio",
         "data_conclusao",
         "preco",
+        "id_status",
+        "id_cliente",
+        "id_classificacao",
         "id_equipamento"
     ];
 

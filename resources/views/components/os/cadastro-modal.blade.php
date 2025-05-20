@@ -40,6 +40,20 @@
                             @endforeach
                         </select>
                     </div>
+                    <div>
+                        <label for="codigo_compra"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código de Compra (Opcional)</label>
+                        <input type="text" name="codigo_compra" id="codigo_compra"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="CP-0000">
+                    </div>
+                    <div>
+                        <label for="nota_fiscal"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nota Fiscal (Opcional)</label>
+                        <input type="text" name="nota_fiscal" id="nota_fiscal"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="NF-0000">
+                    </div>
                     <div class="relative">
                         <label for="data_inicio"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
@@ -59,7 +73,7 @@
                     <div class="relative">
                         <label for="data_conclusao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            de Conclusão</label>
+                            de Conclusão (Opcional)</label>
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -74,10 +88,10 @@
                     </div>
                     <div>
                         <label for="id_status"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status (Opcional)</label>
                         <select id="id_status" name="id_status"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                            <option selected="">- Selecione -</option>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected="" value="0">- Selecione -</option>
                             @foreach ($status as $stat)
                                 <option value="{{ $stat->id }}">{{ $stat->descricao }}</option>
                             @endforeach
@@ -128,14 +142,14 @@
                     <div>
                         <label for="id_equipamento"
                             class="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            <span>Equipamento</span>
+                            <span>Equipamento (Opcional)</span>
                             <button id="btn-add-equipamento"
                                 class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
                                 <i class="fi fi-rr-plus-small"></i>
                             </button>
                         </label>
                         <select id="id_equipamento" name="id_equipamento"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             disabled>
                             <option value="" selected="">- Selecione um cliente -</option>
                         </select>
@@ -143,16 +157,16 @@
                     <div>
                         <label for="preco"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
-                            Total (R$)</label>
+                            Total (Opcional)</label>
                         <input type="text" name="preco" id="preco"
                             class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="R$ 0,00" required>
+                            placeholder="R$ 0,00">
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                         <textarea id="descricao" rows="4" name="descricao"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Descrição da ordem de serviço..."></textarea>
+                            placeholder="Descrição da ordem de serviço..." required></textarea>
                     </div>
                 </div>
                 <div class="flex w-full justify-end">
