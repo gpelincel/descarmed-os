@@ -18,29 +18,19 @@ class OrdemServico extends Model {
         "id_equipamento"
     ];
 
-    public function equipamento(): BelongsTo {
+    public function cliente() {
+        return $this->belongsTo(Cliente::class, 'id_cliente');
+    }
+
+    public function equipamento() {
         return $this->belongsTo(Equipamento::class, 'id_equipamento');
     }
 
-    public function getClassificacao() {
-        switch ($this->classificacao) {
-            case 1:
-                return "Orçamento";
-                break;
-            case 2:
-                return "Ordem de Serviço";
-                break;
-            case 3:
-                return "Relatório de Manutenção";
-                break;
-        }
-    }
-
-    public function status():BelongsTo {
+    public function status(): BelongsTo {
         return $this->belongsTo(StatusOS::class, 'id_status');
     }
 
-    public function classificacao():BelongsTo {
+    public function classificacao(): BelongsTo {
         return $this->belongsTo(ClassificacaoOS::class, 'id_classificacao');
     }
 }

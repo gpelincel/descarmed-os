@@ -209,10 +209,8 @@
         <table class="table text-center" style="margin-top: 200px;">
             <tr>
                 <td>__________________________</td>
-                <td>__________________________</td>
             </tr>
             <tr>
-                <td>CLIENTE</td>
                 <td>TÉCNICO RESPONSÁVEL</td>
             </tr>
         </table>

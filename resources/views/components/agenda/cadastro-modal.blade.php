@@ -33,7 +33,7 @@
                         <label for="id_classificacao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
                         <select id="id_classificacao" name="id_classificacao"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             <option value="" selected="">- Selecione -</option>
                             @foreach ($classificacao as $class)
                                 <option value="{{ $class->id }}">{{ $class->descricao }}</option>
@@ -54,13 +54,13 @@
                             autocomplete="off"
                             datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
-                            placeholder="dd/mm/aaaa">
+                            placeholder="dd/mm/aaaa" required>
                     </div>
                     <div>
                         <label for="tempo_aviso"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avisar antes de</label>
                         <select id="tempo_aviso" name="tempo_aviso"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             <option selected="">- Selecione -</option>
                             <option value="1">1 dia</option>
                             <option value="7">7 dias</option>
@@ -83,7 +83,7 @@
                         <label for="id_cliente"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
                         <select id="id_cliente" name="id_cliente"
-                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             @if ($clientes)
                                 @foreach ($clientes as $cliente)
                                     <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>

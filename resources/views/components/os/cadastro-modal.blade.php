@@ -27,13 +27,13 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serviço</label>
                         <input type="text" name="titulo" id="titulo"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Serviço a ser realizado" required="">
+                            placeholder="Serviço a ser realizado" required>
                     </div>
                     <div>
                         <label for="id_classificacao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
                         <select id="id_classificacao" name="id_classificacao"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             <option value="" selected="">- Selecione -</option>
                             @foreach ($classificacao as $class)
                                 <option value="{{ $class->id }}">{{ $class->descricao }}</option>
@@ -54,7 +54,7 @@
                         <input readonly name="data_inicio" datepicker type="text" autocomplete="off"
                             datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
-                            placeholder="dd/mm/aaaa">
+                            placeholder="dd/mm/aaaa" required>
                     </div>
                     <div class="relative">
                         <label for="data_conclusao"
@@ -76,7 +76,7 @@
                         <label for="id_status"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select id="id_status" name="id_status"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             <option selected="">- Selecione -</option>
                             @foreach ($status as $stat)
                                 <option value="{{ $stat->id }}">{{ $stat->descricao }}</option>
@@ -88,7 +88,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
 
                         <select id="id_cliente" name="id_cliente"
-                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             @if ($clientes)
                                 @foreach ($clientes as $cliente)
                                     <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
@@ -135,7 +135,7 @@
                             </button>
                         </label>
                         <select id="id_equipamento" name="id_equipamento"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required
                             disabled>
                             <option value="" selected="">- Selecione um cliente -</option>
                         </select>
@@ -146,7 +146,7 @@
                             Total (R$)</label>
                         <input type="text" name="preco" id="preco"
                             class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="R$ 0,00">
+                            placeholder="R$ 0,00" required>
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>

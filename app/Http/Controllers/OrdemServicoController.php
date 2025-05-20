@@ -31,18 +31,39 @@ class OrdemServicoController extends Controller {
     public function index() {
 
         $search = request('search');
-        $field = request('field', 'titulo'); // Valor padrão: 'nome'
+        $field = request('field', 'titulo'); // Valor padrão: 'titulo'
         $id_status = request('id_status');
 
-        // Lista de campos permitidos para busca
-        $allowedFields = ['titulo'];
+        // Campos permitidos
+        $allowedFields = ['titulo', 'cliente', 'equipamento'];
+        if (!in_array($field, $allowedFields)) {
+            $field = 'titulo';
+        }
+
+        $search = request('search');
+        $field = request('field', 'titulo');
+        $id_status = request('id_status');
+
+        // Campos permitidos para busca
+        $allowedFields = ['titulo', 'cliente', 'equipamento'];
         if (!in_array($field, $allowedFields)) {
             $field = 'titulo';
         }
 
         $ordens = $this->osService->getAll()
             ->when($search, function ($query) use ($search, $field) {
-                return $query->where($field, 'like', "%$search%");
+                switch ($field) {
+                    case 'cliente':
+                        return $query->whereHas('equipamento.cliente', function ($q) use ($search) {
+                            $q->where('nome', 'like', "%$search%");
+                        });
+                    case 'equipamento':
+                        return $query->whereHas('equipamento', function ($q) use ($search) {
+                            $q->where('nome', 'like', "%$search%");
+                        });
+                    default:
+                        return $query->where($field, 'like', "%$search%");
+                }
             })
             ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
                 return $query->where('id_status', $id_status);

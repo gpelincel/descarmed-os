@@ -10,7 +10,7 @@
             ],
             [
                 'name' => 'Equipamento',
-                'value' => 'equipamentos.nome',
+                'value' => 'equipamento',
             ],
             [
                 'name' => 'Cliente',
