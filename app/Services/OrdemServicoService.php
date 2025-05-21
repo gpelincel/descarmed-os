@@ -77,18 +77,18 @@ class OrdemServicoService {
             }
         }
 
-        if ($ordemServico['id_status'] == 0) {
-            $ordemServico['id_status'] = null;
+        if ($novoOrdemServico['id_status'] == 0) {
+            $novoOrdemServico['id_status'] = null;
         }
 
-        if (isset($ordemServico['nota_fiscal'])) {
-            $ordemServico['id_status'] = 2;
+        if (isset($novoOrdemServico['nota_fiscal'])) {
+            $novoOrdemServico['id_status'] = 2;
         }
 
         if ($ordemServico['novo-eqp'] == "1") {
             $equipamentoService = new EquipamentoService();
             $equipamentoNovo = $equipamentoService->save($ordemServico);
-            $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
+            $novoOrdemServico['id_equipamento'] = $equipamentoNovo['id'];
         }
 
         $ordemServico->update($novoOrdemServico);
