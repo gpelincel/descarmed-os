@@ -9,6 +9,7 @@ use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DateTime;
 use Illuminate\Http\Request;
 
 class OrdemServicoController extends Controller {
@@ -33,18 +34,9 @@ class OrdemServicoController extends Controller {
         $search = request('search');
         $field = request('field', 'titulo'); // Valor padrão: 'titulo'
         $id_status = request('id_status');
+        $data_minima = request('data_inicio');
 
         // Campos permitidos
-        $allowedFields = ['titulo', 'cliente', 'equipamento'];
-        if (!in_array($field, $allowedFields)) {
-            $field = 'titulo';
-        }
-
-        $search = request('search');
-        $field = request('field', 'titulo');
-        $id_status = request('id_status');
-
-        // Campos permitidos para busca
         $allowedFields = ['titulo', 'cliente', 'equipamento'];
         if (!in_array($field, $allowedFields)) {
             $field = 'titulo';
@@ -67,6 +59,11 @@ class OrdemServicoController extends Controller {
             })
             ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
                 return $query->where('id_status', $id_status);
+            })
+            ->when($data_minima && $data_minima != "", function ($query) use ($data_minima) {
+                $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
+                $data_minima = $data_minima->format('Y-m-d');
+                return $query->where('data_inicio', '>=', $data_minima);
             })
             ->paginate(10);
 

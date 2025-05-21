@@ -28,6 +28,13 @@
                     @endforeach
                 </select>
             </div>
+            <div>
+                <label for="field" class="text-xs dark:text-white">Data mínima:</label>
+                <input readonly name="data_inicio" datepicker type="text" autocomplete="off"
+                    datepicker-format="dd/mm/yyyy" value="{{request('data_inicio')}}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
+                    placeholder="dd/mm/aaaa" required>
+            </div>
         </x-table-top>
 
         <div class="overflow-x-auto">

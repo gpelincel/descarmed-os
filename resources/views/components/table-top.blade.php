@@ -8,7 +8,7 @@
                 <div class="relative w-1/2">
                     <input type="text" id="search" name="search"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 pl-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Buscar" value="{{ request('search') }}">
+                        placeholder="Buscar" value="{{ request('search') }}" autocomplete="off">
                 </div>
                 <div>
                     <label for="field" class="text-xs dark:text-white">Buscar por:</label>
