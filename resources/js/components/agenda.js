@@ -56,27 +56,26 @@ function openModalAgendaUpdate(id) {
         .then(result => {
             let form = formUpdate.elements;
             let ordem_servico = result.ordem_servico;
-            
 
-            let dataInicio = new Date(ordem_servico.data_inicio);
+            let dataInicio = new Date(result.data);
             let dataAviso = new Date(result.data_aviso);
 
             let diffMs = Math.abs(dataAviso - dataInicio); // Diferença em milissegundos
             let days = Math.floor(diffMs / (1000 * 60 * 60 * 24)); // Converter para dias
 
             form.titulo.value = ordem_servico.titulo;
-            form.data_inicio.value = dataInicio.toLocaleString().split(',')[0];
+            form.data.value = dataInicio.toLocaleString().split(',')[0];
             form.tempo_aviso.value = days;
-            form.id_status.value = ordem_servico.id_status;
-            form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
+            form.id_cliente.value = result.id_cliente;
+            form.id_cliente.choices.setChoiceByValue(String(result.ordem_servico.id_cliente));
+
             verifyClienteID(
-                ordem_servico.id_cliente,
+                result.ordem_servico.id_cliente,
                 form,
                 ordem_servico.id_equipamento
             );
 
             form.descricao.value = ordem_servico.descricao;
-            form.id_classificacao.value = ordem_servico.id_classificacao;
 
             form.id_cliente.addEventListener("change", (event) => {
                 let id_cliente = event.target.value;

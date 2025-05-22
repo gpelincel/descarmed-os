@@ -29,29 +29,17 @@
             <!-- Modal body -->
             <form id="formUpdateAgendamento" action="/agenda/update" method="POST">
                 @csrf
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                <div class="grid gap-4 mb-4 grid-cols-2">
                     <div>
                         <label for="titulo"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serviço</label>
                         <input type="text" name="titulo" id="titulo"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Serviço a ser realizado" required="">
-                    </div>
-                    <div>
-                        <label for="id_classificacao"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
-                        <select id="id_classificacao" name="id_classificacao"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected="">- Selecione -</option>
-                            @foreach ($classificacao as $class)
-                                <option value="{{ $class->id }}">{{ $class->descricao }}</option>
-                            @endforeach
-                        </select>
+                            placeholder="Serviço a ser realizado" required>
                     </div>
                     <div class="relative">
                         <label for="data_inicio"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data
-                            Início</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data de Agendamento</label>
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 top-6 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -59,16 +47,16 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input readonly name="data_inicio" datepicker type="text" autocomplete="off"
+                        <input readonly name="data" datepicker type="text" autocomplete="off"
                             datepicker-format="dd/mm/yyyy"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
-                            placeholder="dd/mm/aaaa">
+                            placeholder="dd/mm/aaaa" required>
                     </div>
                     <div>
                         <label for="tempo_aviso"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avisar antes de</label>
                         <select id="tempo_aviso" name="tempo_aviso"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             <option selected="">- Selecione -</option>
                             <option value="1">1 dia</option>
                             <option value="7">7 dias</option>
@@ -77,21 +65,11 @@
                         </select>
                     </div>
                     <div>
-                        <label for="id_status"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                        <select id="id_status" name="id_status"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">- Selecione -</option>
-                            @foreach ($status as $stat)
-                                <option value="{{ $stat->id }}">{{ $stat->descricao }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
                         <label for="id_cliente"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
+
                         <select id="id_cliente" name="id_cliente"
-                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                             @if ($clientes)
                                 @foreach ($clientes as $cliente)
                                     <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
@@ -102,12 +80,44 @@
                             @endif
                         </select>
                     </div>
+                    <div id="equipamento-form-os" class="grid gap-4 mb-4 grid-cols-2 border-gray-500 border-t border-b col-span-2 py-5 hidden">
+                        <input type="hidden" id="novo-eqp" name="novo-eqp" value="0">
+                        <div>
+                            <label for="numero_serie"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de
+                                Série</label>
+                            <input type="text" name="numero_serie" id="numero_serie"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="ABC-000000000">
+                        </div>
+                        <div>
+                            <label for="numero_patrimonio"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de
+                                Patrimônio</label>
+                            <input type="text" name="numero_patrimonio" id="numero_patrimonio"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="ABC-000000000">
+                        </div>
+                        <div>
+                            <label for="nome"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
+                            <input type="text" name="nome" id="nome"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Nome do equipamento">
+                        </div>
+                    </div>
                     <div class="col-span-2">
                         <label for="id_equipamento"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Equipamento</label>
+                            class="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <span>Equipamento</span>
+                            <button id="btn-add-equipamento"
+                                class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
+                                <i class="fi fi-rr-plus-small"></i>
+                            </button>
+                        </label>
                         <select id="id_equipamento" name="id_equipamento"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            disabled>
+                            disabled required>
                             <option value="" selected="">- Selecione um cliente -</option>
                         </select>
                     </div>
@@ -115,7 +125,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                         <textarea id="descricao" rows="4" name="descricao"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Descrição da ordem de serviço..."></textarea>
+                            placeholder="Descrição da ordem de serviço..." required></textarea>
                     </div>
                 </div>
                 <div class="flex w-full justify-end">
@@ -127,7 +137,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Cadastrar
+                        Atualizar
                     </button>
                 </div>
             </form>
