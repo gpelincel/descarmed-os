@@ -24,6 +24,35 @@ document
         equipamento_form.classList.toggle("hidden");
     });
 
+document.querySelector("#btn-add-item").addEventListener("click", (event) => {
+    event.preventDefault();
+
+    let counter = Number(event.currentTarget.dataset.counter);
+
+    let html = `
+    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3">
+    <input type="text" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        placeholder="0">
+    <input type="text" name="nome_item_${counter + 1}" id="nome_item_${
+        counter + 1
+    }"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        placeholder="Nome do item">
+    <input type="text" name="preco_un_${counter + 1}" id="preco_un_${
+        counter + 1
+    }"
+        class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        placeholder="R$ 0,00">
+</div>
+    `;
+
+    document.querySelector("#items-list").insertAdjacentHTML("beforeend", html);
+
+    // Atualiza o contador
+    event.currentTarget.dataset.counter = String(counter + 1);
+});
+
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
 
@@ -136,10 +165,13 @@ function openModalRead(id) {
             document.querySelector("#os_id").value = id;
             document.querySelector("#titulo-os").innerHTML = result.titulo;
             document.querySelector("#cliente-os").innerHTML = cliente.nome;
-            document.querySelector("#descricao-os").innerHTML = result.descricao;
+            document.querySelector("#descricao-os").innerHTML =
+                result.descricao;
 
-            document.querySelector("#codigo-compra-os").innerHTML = result.codigo_compra ?? "N/A";
-            document.querySelector("#nota-fiscal-os").innerHTML = result.nota_fiscal ?? "N/A";
+            document.querySelector("#codigo-compra-os").innerHTML =
+                result.codigo_compra ?? "N/A";
+            document.querySelector("#nota-fiscal-os").innerHTML =
+                result.nota_fiscal ?? "N/A";
 
             if (equipamento) {
                 document.querySelector("#equipamento-container").hidden = false;
