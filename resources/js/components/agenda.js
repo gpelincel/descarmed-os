@@ -2,30 +2,29 @@ function openAgendaModalRead(id) {
     let modal_content = document.querySelector("#preview-content-agenda");
     let spinner = document.querySelector("#preview-spinner-agenda");
 
-    document.querySelector('#btn-imprimir').href = `/imprimir/${id}`;
-
     spinner.classList.add('flex');
     spinner.classList.remove('hidden');
     modal_content.classList.add('hidden');
 
-    fetch('/ordem-servico/' + id)
+    fetch('/agenda/' + id)
         .then(response => response.json())
         .then(result => {
-            document.querySelector("#titulo-agenda").innerHTML = result.titulo;
-            document.querySelector("#cliente-agenda").innerHTML = result.equipamento.cliente.nome;
-            document.querySelector("#descricao-agenda").innerHTML = result.descricao;
-            document.querySelector("#id-equipamento-agenda").innerHTML = result.equipamento.codigo;
-            document.querySelector("#nome-equipamento-agenda").innerHTML = result.equipamento.nome;
-            document.querySelector("#status-agenda").innerHTML = result.status.descricao;
-            document.querySelector("#data-inicio-agenda").innerHTML = new Date(result.data_inicio).toLocaleDateString('pt-BR');
-            document.querySelector("#data-conclusao-agenda").innerHTML = new Date(result.data_conclusao).toLocaleDateString('pt-BR');
+            let ordem_servico = result.ordem_servico;
+            let equipamento = ordem_servico.equipamento;
+            let cliente = ordem_servico.cliente;
 
-            if (result.preco) {
-                document.querySelector("#preco-container").style.display = "block";
-                document.querySelector("#preco-agenda").innerHTML = "R$ " + result.preco;
-            } else {
-                document.querySelector("#preco-container").style.display = "none";
+            document.querySelector("#titulo-agenda").innerHTML = ordem_servico.titulo;
+            document.querySelector("#cliente-agenda").innerHTML = cliente.nome;
+            document.querySelector("#descricao-agenda").innerHTML = ordem_servico.descricao;
+            document.querySelector("#id-equipamento-agenda").innerHTML = equipamento.id;
+            document.querySelector("#numero-serie-equipamento-agenda").innerHTML = equipamento.numero_serie;
+            document.querySelector("#numero-patrimonio-equipamento-agenda").innerHTML = equipamento.numero_patrimonio;
+            document.querySelector("#nome-equipamento-agenda").innerHTML = equipamento.nome;
+            if (ordem_servico.status) {
+                document.querySelector("#status-agenda").innerHTML = ordem_servico.status.descricao;
             }
+            document.querySelector("#data-agenda").innerHTML = new Date(result.data).toLocaleDateString('pt-BR');
+            document.querySelector("#data-aviso-agenda").innerHTML = new Date(result.data_aviso).toLocaleDateString('pt-BR');
 
             document.querySelector("#classificacao-agenda").innerHTML = "Manutenção preventiva";
 
@@ -56,26 +55,28 @@ function openModalAgendaUpdate(id) {
         .then(response => response.json())
         .then(result => {
             let form = formUpdate.elements;
+            let ordem_servico = result.ordem_servico;
+            
 
-            let dataInicio = new Date(result.ordem_servico.data_inicio);
+            let dataInicio = new Date(ordem_servico.data_inicio);
             let dataAviso = new Date(result.data_aviso);
 
             let diffMs = Math.abs(dataAviso - dataInicio); // Diferença em milissegundos
             let days = Math.floor(diffMs / (1000 * 60 * 60 * 24)); // Converter para dias
 
-            form.titulo.value = result.ordem_servico.titulo;
+            form.titulo.value = ordem_servico.titulo;
             form.data_inicio.value = dataInicio.toLocaleString().split(',')[0];
             form.tempo_aviso.value = days;
-            form.id_status.value = result.ordem_servico.id_status;
+            form.id_status.value = ordem_servico.id_status;
             form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
             verifyClienteID(
-                result.ordem_servico.equipamento.id_cliente,
+                ordem_servico.id_cliente,
                 form,
-                result.ordem_servico.id_equipamento
+                ordem_servico.id_equipamento
             );
 
-            form.descricao.value = result.ordem_servico.descricao;
-            form.id_classificacao.value = result.ordem_servico.id_classificacao;
+            form.descricao.value = ordem_servico.descricao;
+            form.id_classificacao.value = ordem_servico.id_classificacao;
 
             form.id_cliente.addEventListener("change", (event) => {
                 let id_cliente = event.target.value;

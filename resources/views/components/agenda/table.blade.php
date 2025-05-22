@@ -45,7 +45,7 @@
                                             <button type="button"
                                                 data-modal-target="modal-preview-agenda"
                                                 data-modal-toggle="modal-preview-agenda"
-                                                data-id="{{ $agenda->id_os }}"
+                                                data-id="{{ $agenda->id }}"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-read-agenda">
                                                 <i class="fi fi-rr-eye mr-2"></i>
                                                 Ver Detalhes
@@ -78,5 +78,3 @@
     </div>
 </div>
 <x-agenda.preview-modal></x-agenda.preview-modal>
-
-

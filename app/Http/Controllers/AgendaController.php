@@ -74,11 +74,7 @@ class AgendaController extends Controller {
     public function show(string $id) {
         $agenda = $this->agendaService->findByID($id);
 
-        if (request()->wantsJson()) {
-            return $agenda;
-        }
-
-        return view('agenda-info', compact('agenda'));
+        return $agenda;
     }
 
     /**

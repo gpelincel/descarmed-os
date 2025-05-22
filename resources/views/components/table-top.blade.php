@@ -1,5 +1,5 @@
 {{-- Topbar --}}
-<div class="flex flex-col md:flex-row items-end justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+<div class="flex flex-col md:flex-row items-end justify-between space-x-2 p-4">
     @if (isset($options))
         {{-- Search Input --}}
         <div class="w-full md:w-3/4">

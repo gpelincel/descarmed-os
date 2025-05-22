@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-screen-xl px-8">
+<div class="mx-auto max-w-screen-xl px-4">
     <!-- Start coding here -->
     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
@@ -29,10 +29,22 @@
                 </select>
             </div>
             <div>
+                <label for="field" class="text-xs dark:text-white">Classificação OS:</label>
+                <select id="id_classificacao" name="id_classificacao" value="{{ request('id_classificacao') }}"
+                    class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-24">
+                    <option value="0">Todos</option>
+                    @foreach ($classificacao as $class)
+                        <option value="{{ $class->id }}"
+                            {{ request('id_classificacao') == $class->id ? 'selected' : '' }}>
+                            {{ $class->descricao }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
                 <label for="field" class="text-xs dark:text-white">Data mínima:</label>
                 <input readonly name="data_inicio" datepicker type="text" autocomplete="off"
-                    datepicker-format="dd/mm/yyyy" value="{{request('data_inicio')}}"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker"
+                    datepicker-format="dd/mm/yyyy" value="{{ request('data_inicio') }}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker w-24"
                     placeholder="dd/mm/aaaa" required>
             </div>
         </x-table-top>
@@ -54,7 +66,8 @@
                                 {{ $ordem->status->descricao ?? 'N/A' }}
                             </td>
                             <td class="px-4 py-3">{{ date_format(date_create($ordem->data_inicio), 'd/m/Y') }}</td>
-                            <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome ?? $ordem->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ $ordem->equipamento->cliente->nome ?? $ordem->cliente->nome }}
+                            </td>
                             <td class="px-4 py-3">{{ $ordem->classificacao->descricao }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button data-dropdown-toggle="{{ $ordem->id }}-dropdown"

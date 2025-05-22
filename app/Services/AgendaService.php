@@ -8,7 +8,7 @@ use DateTime;
 
 class AgendaService {
     public function findByID(string $id) {
-        return Agenda::with(['ordem_servico.equipamento.cliente'])->findOrFail($id);
+        return Agenda::with(['ordem_servico.cliente', 'ordem_servico.equipamento'])->findOrFail($id);
     }
 
     public function getAll() {
@@ -16,9 +16,11 @@ class AgendaService {
     }
 
     public function save(array $agenda) {
-        $agenda['data'] = DateTime::createFromFormat('d/m/Y', $agenda['data_inicio'])->format('Y-m-d');
+        $agenda['data'] = DateTime::createFromFormat('d/m/Y', $agenda['data'])->format('Y-m-d');
         $agenda['data_inicio'] = $agenda['data'];
         $agenda['data_aviso'] = date('Y-m-d', strtotime($agenda['data'] . ' -' . (int)$agenda['tempo_aviso'] . ' days'));
+
+        $agenda['id_classificacao'] = 3;
 
         $os = OrdemServico::create($agenda);
         $agenda['id_os'] = $os['id'];

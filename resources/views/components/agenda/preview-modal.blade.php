@@ -35,44 +35,48 @@
                         ab dolore fugit molestias corrupti sed!
                     </dd>
 
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Número de Série</dt>
-                    <dd id="id-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                    <div class="flex gap-8">
+                        <div>
+                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Número de Série
+                            </h4>
+                            <p id="numero-serie-equipamento-agenda"
+                                class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                        </div>
+                        <div>
+                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Número de
+                                Patrimônio</h4>
+                            <p id="numero-patrimonio-equipamento-agenda"
+                                class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></p>
+                        </div>
+                        <div>
+                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Código Descarmed
+                            </h4>
+                            <p id="id-equipamento-agenda"
+                                class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            </p>
+                        </div>
+
+                    </div>
 
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Equipamento</dt>
-                    <dd id="nome-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                    <dd id="nome-equipamento-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                    </dd>
 
                     <div class="flex gap-8">
                         <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Início</h4>
-                            <p id="data-inicio-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data do
+                                Agendamento</h4>
+                            <p id="data-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
                         <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data Conclusão</h4>
-                            <p id="data-conclusao-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Data de Aviso</h4>
+                            <p id="data-aviso-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                             </p>
                         </div>
-                        <div>
-                            <h4 class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Status</h4>
-                            <p id="status-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                            </p>
-                        </div>
-                    </div>
-
-                    <div id="preco-container">
-                        <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Valor Total</dt>
-                        <dd id="preco-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
-                        </dd>
                     </div>
                 </dl>
                 <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-3 sm:space-x-4">
-                        <a id="btn-imprimir" target="_blank"
-                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <i class="fi fi-rs-print mr-2"></i>
-                            Imprimir
-                        </a>
-                    </div>
                     <button type="button" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                         class="delete-button inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewbox="0 0 20 20"
