@@ -7,7 +7,7 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao'])->findOrFail($id);
+        return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao', 'items'])->findOrFail($id);
     }
 
     public function findByCliente(string $id_cliente) {
@@ -21,25 +21,28 @@ class OrdemServicoService {
     }
 
     public function save(array $ordemServico) {
-        if (!empty($ordemServico['data_conclusao'])) {
-            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
+
+        extract($ordemServico);
+
+        if (!empty($data_conclusao)) {
+            $data = DateTime::createFromFormat('d/m/Y', $data_conclusao);
             if ($data) {
                 $ordemServico['data_conclusao'] = $data->format('Y-m-d');
             }
         }
         
-        if (!empty($ordemServico['data_inicio'])) {
-            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
+        if (!empty($data_inicio)) {
+            $data = DateTime::createFromFormat('d/m/Y', $data_inicio);
             if ($data) {
                 $ordemServico['data_inicio'] = $data->format('Y-m-d');
             }
         }
 
-        if ($ordemServico['id_status'] == 0) {
-            $ordemServico['id_status'] = null;
+        if ($id_status == 0) {
+            $id_status = null;
         }
 
-        if (isset($ordemServico['nota_fiscal'])) {
+        if (isset($nota_fiscal)) {
             $ordemServico['id_status'] = 2;
         }
 
@@ -49,9 +52,19 @@ class OrdemServicoService {
             $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
         }
 
-        $ordemServico = OrdemServico::create($ordemServico);
+        $ordemReturn = OrdemServico::create($ordemServico);
 
-        return $ordemServico;
+        for ($i=1; $i <= $item_counter; $i++) { 
+            $item['quantidade'] = $ordemServico['qtd_'.$i];
+            $item['nome'] = $ordemServico['nome_item_'.$i];
+            $item['valor_unitario'] = $ordemServico['preco_un_'.$i];
+            $item['id_os'] = $ordemReturn->id;
+
+            $itemService = new ItemService();
+            $itemService->save($item);
+        }
+
+        return $ordemReturn;
     }
 
     public function delete(string $id) {

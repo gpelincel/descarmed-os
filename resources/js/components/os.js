@@ -1,9 +1,34 @@
+import IMask from "imask";
+
 function toBRL(valor) {
     return valor.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
     });
 }
+
+function addValorMask() {
+    document.querySelectorAll(".valor-input").forEach((e) => {
+        const mask = IMask(e, {
+            mask: "R$ num",
+            blocks: {
+                num: {
+                    mask: Number,
+                    thousandsSeparator: ".",
+                    radix: ",",
+                    scale: 2, // Define duas casas decimais
+                    signed: false,
+                    normalizeZeros: true,
+                    padFractionalZeros: true,
+                },
+            },
+        });
+
+        e.mask = mask;
+    });
+}
+
+addValorMask();
 
 document.querySelector("#id_cliente").addEventListener("change", (event) => {
     let id_cliente = event.target.value;
@@ -30,9 +55,9 @@ document.querySelector("#btn-add-item").addEventListener("click", (event) => {
     let counter = Number(event.currentTarget.dataset.counter);
 
     let html = `
-    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3">
-    <input type="text" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
+    <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
         placeholder="0">
     <input type="text" name="nome_item_${counter + 1}" id="nome_item_${
         counter + 1
@@ -42,16 +67,43 @@ document.querySelector("#btn-add-item").addEventListener("click", (event) => {
     <input type="text" name="preco_un_${counter + 1}" id="preco_un_${
         counter + 1
     }"
-        class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         placeholder="R$ 0,00">
 </div>
     `;
 
     document.querySelector("#items-list").insertAdjacentHTML("beforeend", html);
 
+    addValorMask();
+
     // Atualiza o contador
     event.currentTarget.dataset.counter = String(counter + 1);
+    document.querySelector("#item_counter").value = counter + 1;
 });
+
+function atualizarTotalOS() {
+    const inputsQtd = document.querySelectorAll('input[name^="qtd_"]');
+    const inputsValor = document.querySelectorAll('input[name^="preco_un_"]');
+
+    let total = 0;
+
+    for (let i = 0; i < inputsQtd.length; i++) {
+        const qtd = Number(inputsQtd[i].value) || 0;
+        const precoInput = inputsValor[i];
+
+        const valorUnitario = Number(precoInput.mask?.typedValue || 0);
+
+        total += qtd * valorUnitario;
+    }
+
+    // Atualiza o campo total da OS (campo .preco)
+    const inputTotal = document.querySelector('input[name="preco"]');
+    if (inputTotal && inputTotal.mask) {
+        inputTotal.mask.typedValue = total;
+    } else if (inputTotal) {
+        inputTotal.value = total.toFixed(2).replace(".", ","); // fallback
+    }
+}
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
@@ -102,12 +154,49 @@ function openModalOSUpdate(id) {
         .then((result) => {
             let form = formUpdate.elements;
             let os_data = new Date(result.data).toLocaleString().split(",")[0];
+            let items = result.items;
 
             verifyClienteID(
                 result.id_cliente,
                 formUpdate,
                 result.id_equipamento
             );
+
+            if (items.length > 0) {
+                let html = "";
+                items.map((item, counter) => {
+                    html += `
+                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
+                        <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
+                            value="${item.quantidade}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                            placeholder="0">
+                        <input value="${item.nome}" type="text" name="nome_item_${counter + 1}" id="nome_item_${
+                                        counter + 1
+                                    }"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Nome do item">
+                        <input value="${item.valor_unitario}" type="text" name="preco_un_${counter + 1}" id="preco_un_${
+                                        counter + 1
+                                    }"
+                            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="R$ 0,00">
+                    </div>
+                    `;
+                });
+
+                document
+                    .querySelector("#items-list-update")
+                    .insertAdjacentHTML("beforeend", html);
+
+                addValorMask();
+
+                items.map((item, counter) => {
+                    if(document.querySelector("#preco_un_"+(counter+1))){
+                        document.querySelector("#preco_un_"+(counter+1)).mask.typedValue = item.valor_unitario;
+                    }
+                })
+            }
 
             form.titulo.value = result.titulo;
             form.id_status.value = result.id_status ?? 0;
@@ -197,6 +286,21 @@ function openModalRead(id) {
                 document.querySelector("#status-container").hidden = true;
             }
 
+            if (result.items.length > 0) {
+                document.querySelector("#items-container").hidden = false;
+                result.items.map((e) => {
+                    document.querySelector("#items-table").innerHTML += `
+                    <tr>
+                        <td>${e.quantidade}</td>
+                        <td>${e.nome}</td>
+                        <td>${toBRL(e.valor_unitario)}</td>
+                    </tr>
+                    `;
+                });
+            } else {
+                document.querySelector("#items-container").hidden = true;
+            }
+
             document.querySelector("#data-inicio-os").innerHTML = new Date(
                 result.data_inicio
             ).toLocaleDateString("pt-BR");
@@ -247,5 +351,11 @@ document.addEventListener("click", (e) => {
     }
     if (e.target.matches(".btn-update-os")) {
         openModalOSUpdate(e.target.dataset.id);
+    }
+});
+
+document.addEventListener("change", (event) => {
+    if (event.target.matches(".valor-item")) {
+        atualizarTotalOS();
     }
 });

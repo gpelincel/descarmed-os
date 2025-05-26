@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Equipamento;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrdemServico extends Model {
     protected $fillable = [
@@ -35,5 +36,9 @@ class OrdemServico extends Model {
 
     public function classificacao(): BelongsTo {
         return $this->belongsTo(ClassificacaoOS::class, 'id_classificacao');
+    }
+
+    public function items(): HasMany{
+        return $this->hasMany(Item::class, 'id_os');
     }
 }

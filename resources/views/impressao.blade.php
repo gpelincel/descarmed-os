@@ -134,16 +134,13 @@
             @endif
             @if (isset($checkboxes['endereco_cliente']))
                 <tr>
-                    <td><b>Logradouro:</b> <span
-                            class="uppercase">{{ $cliente['endereco']['logradouro'] }}</span></td>
-                    <td><b>Número:</b> <span
-                            class="uppercase">{{ $cliente['endereco']['numero'] }}</span></td>
-                    <td><b>Complemento:</b> <span
-                            class="uppercase">{{ $cliente['endereco']['complemento'] }}</span></td>
+                    <td><b>Logradouro:</b> <span class="uppercase">{{ $cliente['endereco']['logradouro'] }}</span></td>
+                    <td><b>Número:</b> <span class="uppercase">{{ $cliente['endereco']['numero'] }}</span></td>
+                    <td><b>Complemento:</b> <span class="uppercase">{{ $cliente['endereco']['complemento'] }}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td><b>Bairro:</b> <span
-                            class="uppercase">{{ $cliente['endereco']['bairro'] }}</span></td>
+                    <td><b>Bairro:</b> <span class="uppercase">{{ $cliente['endereco']['bairro'] }}</span></td>
                     <td><b>Cidade:</b> <span
                             class="uppercase">{{ $cliente['endereco']['cidade'] }}-{{ $cliente['endereco']['estado'] }}</span>
                     </td>
@@ -202,7 +199,30 @@
             @endif
 
         </table>
-        @if (isset($preco) && isset($checkboxes['valor']))
+        @if (isset($items) && isset($checkboxes['items']) && count($items) > 0)
+            <hr>
+            <table style="width: 100%">
+                <tr>
+                    <td><b>Qtd.</b></td>
+                    <td><b>Nome</b></td>
+                    <td><b>Valor Un.</b></td>
+                </tr>
+                @foreach ($items as $item)
+                    <tr>
+                        <td>
+                            {{ $item['quantidade'] }}
+                        </td>
+                        <td>
+                            {{ $item['nome'] }}
+                        </td>
+                        <td>
+                            R$ {{ number_format($item['valor_unitario'], 2, ',', '.') }}
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+        @if (isset($preco) && isset($checkboxes['valor']) && $preco > 0)
             <hr>
             <table>
                 <tr>

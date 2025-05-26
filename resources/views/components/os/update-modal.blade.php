@@ -40,7 +40,8 @@
                         <label for="id_classificacao"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classificação</label>
                         <select id="id_classificacao" name="id_classificacao"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required>
                             <option value="" selected="">- Selecione -</option>
                             @foreach ($classificacao as $class)
                                 <option value="{{ $class->id }}">{{ $class->descricao }}</option>
@@ -49,14 +50,16 @@
                     </div>
                     <div>
                         <label for="codigo_compra"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código de Compra (Opcional)</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código de Compra
+                            (Opcional)</label>
                         <input type="text" name="codigo_compra" id="codigo_compra"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="CP-0000">
                     </div>
                     <div>
                         <label for="nota_fiscal"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nota Fiscal (Opcional)</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nota Fiscal
+                            (Opcional)</label>
                         <input type="text" name="nota_fiscal" id="nota_fiscal"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="NF-0000">
@@ -95,9 +98,10 @@
                     </div>
                     <div>
                         <label for="id_status"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status (Opcional)</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select id="id_status" name="id_status"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required>
                             <option selected="" value="0">- Selecione -</option>
                             @foreach ($status as $stat)
                                 <option value="{{ $stat->id }}">{{ $stat->descricao }}</option>
@@ -109,7 +113,8 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cliente</label>
 
                         <select id="id_cliente" name="id_cliente"
-                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            class="select-cliente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required>
                             @if ($clientes)
                                 @foreach ($clientes as $cliente)
                                     <option value="{{ $cliente['id'] }}">{{ $cliente['nome'] }}</option>
@@ -120,7 +125,8 @@
                             @endif
                         </select>
                     </div>
-                    <div id="equipamento-form-os" class="grid gap-4 mb-4 grid-cols-2 border-gray-500 border-t border-b col-span-2 py-5 hidden">
+                    <div id="equipamento-form-os"
+                        class="grid gap-4 mb-4 grid-cols-2 border-gray-500 border-t border-b col-span-2 py-5 hidden">
                         <input type="hidden" id="novo-eqp" name="novo-eqp" value="0">
                         <div>
                             <label for="numero_serie"
@@ -144,6 +150,22 @@
                             <input type="text" name="nome" id="nome"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Nome do equipamento">
+                        </div>
+                    </div>
+                    <div id="items-list-update" class="col-span-2 space-y-2">
+                        <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
+                            <h4 class="block font-medium text-gray-900 dark:text-white">
+                                Items (Opcional)</h4>
+                            <button id="btn-add-item" data-counter="1"
+                                class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
+                                <i class="fi fi-rr-plus-small"></i>
+                            </button>
+                            <input type="hidden" id="item_counter" name="item_counter" value="1">
+                        </div>
+                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2">
+                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
+                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
+                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
                         </div>
                     </div>
                     <div>
