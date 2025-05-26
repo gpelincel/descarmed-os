@@ -75,6 +75,8 @@ class OrdemServicoService {
     }
 
     public function edit(array $novoOrdemServico, string $id) {
+        extract($novoOrdemServico);
+
         $ordemServico = OrdemServico::findOrFail($id);
         if (!empty($ordemServico['data_conclusao'])) {
             $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
@@ -104,7 +106,31 @@ class OrdemServicoService {
             $novoOrdemServico['id_equipamento'] = $equipamentoNovo['id'];
         }
 
-        $ordemServico->update($novoOrdemServico);
+        $ordemReturn = $ordemServico->update($novoOrdemServico);
+
+        for ($i=1; $i <= $item_counter; $i++) {
+            $item['quantidade'] = $novoOrdemServico['qtd_'.$i];
+            $item['nome'] = $novoOrdemServico['nome_item_'.$i];
+            $item['valor_unitario'] = $novoOrdemServico['preco_un_'.$i];
+            $item['id_os'] = $id;
+
+            $itemService = new ItemService();
+
+            if (isset($novoOrdemServico['id_item_'.$i])) {
+                $item['id'] = $novoOrdemServico['id_item_'.$i];
+
+                if ($item['quantidade'] == 0) {
+                    $itemService->delete($item['id']);
+                } else {
+                    $itemService->edit($item);
+                }
+
+            } else {
+                $itemService->save($item);
+            }
+
+        }
+
         return $ordemServico;
     }
 }

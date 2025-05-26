@@ -49,10 +49,16 @@ document
         equipamento_form.classList.toggle("hidden");
     });
 
-document.querySelector("#btn-add-item").addEventListener("click", (event) => {
-    event.preventDefault();
+function addItemField(event, update = false) {
+    let items_id = "#items-field";
+    let items_counter = "#item_counter";
 
-    let counter = Number(event.currentTarget.dataset.counter);
+    if (update) {
+        items_id += "-update";
+        items_counter += "_update"
+    }
+
+    let counter = Number(document.querySelector(items_counter).value);
 
     let html = `
     <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
@@ -72,38 +78,50 @@ document.querySelector("#btn-add-item").addEventListener("click", (event) => {
 </div>
     `;
 
-    document.querySelector("#items-list").insertAdjacentHTML("beforeend", html);
+    
+
+    document
+        .querySelector(items_id)
+        .insertAdjacentHTML("beforeend", html);
 
     addValorMask();
 
     // Atualiza o contador
-    event.currentTarget.dataset.counter = String(counter + 1);
-    document.querySelector("#item_counter").value = counter + 1;
+    document.querySelector(items_counter).value = counter + 1;
+}
+
+document.querySelector("#btn-add-item").addEventListener("click", (event) => {
+    event.preventDefault();
+    addItemField(event);
 });
 
-function atualizarTotalOS() {
-    const inputsQtd = document.querySelectorAll('input[name^="qtd_"]');
-    const inputsValor = document.querySelectorAll('input[name^="preco_un_"]');
+document.querySelector("#btn-add-item-update").addEventListener("click", (event) => {
+    event.preventDefault();
+    addItemField(event, true);
+});
+
+function atualizarTotalOS(container) {
+    const inputsQtd = container.querySelectorAll('input[name^="qtd_"]');
+    const inputsValor = container.querySelectorAll('input[name^="preco_un_"]');
 
     let total = 0;
 
     for (let i = 0; i < inputsQtd.length; i++) {
         const qtd = Number(inputsQtd[i].value) || 0;
         const precoInput = inputsValor[i];
-
         const valorUnitario = Number(precoInput.mask?.typedValue || 0);
 
         total += qtd * valorUnitario;
     }
 
-    // Atualiza o campo total da OS (campo .preco)
-    const inputTotal = document.querySelector('input[name="preco"]');
+    const inputTotal = container.querySelector('input[name="preco"]');
     if (inputTotal && inputTotal.mask) {
         inputTotal.mask.typedValue = total;
     } else if (inputTotal) {
-        inputTotal.value = total.toFixed(2).replace(".", ","); // fallback
+        inputTotal.value = total.toFixed(2).replace('.', ',');
     }
 }
+
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
@@ -164,38 +182,67 @@ function openModalOSUpdate(id) {
 
             if (items.length > 0) {
                 let html = "";
+
+                document.querySelector("#item_counter_update").value = items.length;
+
                 items.map((item, counter) => {
                     html += `
                         <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
-                        <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
+                        <input type="hidden" name="id_item_${counter+1}" value="${item.id}">
+                        <input type="number" name="qtd_${
+                            counter + 1
+                        }" id="qtd_${counter + 1}"
                             value="${item.quantidade}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                             placeholder="0">
-                        <input value="${item.nome}" type="text" name="nome_item_${counter + 1}" id="nome_item_${
-                                        counter + 1
-                                    }"
+                        <input value="${
+                            item.nome
+                        }" type="text" name="nome_item_${
+                        counter + 1
+                    }" id="nome_item_${counter + 1}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Nome do item">
-                        <input value="${item.valor_unitario}" type="text" name="preco_un_${counter + 1}" id="preco_un_${
-                                        counter + 1
-                                    }"
+                        <input value="${
+                            item.valor_unitario
+                        }" type="text" name="preco_un_${
+                        counter + 1
+                    }" id="preco_un_${counter + 1}"
                             class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="R$ 0,00">
                     </div>
                     `;
                 });
 
-                document
-                    .querySelector("#items-list-update")
-                    .insertAdjacentHTML("beforeend", html);
+                document.querySelector("#items-field-update").innerHTML = html;
 
                 addValorMask();
 
                 items.map((item, counter) => {
-                    if(document.querySelector("#preco_un_"+(counter+1))){
-                        document.querySelector("#preco_un_"+(counter+1)).mask.typedValue = item.valor_unitario;
+                    if (document.querySelector("#preco_un_" + (counter + 1))) {
+                        document.querySelector(
+                            "#preco_un_" + (counter + 1)
+                        ).mask.typedValue = item.valor_unitario;
                     }
-                })
+                });
+            } else {
+                let html = `
+                    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
+                        <input type="number" name="qtd_1" id="qtd_1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                            placeholder="0">
+                        <input type="text" name="nome_item_1" id="nome_item_1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Nome do item">
+                        <input type="text" name="preco_un_1" id="preco_un_1"
+                            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="R$ 0,00">
+                    </div>
+                    `;
+
+                document.querySelector("#items-field-update").innerHTML = html;
+                document.querySelector("#item_counter_update").value = 1;
+
+                addValorMask();
             }
 
             form.titulo.value = result.titulo;
@@ -356,6 +403,6 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("change", (event) => {
     if (event.target.matches(".valor-item")) {
-        atualizarTotalOS();
+        atualizarTotalOS(event.target.form);
     }
 });

@@ -33,7 +33,8 @@ class ItemService
     }
 
     public function edit(Array $novoItem){
-        $item = Item::findOrFail($novoItem['id_item']);
+        $item = Item::findOrFail($novoItem['id']);
+        $novoItem['valor_unitario'] = str_replace(['R$', '.', ','], ['', '', '.'], $novoItem['valor_unitario']);
         $item->update($novoItem);
         return $item;
     }

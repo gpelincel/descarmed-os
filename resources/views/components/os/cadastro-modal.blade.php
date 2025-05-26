@@ -148,8 +148,8 @@
                     <div id="items-list" class="col-span-2 space-y-2">
                         <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
                             <h4 class="block font-medium text-gray-900 dark:text-white">
-                                Items (Opcional)</h4>
-                            <button id="btn-add-item" data-counter="1"
+                                Itens (Opcional)</h4>
+                            <button id="btn-add-item"
                                 class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
                                 <i class="fi fi-rr-plus-small"></i>
                             </button>
@@ -160,18 +160,20 @@
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
                         </div>
-                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3">
-                            <input type="number" name="qtd_1" id="qtd_1"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                                placeholder="0">
-                            <input type="text" name="nome_item_1"
-                                id="nome_item_1"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Nome do item">
-                            <input type="text" name="preco_un_1"
-                                id="preco_un_1"
-                                class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                                placeholder="R$ 0,00">
+                        <div id="items-field" class="space-y-2">
+                            <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3">
+                                <input type="number" name="qtd_1" id="qtd_1"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                                    placeholder="0">
+                                <input type="text" name="nome_item_1"
+                                    id="nome_item_1"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Nome do item">
+                                <input type="text" name="preco_un_1"
+                                    id="preco_un_1"
+                                    class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                                    placeholder="R$ 0,00">
+                            </div>
                         </div>
                     </div>
                     <div>
