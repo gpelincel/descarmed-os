@@ -11,7 +11,7 @@ class OrdemServicoService {
     }
 
     public function findByCliente(string $id_cliente) {
-        return OrdemServico::with(['cliente', 'status'])->where('id_cliente', $id_cliente);
+        return OrdemServico::with(['equipamento', 'status', 'cliente'])->where('id_cliente', $id_cliente);
     }
 
 
@@ -30,7 +30,7 @@ class OrdemServicoService {
                 $ordemServico['data_conclusao'] = $data->format('Y-m-d');
             }
         }
-        
+
         if (!empty($data_inicio)) {
             $data = DateTime::createFromFormat('d/m/Y', $data_inicio);
             if ($data) {
@@ -54,15 +54,18 @@ class OrdemServicoService {
 
         $ordemReturn = OrdemServico::create($ordemServico);
 
-        for ($i=1; $i <= $item_counter; $i++) { 
-            $item['quantidade'] = $ordemServico['qtd_'.$i];
-            $item['nome'] = $ordemServico['nome_item_'.$i];
-            $item['valor_unitario'] = $ordemServico['preco_un_'.$i];
-            $item['id_os'] = $ordemReturn->id;
+        if ($novoOrdemServico['qtd_1'] > 0) {
+            for ($i = 1; $i <= $item_counter; $i++) {
+                $item['quantidade'] = $ordemServico['qtd_' . $i];
+                $item['nome'] = $ordemServico['nome_item_' . $i];
+                $item['valor_unitario'] = $ordemServico['preco_un_' . $i];
+                $item['id_os'] = $ordemReturn->id;
 
-            $itemService = new ItemService();
-            $itemService->save($item);
+                $itemService = new ItemService();
+                $itemService->save($item);
+            }
         }
+
 
         return $ordemReturn;
     }
@@ -84,7 +87,7 @@ class OrdemServicoService {
                 $novoOrdemServico['data_conclusao'] = $data->format('Y-m-d');
             }
         }
-        
+
         if (!empty($ordemServico['data_inicio'])) {
             $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
             if ($data) {
@@ -108,29 +111,30 @@ class OrdemServicoService {
 
         $ordemReturn = $ordemServico->update($novoOrdemServico);
 
-        for ($i=1; $i <= $item_counter; $i++) {
-            $item['quantidade'] = $novoOrdemServico['qtd_'.$i];
-            $item['nome'] = $novoOrdemServico['nome_item_'.$i];
-            $item['valor_unitario'] = $novoOrdemServico['preco_un_'.$i];
-            $item['id_os'] = $id;
+        if ($novoOrdemServico['qtd_1'] > 0) {
+            for ($i = 1; $i <= $item_counter; $i++) {
+                $item['quantidade'] = $novoOrdemServico['qtd_' . $i];
+                $item['nome'] = $novoOrdemServico['nome_item_' . $i];
+                $item['valor_unitario'] = $novoOrdemServico['preco_un_' . $i];
+                $item['id_os'] = $id;
 
-            $itemService = new ItemService();
+                $itemService = new ItemService();
 
-            if (isset($novoOrdemServico['id_item_'.$i])) {
-                $item['id'] = $novoOrdemServico['id_item_'.$i];
+                if (isset($novoOrdemServico['id_item_' . $i])) {
+                    $item['id'] = $novoOrdemServico['id_item_' . $i];
 
-                if ($item['quantidade'] == 0) {
-                    $itemService->delete($item['id']);
+                    if ($item['quantidade'] == 0) {
+                        $itemService->delete($item['id']);
+                    } else {
+                        $itemService->edit($item);
+                    }
                 } else {
-                    $itemService->edit($item);
+                    $itemService->save($item);
                 }
-
-            } else {
-                $itemService->save($item);
             }
-
         }
 
-        return $ordemServico;
+
+        return $ordemReturn;
     }
 }

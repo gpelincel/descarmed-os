@@ -84,7 +84,7 @@
         </ul>
     </section>
 
-    <x-cliente.tabs :ordens="$cliente->ordem_servico->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)" :agendas="$cliente->agendas->paginate(10)"></x-cliente.tabs>
+    <x-cliente.tabs :ordens="$cliente->ordens_servico()->with('status')->paginate(10)" :equipamentos="$cliente->equipamentos()->paginate(10)" :agendas="$cliente->agendas->paginate(10)" :status="$status" :classificacao="$classificacao"></x-cliente.tabs>
 
     <x-cliente.update-modal></x-cliente.update-modal>
     <x-os.cadastro-modal :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>

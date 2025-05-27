@@ -10,11 +10,7 @@ class ClienteService
 {
     public function findByID(string $id)
     {
-        return Cliente::with('endereco')->findOrFail($id);
-    }
-
-    public function findEquipamentos(string $id){
-        return Equipamento::where('id_cliente', $id)->get();
+        return Cliente::with('endereco', 'ordens_servico', 'equipamentos')->findOrFail($id);
     }
 
     public function getAll()

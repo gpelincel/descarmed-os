@@ -84,7 +84,6 @@ class ClienteController extends Controller {
      */
     public function show(string $id) {
         $cliente = $this->clienteService->findByID($id);
-        $cliente->ordem_servico = $this->getOs($id);
         $cliente->agendas = $this->getAgenda($id);
 
         if (request()->wantsJson()) {
@@ -128,14 +127,6 @@ class ClienteController extends Controller {
         }
 
         return redirect('/cliente')->with('status', 'success')->with('message', 'Cliente deletado com sucesso!');
-    }
-
-    public function getEquipamentos(string $id) {
-        return $this->clienteService->findEquipamentos($id);
-    }
-
-    public function getOs(string $id) {
-        return $this->osService->findByCliente($id);
     }
 
     public function getAgenda(string $id) {

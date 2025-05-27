@@ -8,7 +8,7 @@ use DateTime;
 
 class AgendaService {
     public function findByID(string $id) {
-        return Agenda::with(['ordem_servico.cliente', 'ordem_servico.equipamento'])->findOrFail($id);
+        return Agenda::with(['cliente', 'equipamento', 'ordem_servico'])->findOrFail($id);
     }
 
     public function getAll() {
@@ -70,7 +70,7 @@ class AgendaService {
     
 
     public function getByCliente($id_cliente) {
-        return Agenda::with(['ordem_servico.equipamento.cliente'])
+        return Agenda::with(['ordem_servico.cliente'])
             ->whereHas('ordem_servico', function ($query) use ($id_cliente) {
                 $query->whereHas('equipamento', function ($query) use ($id_cliente) {
                     $query->where('id_cliente', $id_cliente);

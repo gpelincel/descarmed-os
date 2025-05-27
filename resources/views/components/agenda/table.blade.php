@@ -19,7 +19,7 @@
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $agenda->id }}</th>
                             <td class="px-4 py-3">{{ $agenda->ordem_servico->equipamento->nome }}</td>
-                            <td class="px-4 py-3">{{ $agenda->ordem_servico->equipamento->cliente->nome }}</td>
+                            <td class="px-4 py-3">{{ $agenda->ordem_servico->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ date_format(date_create($agenda->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
                                 <button data-dropdown-toggle="{{ $agenda->id }}-agenda-dropdown"
