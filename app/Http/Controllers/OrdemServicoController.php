@@ -46,7 +46,7 @@ class OrdemServicoController extends Controller {
             ->when($search, function ($query) use ($search, $field) {
                 switch ($field) {
                     case 'cliente':
-                        return $query->whereHas('equipamento.cliente', function ($q) use ($search) {
+                        return $query->whereHas('cliente', function ($q) use ($search) {
                             $q->where('nome', 'like', "%$search%");
                         });
                     case 'equipamento':
