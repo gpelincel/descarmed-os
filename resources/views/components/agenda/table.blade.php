@@ -22,8 +22,8 @@
                             <td class="px-4 py-3">{{ $agenda->ordem_servico->equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3">{{ date_format(date_create($agenda->data), 'd/m/Y') }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button 
-                                    data-dropdown-toggle="{{ $agenda->id }}-agenda-dropdown"
+                                <button data-dropdown-toggle="{{ $agenda->id }}-agenda-dropdown"
+                                    data-dropdown-placement="right"
                                     class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                     type="button">
                                     <i class="fi fi-rs-circle-ellipsis text-xl"></i>
@@ -32,29 +32,32 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm">
                                         <li>
-                                            <button type="button"
-                                                data-modal-target="modal-update-agenda"
-                                                data-modal-toggle="modal-update-agenda"
-                                                data-id="{{ $agenda->id }}"
+                                            <button type="button" data-modal-target="modal-update-agenda"
+                                                data-modal-toggle="modal-update-agenda" data-id="{{ $agenda->id }}"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-update-agenda">
                                                 <i class="fi fi-rr-edit mr-2"></i>
                                                 Editar
                                             </button>
                                         </li>
                                         <li>
-                                            <button type="button"
-                                                data-modal-target="modal-preview-agenda"
-                                                data-modal-toggle="modal-preview-agenda"
-                                                data-id="{{ $agenda->id }}"
+                                            <button type="button" data-modal-target="modal-reagendar"
+                                                data-modal-toggle="modal-reagendar" data-id="{{ $agenda->id }}"
+                                                class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-reagendar">
+                                                <i class="fi fi-rr-calendar-lines-pen mr-2"></i>
+                                                Reagendar
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-modal-target="modal-preview-agenda"
+                                                data-modal-toggle="modal-preview-agenda" data-id="{{ $agenda->id }}"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-read-agenda">
                                                 <i class="fi fi-rr-eye mr-2"></i>
                                                 Ver Detalhes
                                             </button>
                                         </li>
                                         <li>
-                                            <button type="button"
-                                                data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                                data-id="{{ $agenda->id }}"
+                                            <button type="button" data-modal-target="deleteModal"
+                                                data-modal-toggle="deleteModal" data-id="{{ $agenda->id }}"
                                                 class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-agenda">
                                                 <i class="fi fi-rr-trash mr-2"></i>
                                                 Deletar

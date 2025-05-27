@@ -8,6 +8,7 @@
         :selected="null" :classificacao="$classificacao"></x-agenda.cadastro-modal>
     <x-agenda.update-modal :equipamentos="$equipamentos" :status="$status" :clientes="$clientes"
         :selected="null" :classificacao="$classificacao"></x-agenda.update-modal>
+    <x-agenda.reagendar></x-agenda.reagendar>
     <x-delete-modal></x-delete-modal>
 
     @if (session('status'))

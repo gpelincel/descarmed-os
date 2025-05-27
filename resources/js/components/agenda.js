@@ -87,6 +87,11 @@ function openModalAgendaUpdate(id) {
         })
 }
 
+function openAgendaModalReagendar(id) {
+    var formUpdate = document.querySelector("#formUpdateReagendamento");
+    formUpdate.setAttribute('action', '/agenda/update/' + id);
+}
+
 document.querySelector("#id_cliente").addEventListener("change", (event) => {
     let id_cliente = event.target.value;
     let form = event.target.form;
@@ -135,5 +140,9 @@ document.addEventListener("click", (e) => {
     }
     if (e.target.matches(".btn-read-agenda")) {
         openAgendaModalRead(e.target.dataset.id);
+    }
+
+    if (e.target.matches(".btn-reagendar")) {
+        openAgendaModalReagendar(e.target.dataset.id);
     }
 });

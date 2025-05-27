@@ -90,15 +90,20 @@ function addItemField(event, update = false) {
     document.querySelector(items_counter).value = counter + 1;
 }
 
-document.querySelector("#btn-add-item").addEventListener("click", (event) => {
-    event.preventDefault();
-    addItemField(event);
-});
+if (document.querySelector("#btn-add-item")) {
+    document.querySelector("#btn-add-item").addEventListener("click", (event) => {
+        event.preventDefault();
+        addItemField(event);
+    });
+}
 
-document.querySelector("#btn-add-item-update").addEventListener("click", (event) => {
-    event.preventDefault();
-    addItemField(event, true);
-});
+if(document.querySelector("#btn-add-item-update")){
+    document.querySelector("#btn-add-item-update").addEventListener("click", (event) => {
+        event.preventDefault();
+        addItemField(event, true);
+    });
+}
+
 
 function atualizarTotalOS(container) {
     const inputsQtd = container.querySelectorAll('input[name^="qtd_"]');

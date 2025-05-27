@@ -41,14 +41,18 @@ class AgendaService {
     }
 
     public function edit(array $novoAgenda, string $id) {
-        // Formatar datas
-        $novoAgenda['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data_inicio'])->format('Y-m-d');
-        $novoAgenda['data_inicio'] = $novoAgenda['data'];
-        $novoAgenda['data_aviso'] = date('Y-m-d', strtotime($novoAgenda['data'] . ' -' . (int)$novoAgenda['tempo_aviso'] . ' days'));
-    
         // Busca a agenda existente
         $agenda = Agenda::findOrFail($id);
-    
+        if (isset($novoAgenda['data_reagendamento'])) {
+            $agenda_array = $agenda->toArray();
+            $agenda_array['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data_reagendamento'])->format('Y-m-d');
+            $novoAgenda = $agenda_array;
+        } else {
+            $novoAgenda['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data'])->format('Y-m-d');
+            $novoAgenda['data_inicio'] = $novoAgenda['data'];
+            $novoAgenda['data_aviso'] = date('Y-m-d', strtotime($novoAgenda['data'] . ' -' . (int)$novoAgenda['tempo_aviso'] . ' days'));
+        }
+
         // Atualiza ou recria a OS associada
         if ($agenda->id_os) {
             $os = OrdemServico::findOrFail($agenda->id_os);
