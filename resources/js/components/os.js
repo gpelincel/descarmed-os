@@ -30,6 +30,10 @@ function addValorMask() {
 
 addValorMask();
 
+if(document.querySelector("#id_cliente") && document.querySelector("#id_cliente").value){
+    verifyClienteID(document.querySelector("#id_cliente").value, document.querySelector("#formCadOS"))
+}
+
 document.querySelector("#id_cliente").addEventListener("change", (event) => {
     let id_cliente = event.target.value;
     let form = event.target.form;
@@ -104,7 +108,6 @@ if(document.querySelector("#btn-add-item-update")){
     });
 }
 
-
 function atualizarTotalOS(container) {
     const inputsQtd = container.querySelectorAll('input[name^="qtd_"]');
     const inputsValor = container.querySelectorAll('input[name^="preco_un_"]');
@@ -126,7 +129,6 @@ function atualizarTotalOS(container) {
         inputTotal.value = total.toFixed(2).replace('.', ',');
     }
 }
-
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
@@ -295,13 +297,13 @@ function openModalRead(id) {
             let cliente = result.cliente;
             let endereco = cliente.endereco;
 
-            document.querySelector("#cnpj-cliente").innerHTML = cliente.cnpj;
+            document.querySelector("#cnpj-cliente").innerHTML = cliente.cnpj ?? "N/A";
             document.querySelector("#telefone-cliente").innerHTML =
-                cliente.telefone;
-            document.querySelector("#email-cliente").innerHTML = cliente.email;
+                cliente.telefone ?? "N/A";
+            document.querySelector("#email-cliente").innerHTML = cliente.email ?? "N/A";
             document.querySelector(
                 "#endereco-cliente"
-            ).innerHTML = `${endereco.cidade}/${endereco.estado} - ${endereco.cep} - ${endereco.logradouro}  Nº ${endereco.numero}`;
+            ).innerHTML = `${endereco.cidade ? endereco.cidade+'/'+endereco.estado : "N/A"} - ${endereco.cep ?? 'N/A'} - ${endereco.logradouro ?? 'N/A'}  Nº ${endereco.numero ?? 'N/A'}`;
 
             document.querySelector("#os_id").value = id;
             document.querySelector("#titulo-os").innerHTML = result.titulo;

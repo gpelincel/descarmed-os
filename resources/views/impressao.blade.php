@@ -72,6 +72,14 @@
             margin: 10px 0;
         }
 
+        .table-itens, .table-itens td{
+            border: 1px solid #000;
+        }
+
+        .table-itens td{
+            padding: 4px;
+        }
+
         .table {
             width: 100%;
             border-collapse: collapse;
@@ -201,7 +209,7 @@
         </table>
         @if (isset($items) && isset($checkboxes['items']) && count($items) > 0)
             <hr>
-            <table style="width: 100%">
+            <table class="table-itens" style="width: 100%">
                 <tr>
                     <td><b>Qtd.</b></td>
                     <td><b>Nome</b></td>

@@ -54,7 +54,7 @@ class OrdemServicoService {
 
         $ordemReturn = OrdemServico::create($ordemServico);
 
-        if ($novoOrdemServico['qtd_1'] > 0) {
+        if ($ordemServico['qtd_1'] > 0) {
             for ($i = 1; $i <= $item_counter; $i++) {
                 $item['quantidade'] = $ordemServico['qtd_' . $i];
                 $item['nome'] = $ordemServico['nome_item_' . $i];

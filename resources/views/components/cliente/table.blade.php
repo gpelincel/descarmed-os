@@ -27,9 +27,9 @@
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $cliente->id }}</th>
                             <td class="px-4 py-3">{{ $cliente->nome }}</td>
-                            <td class="px-4 py-3">{{ $cliente->cnpj }}</td>
-                            <td class="px-4 py-3">{{ $cliente->telefone }}</td>
-                            <td class="px-4 py-3">{{ $cliente->email }}</td>
+                            <td class="px-4 py-3">{{ $cliente->cnpj ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $cliente->telefone ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $cliente->email ?? 'N/A' }}</td>
                             <td class="px-4 py-3">
                                 <button onclick="openModalOSCad({{ $cliente->id }})" type="button"
                                     data-modal-target="cadastrarOSModal" data-modal-toggle="cadastrarOSModal"

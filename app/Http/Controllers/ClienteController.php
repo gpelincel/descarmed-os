@@ -11,6 +11,7 @@ use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
+use DateTime;
 use Illuminate\Routing\Route;
 
 class ClienteController extends Controller {
@@ -86,6 +87,40 @@ class ClienteController extends Controller {
         $cliente = $this->clienteService->findByID($id);
         $cliente->agendas = $this->getAgenda($id);
 
+        $search = request('search');
+        $field = request('field', 'titulo'); // Valor padrão: 'titulo'
+        $id_status = request('id_status');
+        $data_minima = request('data_inicio');
+
+        // Campos permitidos
+        $allowedFields = ['titulo', 'cliente', 'equipamento'];
+        if (!in_array($field, $allowedFields)) {
+            $field = 'titulo';
+        }
+        $cliente->ordens_servico = $cliente->ordens_servico()->with('status')->when($search, function ($query) use ($search, $field) {
+                switch ($field) {
+                    case 'cliente':
+                        return $query->whereHas('cliente', function ($q) use ($search) {
+                            $q->where('nome', 'like', "%$search%");
+                        });
+                    case 'equipamento':
+                        return $query->whereHas('equipamento', function ($q) use ($search) {
+                            $q->where('nome', 'like', "%$search%");
+                        });
+                    default:
+                        return $query->where($field, 'like', "%$search%");
+                }
+            })
+            ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
+                return $query->where('id_status', $id_status);
+            })
+            ->when($data_minima && $data_minima != "", function ($query) use ($data_minima) {
+                $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
+                $data_minima = $data_minima->format('Y-m-d');
+                return $query->where('data_inicio', '>=', $data_minima);
+            })
+            ->paginate(10);
+
         if (request()->wantsJson()) {
             return $cliente;
         }
@@ -94,6 +129,12 @@ class ClienteController extends Controller {
         $classificacao = $this->classificacaoService->getAll();
 
         return view('cliente-info', compact('cliente', 'status', 'classificacao'));
+    }
+
+    public function getEquipamentos(string $id) {
+        $cliente = $this->clienteService->findByID($id);
+
+        return $cliente->equipamentos()->get();
     }
 
     /**
