@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreUpdateEndereco;
 use App\Models\Endereco;
 
 class EnderecoService
@@ -16,9 +17,9 @@ class EnderecoService
         return Endereco::query();
     }
 
-    public function save(Array $endereco)
+    public function save(StoreUpdateEndereco $endereco)
     {
-        $endereco = Endereco::create($endereco);
+        $endereco = Endereco::create($endereco->all());
 
         return $endereco;
     }

@@ -72,7 +72,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                         <input type="text" name="cep" id="cep"
                             class=" cep-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="00000-000">
+                            placeholder="00000-000" required>
                     </div>
                     <div>
                         <label for="numero"
@@ -107,8 +107,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                         <select id="estado" name="estado"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">- Selecione -</option>
-                            <option value="">Selecione um estado</option>
+                            <option selected="" value="">- Selecione -</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>

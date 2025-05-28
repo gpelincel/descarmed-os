@@ -106,7 +106,7 @@ class ClienteController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClienteRequest $request, string $id) {
+    public function update(StoreClienteRequest $request, string $id) {
         $cliente = $this->clienteService->edit($request->all(), $id);
 
         if (request()->wantsJson()) {

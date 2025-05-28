@@ -34,35 +34,35 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                         <input type="text" name="nome" id="nome"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Nome do cliente" required="">
+                            placeholder="Nome do cliente" required>
                     </div>
                     <div>
                         <label for="cnpj"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CNPJ</label>
                         <input type="text" name="cnpj" id="cnpj"
                             class="cnpj-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="CNPJ do cliente" required="">
+                            placeholder="CNPJ do cliente">
                     </div>
                     <div>
                         <label for="razao_social"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Razão Social</label>
                         <input type="text" name="razao_social" id="razao_social"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Exemplo e Cia LTDA." required="">
+                            placeholder="Exemplo e Cia LTDA.">
                     </div>
                     <div>
                         <label for="telefone"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefone</label>
                         <input type="text" name="telefone" id="telefone"
                             class="telefone-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="(00) 9 0000-0000" required="">
+                            placeholder="(00) 9 0000-0000">
                     </div>
                     <div>
                         <label for="email"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" id="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="cliente@email.com" required="">
+                            placeholder="cliente@email.com">
                     </div>
                 </div>
                 <hr class="my-5 dark:border-gray-600">
@@ -72,21 +72,21 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Logradouro</label>
                         <input type="text" name="logradouro" id="logradouro"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Rua ABCD" required="">
+                            placeholder="Rua ABCD">
                     </div>
                     <div>
                         <label for="cep"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CEP</label>
                         <input type="text" name="cep" id="cep"
                             class=" cep-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="00000-000" required="">
+                            placeholder="00000-000" required>
                     </div>
                     <div>
                         <label for="numero"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
                         <input type="number" name="numero" id="numero" min="0"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="000" required="">
+                            placeholder="000">
                     </div>
                     <div>
                         <label for="complemento"
@@ -100,22 +100,21 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bairro</label>
                         <input type="text" name="bairro" id="bairro"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Residencial Exemplo" required="">
+                            placeholder="Residencial Exemplo">
                     </div>
                     <div>
                         <label for="cidade"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cidade</label>
                         <input type="text" name="cidade" id="cidade"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Nome da cidade" required="">
+                            placeholder="Nome da cidade">
                     </div>
                     <div>
                         <label for="estado"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
                         <select id="estado" name="estado"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected="">- Selecione -</option>
-                            <option value="">Selecione um estado</option>
+                            <option selected="" value="">- Selecione -</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>

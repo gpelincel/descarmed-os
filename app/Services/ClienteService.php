@@ -2,12 +2,20 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreUpdateEndereco;
 use App\Models\Cliente;
 use App\Models\Endereco;
 use App\Models\Equipamento;
 
 class ClienteService
 {
+    protected $enderecoService;
+
+    public function __construct(EnderecoService $enderecoService)
+    {
+        $this->enderecoService = $enderecoService;
+    }
+
     public function findByID(string $id)
     {
         return Cliente::with('endereco', 'ordens_servico', 'equipamentos')->findOrFail($id);
@@ -24,8 +32,8 @@ class ClienteService
 
         $cliente['id_cliente'] = $clienteReturn->id;
 
-        $enderecoService = new EnderecoService();
-        $endereco = $enderecoService->save($cliente);
+        $enderecoRequest = new StoreUpdateEndereco($cliente);
+        $endereco = $this->enderecoService->save($enderecoRequest);
         $clienteReturn->endereco = $endereco;
 
         return $clienteReturn;

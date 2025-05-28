@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="uppercase font-bold text-4xl">{{ $cliente->nome }}</h1>
-                <h3 class="text-gray-500 dark:text-gray-400">{{ $cliente->razao_social }}</h3>
+                <h3 class="text-gray-500 dark:text-gray-400">{{ $cliente->razao_social ?? 'N/A'}}</h3>
             </div>
             <div class="flex gap-2 h-10">
                 <button data-modal-target="modal-update-cliente" data-id="{{ $cliente->id }}"
@@ -22,19 +22,19 @@
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">CNPJ</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->cnpj }}
+                    {{ $cliente->cnpj ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Telefone</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->telefone }}
+                    {{ $cliente->telefone ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Email</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->email }}
+                    {{ $cliente->email ?? 'N/A' }}
                 </p>
             </li>
         </ul>
@@ -48,37 +48,37 @@
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Cidade</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->cidade }}
+                    {{ $cliente->endereco->cidade ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Estado</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->estado }}
+                    {{ $cliente->endereco->estado ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Logradouro</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->logradouro }}
+                    {{ $cliente->endereco->logradouro ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Número</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->numero }}
+                    {{ $cliente->endereco->numero ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Bairro</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->bairro }}
+                    {{ $cliente->endereco->bairro ?? 'N/A' }}
                 </p>
             </li>
             <li>
                 <h3 class="font-semibold leading-none text-gray-900 dark:text-white">Complemento</h3>
                 <p class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                    {{ $cliente->endereco->complemento }}
+                    {{ $cliente->endereco->complemento ?? 'N/A' }}
                 </p>
             </li>
         </ul>
