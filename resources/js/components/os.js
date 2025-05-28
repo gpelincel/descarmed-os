@@ -30,7 +30,7 @@ function addValorMask() {
 
 addValorMask();
 
-if(document.querySelector("#id_cliente") && document.querySelector("#id_cliente").value){
+if(document.querySelector("#id_cliente").value && document.querySelector("#formCadOS")){
     verifyClienteID(document.querySelector("#id_cliente").value, document.querySelector("#formCadOS"))
 }
 

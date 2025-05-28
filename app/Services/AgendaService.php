@@ -8,7 +8,7 @@ use DateTime;
 
 class AgendaService {
     public function findByID(string $id) {
-        return Agenda::with(['cliente', 'equipamento', 'ordem_servico'])->findOrFail($id);
+        return Agenda::with(['ordem_servico.cliente', 'ordem_servico.equipamento'])->findOrFail($id);
     }
 
     public function getAll() {
