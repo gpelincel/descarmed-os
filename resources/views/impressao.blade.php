@@ -212,6 +212,7 @@
             <table class="table-itens" style="width: 100%">
                 <tr>
                     <td><b>Qtd.</b></td>
+                    <td><b>Und.</b></td>
                     <td><b>Nome</b></td>
                     <td><b>Valor Un.</b></td>
                 </tr>
@@ -219,6 +220,9 @@
                     <tr>
                         <td>
                             {{ $item['quantidade'] }}
+                        </td>
+                        <td>
+                            {{ $item['unidade']['descricao'] ?? "N/A" }}
                         </td>
                         <td>
                             {{ $item['nome'] }}

@@ -7,7 +7,7 @@ use DateTime;
 
 class OrdemServicoService {
     public function findByID(string $id) {
-        return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao', 'items'])->findOrFail($id);
+        return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao', 'items.unidade'])->findOrFail($id);
     }
 
     public function findByCliente(string $id_cliente) {
@@ -59,6 +59,7 @@ class OrdemServicoService {
                 $item['quantidade'] = $ordemServico['qtd_' . $i];
                 $item['nome'] = $ordemServico['nome_item_' . $i];
                 $item['valor_unitario'] = $ordemServico['preco_un_' . $i];
+                $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
                 $item['id_os'] = $ordemReturn->id;
 
                 $itemService = new ItemService();

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('unidades', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantidade');
-            $table->string('nome');
-            $table->float('valor_unitario');
-            $table->foreignId('id_unidade')->nullable();
-            $table->foreignId('id_os');
+            $table->string('descricao');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('unidades');
     }
 };

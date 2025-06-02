@@ -155,22 +155,29 @@
                             </button>
                             <input type="hidden" id="item_counter" name="item_counter" value="1">
                         </div>
-                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2">
+                        <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2">
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
+                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Und.</h4>
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
                         </div>
                         <div id="items-field" class="space-y-2">
-                            <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3">
+                            <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3">
                                 <input type="number" name="qtd_1" id="qtd_1"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                                     placeholder="0">
-                                <input type="text" name="nome_item_1"
-                                    id="nome_item_1"
+                                <select id="id_unidade_1" name="id_unidade_1"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    >
+                                    <option selected="" value="0">- Selecione -</option>
+                                    @foreach ($unidades as $unidade)
+                                        <option value="{{ $unidade->id }}">{{ $unidade->descricao }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="text" name="nome_item_1" id="nome_item_1"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nome do item">
-                                <input type="text" name="preco_un_1"
-                                    id="preco_un_1"
+                                <input type="text" name="preco_un_1" id="preco_un_1"
                                     class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                                     placeholder="R$ 0,00">
                             </div>

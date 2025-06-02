@@ -12,6 +12,11 @@ class Item extends Model
         "quantidade",
         "nome",
         "valor_unitario",
-        "id_os"
+        "id_os",
+        "id_unidade"
     ];
+
+    public function unidade(){
+        return $this->belongsTo(Unidade::class, 'id_unidade');
+    }
 }

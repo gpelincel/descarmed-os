@@ -199,6 +199,7 @@
                         <table class="w-full text-white">
                             <thead class="text-left">
                                 <th>Qtd.</th>
+                                <th>Und.</th>
                                 <th>Nome</th>
                                 <th>Valor Un.</th>
                             </thead>

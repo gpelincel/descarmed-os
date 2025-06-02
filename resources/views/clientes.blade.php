@@ -3,7 +3,7 @@
         Clientes
     </x-slot>
 
-    <x-cliente.table :clientes="$clientes" :status="$status" :classificacao="$classificacao"></x-cliente.table>
+    <x-cliente.table :clientes="$clientes" :status="$status" :classificacao="$classificacao" :unidades="$unidades"></x-cliente.table>
 
     <x-cliente.cadastro-modal></x-cliente.cadastro-modal>
 

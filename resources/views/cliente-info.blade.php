@@ -87,8 +87,8 @@
     <x-cliente.tabs :ordens="$cliente->ordens_servico" :equipamentos="$cliente->equipamentos()->paginate(10)" :agendas="$cliente->agendas->paginate(10)" :status="$status" :classificacao="$classificacao"></x-cliente.tabs>
 
     <x-cliente.update-modal></x-cliente.update-modal>
-    <x-os.cadastro-modal :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
-    <x-os.update-modal :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>
+    <x-os.cadastro-modal :unidades="$unidades" :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
+    <x-os.update-modal :unidades="$unidades" :selected="$cliente" :clientes="null" :status="$status" :classificacao="$classificacao"></x-os.update-modal>
     <x-delete-modal :action="'/cliente/delete/' . $cliente->id"></x-os.delete-modal>
 
         <x-agenda.update-modal :status="$status" :clientes="null" :selected="$cliente" :classificacao="$classificacao"></x-agenda.update-modal>

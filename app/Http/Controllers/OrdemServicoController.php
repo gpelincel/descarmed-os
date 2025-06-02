@@ -8,6 +8,7 @@ use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
+use App\Services\UnidadeService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Illuminate\Http\Request;
@@ -18,12 +19,14 @@ class OrdemServicoController extends Controller {
     private $clienteService;
     private $statusService;
     private $classificacaoService;
+    private $unidadeService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService) {
+    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService) {
         $this->osService = $osService;
         $this->clienteService = $clienteService;
         $this->statusService = $statusService;
         $this->classificacaoService = $classificacaoService;
+        $this->unidadeService = $unidadeService;
     }
 
     /**
@@ -74,8 +77,9 @@ class OrdemServicoController extends Controller {
         $clientes = $this->clienteService->getAll()->get();
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
+        $unidades = $this->unidadeService->getAll();
 
-        return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao'));
+        return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao', 'unidades'));
     }
 
     /**

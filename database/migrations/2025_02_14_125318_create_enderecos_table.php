@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();
             $table->string('estado')->nullable();
-            $table->string('cep');
+            $table->string('cep')->nullable();
             $table->string('complemento')->nullable();
             $table->unsignedBigInteger('id_cliente');
         });

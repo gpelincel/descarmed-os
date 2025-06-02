@@ -11,6 +11,7 @@ use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
+use App\Services\UnidadeService;
 use DateTime;
 use Illuminate\Routing\Route;
 
@@ -21,12 +22,14 @@ class ClienteController extends Controller {
     protected $statusService;
     protected $agendaService;
     protected $classificacaoService;
+    protected $unidadeService;
 
-    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService, AgendaService $agendaService, ClassificacaoOSService $classificacaoOSService) {
+    public function __construct(ClienteService $clienteService, OrdemServicoService $osService, StatusOSService $statusService, AgendaService $agendaService, ClassificacaoOSService $classificacaoOSService, UnidadeService $unidadeService) {
         $this->clienteService = $clienteService;
         $this->osService = $osService;
         $this->statusService = $statusService;
         $this->agendaService = $agendaService;
+        $this->unidadeService = $unidadeService;
         $this->classificacaoService = $classificacaoOSService;
     }
 
@@ -55,8 +58,9 @@ class ClienteController extends Controller {
 
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
+        $unidades = $this->unidadeService->getAll();
 
-        return view('clientes', compact('clientes', 'status', 'classificacao'));
+        return view('clientes', compact('clientes', 'status', 'classificacao', 'unidades'));
     }
 
 
@@ -127,8 +131,9 @@ class ClienteController extends Controller {
 
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
+        $unidades = $this->unidadeService->getAll();
 
-        return view('cliente-info', compact('cliente', 'status', 'classificacao'));
+        return view('cliente-info', compact('cliente', 'status', 'classificacao', 'unidades'));
     }
 
     public function getEquipamentos(string $id) {

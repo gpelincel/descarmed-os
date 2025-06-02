@@ -88,4 +88,4 @@
 
 <!-- End block -->
 
-<x-os.cadastro-modal :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>
+<x-os.cadastro-modal :unidades="$unidades" :clientes="$clientes" :selected="null" :status="$status" :classificacao="$classificacao"></x-os.cadastro-modal>

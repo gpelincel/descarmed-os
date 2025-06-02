@@ -30,8 +30,14 @@ function addValorMask() {
 
 addValorMask();
 
-if(document.querySelector("#id_cliente").value && document.querySelector("#formCadOS")){
-    verifyClienteID(document.querySelector("#id_cliente").value, document.querySelector("#formCadOS"))
+if (
+    document.querySelector("#id_cliente").value &&
+    document.querySelector("#formCadOS")
+) {
+    verifyClienteID(
+        document.querySelector("#id_cliente").value,
+        document.querySelector("#formCadOS")
+    );
 }
 
 document.querySelector("#id_cliente").addEventListener("change", (event) => {
@@ -59,16 +65,27 @@ function addItemField(event, update = false) {
 
     if (update) {
         items_id += "-update";
-        items_counter += "_update"
+        items_counter += "_update";
+    }
+
+    let unidades = "";
+
+    if (document.querySelector("#id_unidade_1")) {
+        let select = document.querySelector("#id_unidade_1");
+        unidades = select.innerHTML;
     }
 
     let counter = Number(document.querySelector(items_counter).value);
 
     let html = `
-    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
+    <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
     <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
         placeholder="0">
+        <select id="id_unidade_${counter + 1}" name="id_unidade_${counter + 1}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            ${unidades}
+        </select>
     <input type="text" name="nome_item_${counter + 1}" id="nome_item_${
         counter + 1
     }"
@@ -82,11 +99,7 @@ function addItemField(event, update = false) {
 </div>
     `;
 
-    
-
-    document
-        .querySelector(items_id)
-        .insertAdjacentHTML("beforeend", html);
+    document.querySelector(items_id).insertAdjacentHTML("beforeend", html);
 
     addValorMask();
 
@@ -95,17 +108,21 @@ function addItemField(event, update = false) {
 }
 
 if (document.querySelector("#btn-add-item")) {
-    document.querySelector("#btn-add-item").addEventListener("click", (event) => {
-        event.preventDefault();
-        addItemField(event);
-    });
+    document
+        .querySelector("#btn-add-item")
+        .addEventListener("click", (event) => {
+            event.preventDefault();
+            addItemField(event);
+        });
 }
 
-if(document.querySelector("#btn-add-item-update")){
-    document.querySelector("#btn-add-item-update").addEventListener("click", (event) => {
-        event.preventDefault();
-        addItemField(event, true);
-    });
+if (document.querySelector("#btn-add-item-update")) {
+    document
+        .querySelector("#btn-add-item-update")
+        .addEventListener("click", (event) => {
+            event.preventDefault();
+            addItemField(event, true);
+        });
 }
 
 function atualizarTotalOS(container) {
@@ -126,7 +143,7 @@ function atualizarTotalOS(container) {
     if (inputTotal && inputTotal.mask) {
         inputTotal.mask.typedValue = total;
     } else if (inputTotal) {
-        inputTotal.value = total.toFixed(2).replace('.', ',');
+        inputTotal.value = total.toFixed(2).replace(".", ",");
     }
 }
 
@@ -190,18 +207,34 @@ function openModalOSUpdate(id) {
             if (items.length > 0) {
                 let html = "";
 
-                document.querySelector("#item_counter_update").value = items.length;
+                document.querySelector("#item_counter_update").value =
+                    items.length;
 
                 items.map((item, counter) => {
+                    let unidades = "";
+
+                    if (document.querySelector("#id_unidade_1")) {
+                        let select = document.querySelector("#id_unidade_1");
+                        unidades = select.innerHTML;
+                    }
+
                     html += `
-                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
-                        <input type="hidden" name="id_item_${counter+1}" value="${item.id}">
+                        <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
+                        <input type="hidden" name="id_item_${
+                            counter + 1
+                        }" value="${item.id}">
                         <input type="number" name="qtd_${
                             counter + 1
                         }" id="qtd_${counter + 1}"
                             value="${item.quantidade}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                             placeholder="0">
+                        <select id="id_unidade_${
+                            counter + 1
+                        }" name="id_unidade_${counter + 1}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            ${unidades}
+                        </select>
                         <input value="${
                             item.nome
                         }" type="text" name="nome_item_${
@@ -230,13 +263,28 @@ function openModalOSUpdate(id) {
                             "#preco_un_" + (counter + 1)
                         ).mask.typedValue = item.valor_unitario;
                     }
+
+                    if (document.querySelector("#id_unidade_" + (counter + 1))) {
+                        document.querySelector(
+                            "#id_unidade_" + (counter + 1)
+                        ).options.selectedIndex = item.id_unidade;
+                    }
                 });
             } else {
+                let unidades = ""
+                if (document.querySelector("#id_unidade_1")) {
+                        let select = document.querySelector("#id_unidade_1");
+                        unidades = select.innerHTML;
+                    }
                 let html = `
-                    <div class="grid grid-cols-[1fr_4fr_1fr] gap-2 col-span-3 item-fields">
+                    <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
                         <input type="number" name="qtd_1" id="qtd_1"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                             placeholder="0">
+                        <select id="id_unidade_1" name="id_unidade_1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            ${unidades}
+                        </select>
                         <input type="text" name="nome_item_1" id="nome_item_1"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Nome do item">
@@ -297,13 +345,19 @@ function openModalRead(id) {
             let cliente = result.cliente;
             let endereco = cliente.endereco;
 
-            document.querySelector("#cnpj-cliente").innerHTML = cliente.cnpj ?? "N/A";
+            document.querySelector("#cnpj-cliente").innerHTML =
+                cliente.cnpj ?? "N/A";
             document.querySelector("#telefone-cliente").innerHTML =
                 cliente.telefone ?? "N/A";
-            document.querySelector("#email-cliente").innerHTML = cliente.email ?? "N/A";
-            document.querySelector(
-                "#endereco-cliente"
-            ).innerHTML = `${endereco.cidade ? endereco.cidade+'/'+endereco.estado : "N/A"} - ${endereco.cep ?? 'N/A'} - ${endereco.logradouro ?? 'N/A'}  Nº ${endereco.numero ?? 'N/A'}`;
+            document.querySelector("#email-cliente").innerHTML =
+                cliente.email ?? "N/A";
+            document.querySelector("#endereco-cliente").innerHTML = `${
+                endereco.cidade
+                    ? endereco.cidade + "/" + endereco.estado
+                    : "N/A"
+            } - ${endereco.cep ?? "N/A"} - ${
+                endereco.logradouro ?? "N/A"
+            }  Nº ${endereco.numero ?? "N/A"}`;
 
             document.querySelector("#os_id").value = id;
             document.querySelector("#titulo-os").innerHTML = result.titulo;
@@ -342,10 +396,12 @@ function openModalRead(id) {
 
             if (result.items.length > 0) {
                 document.querySelector("#items-container").hidden = false;
+                document.querySelector("#items-table").innerHTML = "";
                 result.items.map((e) => {
                     document.querySelector("#items-table").innerHTML += `
                     <tr>
                         <td>${e.quantidade}</td>
+                        <td>${e.unidade ? e.unidade.descricao : "N/A"}</td>
                         <td>${e.nome}</td>
                         <td>${toBRL(e.valor_unitario)}</td>
                     </tr>

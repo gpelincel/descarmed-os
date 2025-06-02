@@ -21,7 +21,7 @@ class StoreUpdateEndereco extends FormRequest
      */
     public function rules(): array {
         return [
-            'cep' => 'required|string|max:255',
+            'cep' => 'nullable|string|max:255',
             'logradouro' => 'nullable|string',
             'numero' => 'nullable|numeric|min:0',
             'complemento' => 'nullable|string',

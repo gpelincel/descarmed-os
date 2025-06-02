@@ -162,8 +162,9 @@
                             </button>
                             <input type="hidden" id="item_counter_update" name="item_counter" value="1">
                         </div>
-                        <div class="grid grid-cols-[1fr_4fr_1fr] gap-2">
+                        <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2">
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
+                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Und.</h4>
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
                             <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
                         </div>
