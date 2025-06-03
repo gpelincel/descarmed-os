@@ -150,8 +150,6 @@ function atualizarTotalOS(container) {
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;
 
-    console.log(document.querySelector("#novo-eqp").value == "0");
-
     if (id_cliente !== "" && document.querySelector("#novo-eqp").value == "0") {
         fetch("/cliente/equipamento/" + id_cliente)
             .then((response) => response.json())
@@ -215,7 +213,17 @@ function openModalOSUpdate(id) {
 
                     if (document.querySelector("#id_unidade_1")) {
                         let select = document.querySelector("#id_unidade_1");
-                        unidades = select.innerHTML;
+                        unidades = select;
+
+                        for (let e of unidades.children) {
+                            e.removeAttribute("selected");
+
+                            if (Number(e.value) == item.id_unidade) {
+                                e.setAttribute("selected", "");
+                            }
+                        }
+
+                        unidades = unidades.innerHTML;
                     }
 
                     html += `
@@ -229,9 +237,9 @@ function openModalOSUpdate(id) {
                             value="${item.quantidade}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                             placeholder="0">
-                        <select id="id_unidade_${
-                            counter + 1
-                        }" name="id_unidade_${counter + 1}"
+                        <select value="${item.id_unidade}" id="id_unidade_${
+                        counter + 1
+                    }" name="id_unidade_${counter + 1}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             ${unidades}
                         </select>
@@ -263,19 +271,13 @@ function openModalOSUpdate(id) {
                             "#preco_un_" + (counter + 1)
                         ).mask.typedValue = item.valor_unitario;
                     }
-
-                    if (document.querySelector("#id_unidade_" + (counter + 1))) {
-                        document.querySelector(
-                            "#id_unidade_" + (counter + 1)
-                        ).options.selectedIndex = item.id_unidade;
-                    }
                 });
             } else {
-                let unidades = ""
+                let unidades = "";
                 if (document.querySelector("#id_unidade_1")) {
-                        let select = document.querySelector("#id_unidade_1");
-                        unidades = select.innerHTML;
-                    }
+                    let select = document.querySelector("#id_unidade_1");
+                    unidades = select.innerHTML;
+                }
                 let html = `
                     <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
                         <input type="number" name="qtd_1" id="qtd_1"

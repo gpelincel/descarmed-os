@@ -200,7 +200,7 @@
             @if (isset($checkboxes['descricao']))
                 <tr>
                     <td>
-                        <b>Descrição:</b>
+                        <b>Observação:</b>
                         <span class="uppercase">{{ $descricao }}</span>
                     </td>
                 </tr>

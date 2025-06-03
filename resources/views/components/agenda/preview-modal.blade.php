@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <dl>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Descrição</dt>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Observação</dt>
                     <dd id="descricao-agenda" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, recusandae iure vitae,
                         architecto sequi at minima neque, quo repudiandae accusantium quaerat laboriosam? Dignissimos

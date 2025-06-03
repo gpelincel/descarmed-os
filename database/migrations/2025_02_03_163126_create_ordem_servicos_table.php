@@ -12,7 +12,7 @@ return new class extends Migration {
         Schema::create('ordem_servicos', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descricao');
+            $table->string('descricao')->nullable();
             $table->string('codigo_compra')->nullable();
             $table->string('nota_fiscal')->nullable();
             $table->date('data_inicio');

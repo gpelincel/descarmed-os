@@ -70,6 +70,19 @@ function openModalClienteUpdate(id) {
         })
 }
 
+function getCEP(cep){
+    let cep_value = cep.value.replace('-', '');
+    fetch(`https://viacep.com.br/ws/${cep_value}/json/`)
+    .then(response => response.json())
+    .then(result => {
+        let form = cep.form;
+        form.logradouro.value = result.logradouro;
+        form.cidade.value = result.localidade;
+        form.bairro.value = result.bairro;
+        form.estado.value = result.uf;
+        console.log(result);
+    })
+}
 
 document.addEventListener("click", (e) => {
     if (e.target.matches(".btn-delete-cliente")) {
@@ -77,5 +90,11 @@ document.addEventListener("click", (e) => {
     }
     if (e.target.matches(".btn-update-cliente")) {
         openModalClienteUpdate(e.target.dataset.id);
+    }
+});
+
+document.addEventListener("change", (event) => {
+    if (event.target.matches("#cep")) {
+        getCEP(event.target);
     }
 });
