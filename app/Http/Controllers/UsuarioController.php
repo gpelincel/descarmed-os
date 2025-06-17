@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Models\Usuario;
+use App\Services\JwtService;
 use App\Services\UsuarioService;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
-{
-    
-    private $usuarioService;
+class UsuarioController extends Controller {
 
-    public function __construct(UsuarioService $usuarioService) {
+    private $usuarioService;
+    private $jwtService;
+
+    public function __construct(UsuarioService $usuarioService, JwtService $jwtService) {
         $this->usuarioService = $usuarioService;
+        $this->jwtService = $jwtService;
     }
 
     /**
@@ -21,8 +23,8 @@ class UsuarioController extends Controller
      */
     public function index() {
         $usuarios = $this->usuarioService->getAll();
-        
-        if (request()->wantsJson()){
+
+        if (request()->wantsJson()) {
             return response()->json($usuarios);
         }
 
@@ -42,7 +44,7 @@ class UsuarioController extends Controller
     public function store(StoreUsuarioRequest $request) {
         $usuario = $this->usuarioService->save($request->all());
 
-        if (request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response()->json($usuario);
         }
 
@@ -69,18 +71,29 @@ class UsuarioController extends Controller
     public function update(StoreUsuarioRequest $request, string $id) {
         $usuario = $this->usuarioService->edit($request->all(), $id);
 
-        if (request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response()->json($usuario);
         }
 
         return redirect()->back()->with('status', 'success')->with('message', 'Usuário atualizado com sucesso!');
     }
 
-    public function login(Request $request){
+    public function login(Request $request) {
         $usuario = $this->usuarioService->login($request->all());
-        if($usuario){
+
+        if ($usuario) {
+            if (request()->wantsJson()) {
+                $usuario->token = $this->jwtService->generateToken($usuario);
+                return response()->json($usuario);
+            }
             return redirect()->route('cliente');
         } else {
+            if (request()->wantsJson()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Usuário ou senha inválidos!"
+                ], 400);
+            }
             return redirect()->back()->with('status', 'error')->with('message', 'Usuário ou senha inválidos!');
         }
     }
@@ -93,7 +106,7 @@ class UsuarioController extends Controller
         if (request()->wantsJson()) {
             return response()->json(['message' => 'Usuário deletado com sucesso', 'data' => $usuario], 200);
         }
-        
-        return redirect()->back()->with('status', 'success')->with('message','Usuário deletado com sucesso!');
+
+        return redirect()->back()->with('status', 'success')->with('message', 'Usuário deletado com sucesso!');
     }
 }

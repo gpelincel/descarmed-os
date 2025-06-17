@@ -102,19 +102,19 @@ class ClienteController extends Controller {
             $field = 'titulo';
         }
         $cliente->ordens_servico = $cliente->ordens_servico()->with('status')->when($search, function ($query) use ($search, $field) {
-                switch ($field) {
-                    case 'cliente':
-                        return $query->whereHas('cliente', function ($q) use ($search) {
-                            $q->where('nome', 'like', "%$search%");
-                        });
-                    case 'equipamento':
-                        return $query->whereHas('equipamento', function ($q) use ($search) {
-                            $q->where('nome', 'like', "%$search%");
-                        });
-                    default:
-                        return $query->where($field, 'like', "%$search%");
-                }
-            })
+            switch ($field) {
+                case 'cliente':
+                    return $query->whereHas('cliente', function ($q) use ($search) {
+                        $q->where('nome', 'like', "%$search%");
+                    });
+                case 'equipamento':
+                    return $query->whereHas('equipamento', function ($q) use ($search) {
+                        $q->where('nome', 'like', "%$search%");
+                    });
+                default:
+                    return $query->where($field, 'like', "%$search%");
+            }
+        })
             ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
                 return $query->where('id_status', $id_status);
             })
