@@ -13,7 +13,7 @@ class EquipamentoService
 
     public function getAll()
     {
-        return Equipamento::query();
+        return Equipamento::with(['cliente']);
     }
 
     public function save(Array $equipamento)

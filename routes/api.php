@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EquipamentoController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
@@ -12,5 +13,6 @@ Route::post('/login', [UsuarioController::class, 'login']);
 Route::middleware(JwtMiddleware::class)->group(function () {
     Route::resource('cliente', ClienteController::class);
     Route::resource('ordem-servico', OrdemServicoController::class);
+    Route::resource('equipamento', EquipamentoController::class);
 });
 

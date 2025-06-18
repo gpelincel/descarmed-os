@@ -32,13 +32,17 @@ class EquipamentoController extends Controller {
         $equipamentos = $this->equipamentoService->getAll()
         ->when($search, function ($query) use ($search, $field) {
             return $query->where($field, 'like', "%$search%");
-        })
-        ->paginate(10);
+        });
 
         if (request()->wantsJson()) {
-            return $equipamentos;
+            return response()->json([
+                "status" => "success",
+                "data" => $equipamentos->get()
+            ]);
         }
+
         $clientes = $this->clienteService->getAll()->get();
+        $equipamentos = $equipamentos->paginate(10);
 
         return view('equipamentos', compact('equipamentos', 'clientes'));
     }
