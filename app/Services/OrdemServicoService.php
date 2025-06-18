@@ -16,7 +16,7 @@ class OrdemServicoService {
 
 
     public function getAll() {
-        $ordens = OrdemServico::with(['equipamento', 'status', 'cliente'])->orderBy('data_inicio', 'desc');
+        $ordens = OrdemServico::with(['equipamento', 'status', 'cliente', 'classificacao'])->orderBy('data_inicio', 'desc');
         return $ordens;
     }
 

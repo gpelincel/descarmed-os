@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
+use App\Http\Resources\OrdemServicoResource;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
@@ -67,17 +68,22 @@ class OrdemServicoController extends Controller {
                 $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
                 $data_minima = $data_minima->format('Y-m-d');
                 return $query->where('data_inicio', '>=', $data_minima);
-            })
-            ->paginate(10);
+            });
 
         if (request()->wantsJson()) {
-            return response()->json($ordens);
+            return response()->json(
+                [
+                    "message" => "success",
+                    "data" => OrdemServicoResource::collection($ordens->get())
+                ]
+            );
         }
 
         $clientes = $this->clienteService->getAll()->get();
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
         $unidades = $this->unidadeService->getAll();
+        $ordens = $ordens->paginate(10);
 
         return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao', 'unidades'));
     }
