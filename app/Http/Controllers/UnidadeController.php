@@ -13,6 +13,17 @@ class UnidadeController extends Controller
         $this->unidadeService = $unidadeService;
     }
 
+    public function index(){
+        $unidades = $this->unidadeService->getAll();
+        if (request()->wantsJson()) {
+            return response()->json([
+                "status" => "success",
+                "data" => $unidades
+            ]);
+        }
+        return $unidades;
+    }
+
     public function store(Request $request){
         $this->unidadeService->save($request->all());
         return redirect()->back()->with('status', 'success')->with('message', 'Unidade cadastrada com sucesso!');
