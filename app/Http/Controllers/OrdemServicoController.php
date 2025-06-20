@@ -38,6 +38,7 @@ class OrdemServicoController extends Controller {
         $search = request('search');
         $field = request('field', 'titulo'); // Valor padrão: 'titulo'
         $id_status = request('id_status');
+        $id_classificacao = request('id_classificacao');
         $data_minima = request('data_inicio');
 
         // Campos permitidos
@@ -63,6 +64,9 @@ class OrdemServicoController extends Controller {
             })
             ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
                 return $query->where('id_status', $id_status);
+            })
+            ->when($id_classificacao && $id_classificacao != 0, function ($query) use ($id_classificacao) {
+                return $query->where('id_classificacao', $id_classificacao);
             })
             ->when($data_minima && $data_minima != "", function ($query) use ($data_minima) {
                 $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
