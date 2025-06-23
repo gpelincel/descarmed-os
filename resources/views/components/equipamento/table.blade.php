@@ -25,7 +25,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                <x-table-header :headers="['Nº Série', 'Nº Patrimônio','Nome', 'Cliente']"></x-table-header>
+                <x-table-header :headers="['Nº Série', 'Nº Patrimônio', 'Nome', 'Cliente']"></x-table-header>
 
                 <tbody>
                     @foreach ($equipamentos as $equipamento)
@@ -34,13 +34,12 @@
                             <th scope="row"
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $equipamento->id }}</th>
-                                <td class="px-4 py-3">{{ $equipamento->numero_serie }}</td>
-                                <td class="px-4 py-3">{{ $equipamento->numero_patrimonio }}</td>
+                            <td class="px-4 py-3">{{ $equipamento->numero_serie }}</td>
+                            <td class="px-4 py-3">{{ $equipamento->numero_patrimonio }}</td>
                             <td class="px-4 py-3">{{ $equipamento->nome }}</td>
                             <td class="px-4 py-3">{{ $equipamento->cliente->nome }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button 
-                                    data-dropdown-toggle="{{ $equipamento->id }}-equipamento-dropdown"
+                                <button data-dropdown-toggle="{{ $equipamento->id }}-equipamento-dropdown"
                                     class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                     type="button">
                                     <i class="fi fi-rs-circle-ellipsis text-xl"></i>
@@ -49,8 +48,8 @@
                                     class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm">
                                         <li>
-                                            <button data-id="{{$equipamento->id}}"
-                                                type="button" data-modal-target="modal-update-equipamento"
+                                            <button data-id="{{ $equipamento->id }}" type="button"
+                                                data-modal-target="modal-update-equipamento"
                                                 data-modal-toggle="modal-update-equipamento"
                                                 class="flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200 btn-update-equipamento">
                                                 <i class="fi fi-rr-edit mr-2"></i>
@@ -58,7 +57,7 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <button type="button" data-id="{{$equipamento->id}}"
+                                            <button type="button" data-id="{{ $equipamento->id }}"
                                                 data-modal-target="deleteModal" data-modal-toggle="deleteModal"
                                                 class="delete-button flex w-full py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400 btn-delete-equipamento">
                                                 <i class="fi fi-rr-trash mr-2"></i>
@@ -78,7 +77,7 @@
 
         <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 w-full"
             aria-label="Table navigation">
-            {{ $equipamentos->links() }}
+            {{ $equipamentos->appends(request()->query())->links() }}
             {{-- <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                     Showing
                     <span class="font-semibold text-gray-900 dark:text-white">1-10</span>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ClassificacaoOSController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\EquipamentoController;
+use App\Http\Controllers\API\EquipamentoAPIController;
 use App\Http\Controllers\OrdemServicoController;
 use App\Http\Controllers\StatusOSController;
 use App\Http\Controllers\UnidadeController;
@@ -16,7 +16,7 @@ Route::post('/login', [UsuarioController::class, 'login']);
 Route::middleware(JwtMiddleware::class)->group(function () {
     Route::resource('cliente', ClienteController::class);
     Route::resource('ordem-servico', OrdemServicoController::class);
-    Route::resource('equipamento', EquipamentoController::class);
+    Route::resource('equipamento', EquipamentoAPIController::class);
 
     Route::get('/configuracao/status', [StatusOSController::class, 'index']);
     Route::get('/configuracao/classificacao', [ClassificacaoOSController::class, 'index']);

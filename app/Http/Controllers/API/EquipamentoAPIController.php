@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEquipamentoRequest;
 use App\Models\Equipamento;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
 
-class EquipamentoController extends Controller {
+class EquipamentoAPIController extends Controller {
     protected $equipamentoService;
     protected $clienteService;
 
@@ -35,9 +36,9 @@ class EquipamentoController extends Controller {
             return $query->where($field, 'like', "%$search%");
         })->paginate(10);
 
-        $clientes = $this->clienteService->getAll()->get();
+        $equipamentos->appends(request()->query());
 
-        return view('equipamentos', compact('equipamentos', 'clientes'));
+        return response()->json($equipamentos);
     }
 
     /**
