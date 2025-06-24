@@ -42,23 +42,12 @@ class EquipamentoAPIController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreEquipamentoRequest $request) {
         $equipamento = $this->equipamentoService->save($request->all());
 
-        if (request()->wantsJson()) {
-            return $equipamento;
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento cadastrado com sucesso!');
+        return response()->json(['message' => 'Equipamento criado com sucesso', 'data' => $equipamento], 201);
     }
 
     /**
@@ -67,18 +56,7 @@ class EquipamentoAPIController extends Controller {
     public function show(string $id) {
         $equipamento = $this->equipamentoService->findByID($id);
 
-        if (request()->wantsJson()) {
-            return $equipamento;
-        }
-
-        return view('equipamento-info', compact('equipamento'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Equipamento $equipamento) {
-        //
+        return response()->json($equipamento);
     }
 
     /**
@@ -87,11 +65,7 @@ class EquipamentoAPIController extends Controller {
     public function update(StoreEquipamentoRequest $request, string $id) {
         $equipamento = $this->equipamentoService->edit($request->all(), $id);
 
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Equipamento atualizado com sucesso', 'data' => $equipamento], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento atualizado com sucesso!');
+        return response()->json(['message' => 'Equipamento atualizado com sucesso', 'data' => $equipamento], 200);
     }
 
     /**
@@ -100,10 +74,6 @@ class EquipamentoAPIController extends Controller {
     public function destroy(string $id) {
         $equipamento = $this->equipamentoService->delete($id);
 
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Equipamento deletado com sucesso', 'data' => $equipamento], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento deletado com sucesso!');
+        return response()->json(['message' => 'Equipamento deletado com sucesso', 'data' => $equipamento], 200);
     }
 }
