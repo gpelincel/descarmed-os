@@ -30,6 +30,7 @@ class StoreClienteRequest extends FormRequest {
     public function messages(): array {
         return [
             'nome.string' => 'O nome deve ser um texto',
+            'nome.required' => 'O nome é obrigatório',
             'nome.max' => 'O nome deve ter no máximo 255 caracteres',
     
             'razao_social.string' => 'A razão social deve ser um texto',
