@@ -14,14 +14,14 @@ class JwtMiddleware
         $authHeader = $request->header('Authorization');
 
         if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
-            return response()->json(['message' => 'Token not provided'], 401);
+            return response()->json(['message' => 'Token não fornecido'], 401);
         }
 
         $token = substr($authHeader, 7);
         $userId = app(JwtService::class)->parseToken($token);
 
         if (!$userId) {
-            return response()->json(['message' => 'Invalid token'], 401);
+            return response()->json(['status'=>'error','message' => 'Token inválido'], 401);
         }
 
         auth()->loginUsingId($userId); // autentica o usuário manualmente

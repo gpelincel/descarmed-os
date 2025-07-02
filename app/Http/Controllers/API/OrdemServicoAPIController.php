@@ -86,7 +86,7 @@ class OrdemServicoAPIController extends Controller {
     public function store(StoreOrdemServicoRequest $request) {
         $ordem = $this->osService->save($request->all());
 
-        return response()->json(['message' => 'Ordem de serviço cadastrada com sucesso', 'data' => $ordem], 201);
+        return response()->json(['status'=>'success','message' => 'Ordem de serviço cadastrada com sucesso', 'data' => $ordem], 201);
     }
 
     /**

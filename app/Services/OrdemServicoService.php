@@ -46,7 +46,7 @@ class OrdemServicoService {
             $ordemServico['id_status'] = 2;
         }
 
-        if ($ordemServico['novo-eqp'] == "1") {
+        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
             $equipamentoService = new EquipamentoService();
             $equipamentoNovo = $equipamentoService->save($ordemServico);
             $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
@@ -54,7 +54,7 @@ class OrdemServicoService {
 
         $ordemReturn = OrdemServico::create($ordemServico);
 
-        if ($ordemServico['qtd_1'] > 0) {
+        if (isset($ordemServico['qtd_1']) && $ordemServico['qtd_1'] > 0) {
             for ($i = 1; $i <= $item_counter; $i++) {
                 $item['quantidade'] = $ordemServico['qtd_' . $i];
                 $item['nome'] = $ordemServico['nome_item_' . $i];
@@ -67,6 +67,15 @@ class OrdemServicoService {
             }
         }
 
+        if (isset($itens)) {
+            foreach ($itens as $item) {
+                $itemService = new ItemService();
+                if ($item['quantidade']) {
+                    $item['id_os'] = $ordemReturn->id;
+                    $itemService->save($item);
+                }
+            }
+        }
 
         return $ordemReturn;
     }
