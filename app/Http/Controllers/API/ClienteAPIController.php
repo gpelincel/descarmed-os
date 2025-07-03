@@ -89,4 +89,10 @@ class ClienteAPIController extends Controller {
 
         return response()->json(['message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
     }
+
+    public function getEquipamentos(string $id) {
+        $cliente = $this->clienteService->findByID($id);
+
+        return response()->json(['status' => 'success', 'data' => $cliente->equipamentos()->get()], 200);
+    }
 }

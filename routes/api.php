@@ -18,6 +18,8 @@ Route::middleware(JwtMiddleware::class)->group(function () {
     Route::resource('ordem-servico', OrdemServicoAPIController::class);
     Route::resource('equipamento', EquipamentoAPIController::class);
 
+    Route::get('/cliente/equipamento/{id}', [ClienteAPIController::class, 'getEquipamentos']);
+
     Route::get('/configuracao/status', [StatusOSController::class, 'index']);
     Route::get('/configuracao/classificacao', [ClassificacaoOSController::class, 'index']);
     Route::get('/configuracao/unidade', [UnidadeController::class, 'index']);
