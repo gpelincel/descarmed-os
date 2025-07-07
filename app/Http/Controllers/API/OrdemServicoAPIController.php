@@ -86,7 +86,7 @@ class OrdemServicoAPIController extends Controller {
     public function store(StoreOrdemServicoRequest $request) {
         $ordem = $this->osService->save($request->all());
 
-        return response()->json(['status'=>'success','message' => 'Ordem de serviço cadastrada com sucesso', 'data' => $ordem], 201);
+        return response()->json(['status' => 'success', 'message' => 'Ordem de serviço cadastrada com sucesso', 'data' => $ordem], 201);
     }
 
     /**
@@ -94,7 +94,7 @@ class OrdemServicoAPIController extends Controller {
      */
     public function show(string $id) {
         $ordem = $this->osService->findByID($id);
-        return response()->json($ordem);
+        return response()->json(new OrdemServicoResource($ordem));
     }
 
     /**
@@ -112,5 +112,23 @@ class OrdemServicoAPIController extends Controller {
     public function destroy(string $id) {
         $ordem = $this->osService->delete($id);
         return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
+    }
+
+    public function imprimir_personalizado(Request $request, string $id) {
+        $dados = $request->all();
+
+        $ordemServico = $this->osService->findByID($id);
+        $ordemServico->checkboxes = $dados;
+
+        if ($ordemServico->equipamento) {
+            $ordemServico->equipamento = $ordemServico->equipamento->toArray();
+        }
+
+        $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
+
+        $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
+        // return var_dump($pdf->stream());
+        // return $pdf->stream("ordem_servico_{$id}.pdf");
+        return $pdf->download("ordem-servico-{$id}.pdf");
     }
 }

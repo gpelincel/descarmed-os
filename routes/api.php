@@ -23,5 +23,7 @@ Route::middleware(JwtMiddleware::class)->group(function () {
     Route::get('/configuracao/status', [StatusOSController::class, 'index']);
     Route::get('/configuracao/classificacao', [ClassificacaoOSController::class, 'index']);
     Route::get('/configuracao/unidade', [UnidadeController::class, 'index']);
+
+    Route::post('/ordem-servico/imprimir/{id}', [OrdemServicoAPIController::class, 'imprimir_personalizado']);
 });
 
