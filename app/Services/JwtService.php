@@ -35,7 +35,7 @@ class JwtService
 
         return $this->config->builder()
             ->issuedAt($now)
-            ->expiresAt($now->modify('+1 hour'))
+            ->expiresAt($now->modify('+12 hour'))
             ->withClaim('uid', $user->id)
             ->getToken($this->config->signer(), $this->config->signingKey())
             ->toString();

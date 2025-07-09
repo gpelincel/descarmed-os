@@ -208,14 +208,14 @@
                         </table>
                     </div>
 
-                    <div id="preco-container">
+                    <div id="valor_total-container">
                         <dt
                             class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
                             <input checked type="checkbox" value="true" name="valor" id="valor"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Valor
                             Total
                         </dt>
-                        <dd id="preco-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
+                        <dd id="valor_total-os" class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"></dd>
                         </dd>
                     </div>
                 </dl>

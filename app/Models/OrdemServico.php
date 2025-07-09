@@ -15,7 +15,7 @@ class OrdemServico extends Model {
         "nota_fiscal",
         "data_inicio",
         "data_conclusao",
-        "preco",
+        "valor_total",
         "id_status",
         "id_cliente",
         "id_classificacao",

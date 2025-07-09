@@ -21,7 +21,7 @@ class OrdemServicoResource extends JsonResource
             'descricao' => $this->descricao,
             'cod_compra' => $this->codigo_compra,
             'nota_fiscal' => $this->nota_fiscal,
-            'valor_total' => $this->preco,
+            'valor_total' => $this->valor_total,
             'equipamento' => $this->equipamento,
             'itens' => $this->items,
             'status' => $this->status->descricao ?? "N/A",

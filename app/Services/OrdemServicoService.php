@@ -58,7 +58,7 @@ class OrdemServicoService {
             for ($i = 1; $i <= $item_counter; $i++) {
                 $item['quantidade'] = $ordemServico['qtd_' . $i];
                 $item['nome'] = $ordemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $ordemServico['preco_un_' . $i];
+                $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
                 $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
                 $item['id_os'] = $ordemReturn->id;
 
@@ -125,7 +125,7 @@ class OrdemServicoService {
             for ($i = 1; $i <= $item_counter; $i++) {
                 $item['quantidade'] = $novoOrdemServico['qtd_' . $i];
                 $item['nome'] = $novoOrdemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $novoOrdemServico['preco_un_' . $i];
+                $item['valor_unitario'] = $novoOrdemServico['valor_un_' . $i];
                 $item['id_os'] = $id;
 
                 $itemService = new ItemService();

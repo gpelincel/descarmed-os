@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('nota_fiscal')->nullable();
             $table->date('data_inicio');
             $table->date('data_conclusao')->nullable();
-            $table->decimal('preco', 8, 2)->nullable();
+            $table->decimal('valor_total', 8, 2)->nullable();
             $table->foreignId('id_classificacao');
             $table->foreignId('id_cliente');
             $table->foreignId('id_status')->nullable();
