@@ -111,7 +111,7 @@ class OrdemServicoAPIController extends Controller {
      */
     public function destroy(string $id) {
         $ordem = $this->osService->delete($id);
-        return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
+        return response()->json(['status'=>'success', 'message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
     }
 
     public function imprimir_personalizado(Request $request, string $id) {
