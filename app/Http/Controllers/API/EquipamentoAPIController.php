@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEquipamentoRequest;
 use App\Models\Equipamento;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
 
-class EquipamentoController extends Controller {
+class EquipamentoAPIController extends Controller {
     protected $equipamentoService;
     protected $clienteService;
 
@@ -35,16 +36,9 @@ class EquipamentoController extends Controller {
             return $query->where($field, 'like', "%$search%");
         })->paginate(10);
 
-        $clientes = $this->clienteService->getAll()->get();
+        $equipamentos->appends(request()->query());
 
-        return view('equipamentos', compact('equipamentos', 'clientes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
-        //
+        return response()->json($equipamentos);
     }
 
     /**
@@ -53,11 +47,7 @@ class EquipamentoController extends Controller {
     public function store(StoreEquipamentoRequest $request) {
         $equipamento = $this->equipamentoService->save($request->all());
 
-        if (request()->wantsJson()) {
-            return $equipamento;
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento cadastrado com sucesso!');
+        return response()->json(['message' => 'Equipamento criado com sucesso', 'data' => $equipamento], 201);
     }
 
     /**
@@ -66,18 +56,7 @@ class EquipamentoController extends Controller {
     public function show(string $id) {
         $equipamento = $this->equipamentoService->findByID($id);
 
-        if (request()->wantsJson()) {
-            return $equipamento;
-        }
-
-        return view('equipamento-info', compact('equipamento'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Equipamento $equipamento) {
-        //
+        return response()->json($equipamento);
     }
 
     /**
@@ -86,11 +65,7 @@ class EquipamentoController extends Controller {
     public function update(StoreEquipamentoRequest $request, string $id) {
         $equipamento = $this->equipamentoService->edit($request->all(), $id);
 
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Equipamento atualizado com sucesso', 'data' => $equipamento], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento atualizado com sucesso!');
+        return response()->json(['message' => 'Equipamento atualizado com sucesso', 'data' => $equipamento], 200);
     }
 
     /**
@@ -99,10 +74,6 @@ class EquipamentoController extends Controller {
     public function destroy(string $id) {
         $equipamento = $this->equipamentoService->delete($id);
 
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Equipamento deletado com sucesso', 'data' => $equipamento], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Equipamento deletado com sucesso!');
+        return response()->json(['message' => 'Equipamento deletado com sucesso', 'data' => $equipamento], 200);
     }
 }

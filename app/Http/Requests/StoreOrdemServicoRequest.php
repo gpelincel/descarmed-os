@@ -16,7 +16,7 @@ class StoreOrdemServicoRequest extends FormRequest {
         $this->merge([
             'data_inicio' => $this->convertDate($this->data_inicio),
             'data_conclusao' => $this->convertDate($this->data_conclusao),
-            'preco' => $this->convertPreco($this->preco),
+            'valor_total' => $this->convertPreco($this->valor_total),
         ]);
     }
 
@@ -32,6 +32,7 @@ class StoreOrdemServicoRequest extends FormRequest {
 
     private function convertPreco($valor) {
         if (!$valor) return 0;
+        if (is_numeric($valor)) return $valor;
 
         // Remove "R$", pontos e troca vírgula por ponto
         $limpo = str_replace(['R$', '.', ','], ['', '', '.'], $valor);
@@ -54,7 +55,8 @@ class StoreOrdemServicoRequest extends FormRequest {
             'id_classificacao' => 'required|integer|exists:classificacao_os,id',
             'data_inicio' => 'required|date',
             'data_conclusao' => 'nullable|date|after_or_equal:data_inicio',
-            'preco' => 'nullable|numeric|min:0',
+            'valor_total' => 'nullable|numeric|min:0',
+            'id_cliente' => 'required|integer|exists:clientes,id',
             'id_equipamento' => 'nullable',
         ];
     }
@@ -71,14 +73,18 @@ class StoreOrdemServicoRequest extends FormRequest {
             'id_classificacao.integer' => 'A classificação deve ser um número inteiro',
             'id_classificacao.exists' => 'A classificação selecionada é inválida',
 
+            'id_cliente.required' => 'O cliente é obrigatório',
+            'id_cliente.integer' => 'O cliente deve ser um número inteiro',
+            'id_cliente.exists' => 'O cliente selecionado é inválida',
+
             'data_inicio.required' => 'A data de início é obrigatória',
             'data_inicio.date' => 'A data de início deve estar em um formato válido',
 
             'data_conclusao.date' => 'A data de conclusão deve estar em um formato válido',
             'data_conclusao.after_or_equal' => 'A data de conclusão deve ser depois ou igual à data de início',
 
-            'preco.numeric' => 'O valor deve ser um número',
-            'preco.min' => 'O valor deve ser no mínimo 0',
+            'valor_total.numeric' => 'O valor deve ser um número',
+            'valor_total.min' => 'O valor deve ser no mínimo 0',
         ];
     }
 }

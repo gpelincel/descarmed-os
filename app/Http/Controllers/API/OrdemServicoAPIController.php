@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Resources\OrdemServicoResource;
@@ -14,20 +15,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Illuminate\Http\Request;
 
-class OrdemServicoController extends Controller {
+class OrdemServicoAPIController extends Controller {
 
     private $osService;
-    private $clienteService;
-    private $statusService;
-    private $classificacaoService;
-    private $unidadeService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService) {
+    public function __construct(OrdemServicoService $osService) {
         $this->osService = $osService;
-        $this->clienteService = $clienteService;
-        $this->statusService = $statusService;
-        $this->classificacaoService = $classificacaoService;
-        $this->unidadeService = $unidadeService;
     }
 
     /**
@@ -72,24 +65,12 @@ class OrdemServicoController extends Controller {
                 $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
                 $data_minima = $data_minima->format('Y-m-d');
                 return $query->where('data_inicio', '>=', $data_minima);
-            });
+            })->paginate(10);
 
-        if (request()->wantsJson()) {
-            return response()->json(
-                [
-                    "message" => "success",
-                    "data" => OrdemServicoResource::collection($ordens->get())
-                ]
-            );
-        }
+        $ordens->appends(request()->query());
+        $ordens->data = OrdemServicoResource::collection($ordens);
 
-        $clientes = $this->clienteService->getAll()->get();
-        $status = $this->statusService->getAll();
-        $classificacao = $this->classificacaoService->getAll();
-        $unidades = $this->unidadeService->getAll();
-        $ordens = $ordens->paginate(10);
-
-        return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao', 'unidades'));
+        return response()->json($ordens);
     }
 
     /**
@@ -105,11 +86,7 @@ class OrdemServicoController extends Controller {
     public function store(StoreOrdemServicoRequest $request) {
         $ordem = $this->osService->save($request->all());
 
-        if (request()->wantsJson()) {
-            return response()->json($ordem);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'OS cadastrada com sucesso!');
+        return response()->json(['status' => 'success', 'message' => 'Ordem de serviço cadastrada com sucesso', 'data' => $ordem], 201);
     }
 
     /**
@@ -117,13 +94,7 @@ class OrdemServicoController extends Controller {
      */
     public function show(string $id) {
         $ordem = $this->osService->findByID($id);
-        return $ordem;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(OrdemServico $ordemServico) {
+        return response()->json(new OrdemServicoResource($ordem));
     }
 
     /**
@@ -132,11 +103,7 @@ class OrdemServicoController extends Controller {
     public function update(StoreOrdemServicoRequest $request, string $id) {
         $ordem = $this->osService->edit($request->all(), $id);
 
-        if (request()->wantsJson()) {
-            return response()->json($ordem);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'OS atualizada com sucesso!');
+        return response()->json(['message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
     }
 
     /**
@@ -144,25 +111,13 @@ class OrdemServicoController extends Controller {
      */
     public function destroy(string $id) {
         $ordem = $this->osService->delete($id);
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Ordem de serviço deletada com sucesso!');
+        return response()->json(['status'=>'success', 'message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
     }
 
-    public function imprimir(string $id) {
-        $ordemServico = $this->show($id);
-        $ordemServico->equipamento->cliente->endereco = $ordemServico->equipamento->cliente->endereco->toArray();
-        $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
-        return $pdf->stream();
-        // return view('impressao', compact('ordemServico'));
-    }
-
-    public function imprimir_personalizado(Request $request) {
+    public function imprimir_personalizado(Request $request, string $id) {
         $dados = $request->all();
 
-        $ordemServico = $this->show($dados['os_id']);
+        $ordemServico = $this->osService->findByID($id);
         $ordemServico->checkboxes = $dados;
 
         if ($ordemServico->equipamento) {
@@ -170,8 +125,10 @@ class OrdemServicoController extends Controller {
         }
 
         $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
+
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
-        return $pdf->stream();
-        // return view('impressao', compact('ordemServico'));
+        // return var_dump($pdf->stream());
+        // return $pdf->stream("ordem_servico_{$id}.pdf");
+        return $pdf->download("ordem-servico-{$id}.pdf");
     }
 }

@@ -6,7 +6,7 @@ use App\Models\ClassificacaoOS;
 use App\Services\ClassificacaoOSService;
 use Illuminate\Http\Request;
 
-class ClassificacaoOSController extends Controller
+class ClassificacaoOSAPIController extends Controller
 {
     private $classificacaoOSService;
 

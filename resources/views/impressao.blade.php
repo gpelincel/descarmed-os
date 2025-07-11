@@ -234,13 +234,13 @@
                 @endforeach
             </table>
         @endif
-        @if (isset($preco) && isset($checkboxes['valor']) && $preco > 0)
+        @if (isset($valor_total) && isset($checkboxes['valor']) && $valor_total > 0)
             <hr>
             <table>
                 <tr>
                     <td>
                         <b>VALOR TOTAL:</b>
-                        <span class="uppercase">R$ {{ number_format($preco, 2, ',', '.') }}</span>
+                        <span class="uppercase">R$ {{ number_format($valor_total, 2, ',', '.') }}</span>
                     </td>
                 </tr>
             </table>

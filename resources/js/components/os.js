@@ -91,7 +91,7 @@ function addItemField(event, update = false) {
     }"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
         placeholder="Nome do item">
-    <input type="text" name="preco_un_${counter + 1}" id="preco_un_${
+    <input type="text" name="valor_un_${counter + 1}" id="valor_un_${
         counter + 1
     }"
         class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -127,19 +127,19 @@ if (document.querySelector("#btn-add-item-update")) {
 
 function atualizarTotalOS(container) {
     const inputsQtd = container.querySelectorAll('input[name^="qtd_"]');
-    const inputsValor = container.querySelectorAll('input[name^="preco_un_"]');
+    const inputsValor = container.querySelectorAll('input[name^="valor_un_"]');
 
     let total = 0;
 
     for (let i = 0; i < inputsQtd.length; i++) {
         const qtd = Number(inputsQtd[i].value) || 0;
-        const precoInput = inputsValor[i];
-        const valorUnitario = Number(precoInput.mask?.typedValue || 0);
+        const valorInput = inputsValor[i];
+        const valorUnitario = Number(valorInput.mask?.typedValue || 0);
 
         total += qtd * valorUnitario;
     }
 
-    const inputTotal = container.querySelector('input[name="preco"]');
+    const inputTotal = container.querySelector('input[name="valor_total"]');
     if (inputTotal && inputTotal.mask) {
         inputTotal.mask.typedValue = total;
     } else if (inputTotal) {
@@ -252,9 +252,9 @@ function openModalOSUpdate(id) {
                             placeholder="Nome do item">
                         <input value="${
                             item.valor_unitario
-                        }" type="text" name="preco_un_${
+                        }" type="text" name="valor_un_${
                         counter + 1
-                    }" id="preco_un_${counter + 1}"
+                    }" id="valor_un_${counter + 1}"
                             class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="R$ 0,00">
                     </div>
@@ -266,9 +266,9 @@ function openModalOSUpdate(id) {
                 addValorMask();
 
                 items.map((item, counter) => {
-                    if (document.querySelector("#preco_un_" + (counter + 1))) {
+                    if (document.querySelector("#valor_un_" + (counter + 1))) {
                         document.querySelector(
-                            "#preco_un_" + (counter + 1)
+                            "#valor_un_" + (counter + 1)
                         ).mask.typedValue = item.valor_unitario;
                     }
                 });
@@ -290,7 +290,7 @@ function openModalOSUpdate(id) {
                         <input type="text" name="nome_item_1" id="nome_item_1"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Nome do item">
-                        <input type="text" name="preco_un_1" id="preco_un_1"
+                        <input type="text" name="valor_un_1" id="valor_un_1"
                             class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="R$ 0,00">
                     </div>
@@ -321,8 +321,8 @@ function openModalOSUpdate(id) {
                 .reverse()
                 .join("/");
             form.id_classificacao.value = result.id_classificacao;
-            if (result.preco) {
-                form.preco.mask.unmaskedValue = result.preco;
+            if (result.valor_total) {
+                form.valor_total.mask.unmaskedValue = result.valor_total;
             }
 
             formUpdate.classList.remove("hidden");
@@ -432,8 +432,8 @@ function openModalRead(id) {
             document.querySelector("#classificacao-os").innerHTML =
                 result.classificacao.descricao;
 
-            document.querySelector("#preco-os").innerHTML =
-                toBRL(Number(result.preco)) ?? "N/A";
+            document.querySelector("#valor_total-os").innerHTML =
+                toBRL(Number(result.valor_total)) ?? "N/A";
 
             addDeleteButton(id);
 

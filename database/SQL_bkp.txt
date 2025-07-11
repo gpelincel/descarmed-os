@@ -83,7 +83,7 @@ INSERT INTO clientes (nome, razao_social, cnpj, email, telefone) VALUES
 
 
 INSERT INTO ordem_servicos 
-(titulo, descricao, id_status, classificacao, data_inicio, data_conclusao, id_equipamento, preco) 
+(titulo, descricao, id_status, classificacao, data_inicio, data_conclusao, id_equipamento, valor_total) 
 VALUES
 ('Troca de Fonte', 'Equipamento não liga, possível problema na fonte.', 1, 1, '2025-02-13', '2025-02-14', 1, 250.00),
 ('Atualização de Software', 'Necessário atualizar o sistema operacional.', 2, 2, '2025-02-14', '2025-02-15', 2, NULL),

@@ -49,16 +49,19 @@ class ClienteController extends Controller {
         $clientes = $this->clienteService->getAll()
             ->when($search, function ($query) use ($search, $field) {
                 return $query->where($field, 'like', "%$search%");
-            })
-            ->paginate(10);
+            });
 
         if (request()->wantsJson()) {
-            return $clientes;
+            return response()->json([
+                "status" => "success",
+                "data" => $clientes->get()
+            ]);
         }
 
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
         $unidades = $this->unidadeService->getAll();
+        $clientes = $clientes->paginate(10);
 
         return view('clientes', compact('clientes', 'status', 'classificacao', 'unidades'));
     }

@@ -177,7 +177,7 @@
                                 <input type="text" name="nome_item_1" id="nome_item_1"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nome do item">
-                                <input type="text" name="preco_un_1" id="preco_un_1"
+                                <input type="text" name="valor_un_1" id="valor_un_1"
                                     class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                                     placeholder="R$ 0,00">
                             </div>
@@ -199,10 +199,10 @@
                         </select>
                     </div>
                     <div>
-                        <label for="preco"
+                        <label for="valor_total"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor
                             Total (Opcional)</label>
-                        <input type="text" name="preco" id="preco"
+                        <input type="text" name="valor_total" id="valor_total"
                             class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="R$ 0,00">
                     </div>
