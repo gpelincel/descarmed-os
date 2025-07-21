@@ -31,6 +31,7 @@ class StoreUpdateEndereco extends FormRequest
             'id_cliente' => 'required|integer|exists:clientes,id',
         ];
     }
+    
 
     public function messages() {
         return [
