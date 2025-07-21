@@ -14,6 +14,15 @@ class StoreUpdateEndereco extends FormRequest
         return false;
     }
 
+    protected function prepareForValidation() {
+        $this->merge([
+            'logradouro' => strtoupper($this->logradouro),
+            'estado' => strtoupper($this->estado),
+            'bairro' => strtoupper($this->bairro),
+            'cidade' => strtoupper($this->cidade),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

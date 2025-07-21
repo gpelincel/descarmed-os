@@ -84,7 +84,7 @@ class UsuarioController extends Controller {
         if ($usuario) {
             if (request()->wantsJson()) {
                 $usuario->token = $this->jwtService->generateToken($usuario);
-                return response()->json($usuario);
+                return response()->json(["status"=>"success", "user" => $usuario]);
             }
             return redirect()->route('cliente');
         } else {

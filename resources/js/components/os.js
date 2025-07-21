@@ -47,6 +47,19 @@ document.querySelector("#id_cliente").addEventListener("change", (event) => {
 });
 
 document
+    .querySelector("#btn-add-equipamento-update")
+    .addEventListener("click", (event) => {
+        event.preventDefault();
+
+        let equipamento_form = document.querySelector("#equipamento-form-os-update");
+        let novo = document.querySelector("#novo-eqp");
+
+        novo.value = novo.value == "0" ? "1" : "0";
+        document.querySelector("#id_equipamento").disabled = novo.value == "1";
+        equipamento_form.classList.toggle("hidden");
+    });
+
+document
     .querySelector("#btn-add-equipamento")
     .addEventListener("click", (event) => {
         event.preventDefault();

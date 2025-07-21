@@ -12,6 +12,13 @@ class StoreClienteRequest extends FormRequest {
         return true;
     }
 
+    protected function prepareForValidation() {
+        $this->merge([
+            'nome' => strtoupper($this->nome),
+            'razao_social' => strtoupper($this->razao_social),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,7 +28,7 @@ class StoreClienteRequest extends FormRequest {
         return [
             'nome' => 'required|string|max:255',
             'razao_social' => 'nullable|string|max:255',
-            'cnpj' => 'nullable|string|max:20|unique:clientes,cnpj',
+            'cnpj' => 'nullable|string|max:20',
             'email' => 'nullable|string|email|max:255|unique:clientes,email',
             'telefone' => 'nullable|string|max:20|unique:clientes,telefone',
         ];
@@ -38,7 +45,6 @@ class StoreClienteRequest extends FormRequest {
     
             'cnpj.string' => 'O CNPJ deve ser um texto',
             'cnpj.max' => 'O CNPJ deve ter exatamente 14 dígitos',
-            'cnpj.unique' => 'Este CNPJ já está cadastrado',
     
             'email.string' => 'O e-mail deve ser um texto',
             'email.email' => 'O e-mail deve ser um endereço válido',

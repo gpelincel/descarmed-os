@@ -26,6 +26,12 @@ class StoreEquipamentoRequest extends FormRequest {
         ];
     }
 
+    protected function prepareForValidation() {
+        $this->merge([
+            'nome' => strtoupper($this->nome),
+        ]);
+    }
+
     public function messages(): array {
         return [
             'numero_serie.required' => 'O número de série é obrigatório',

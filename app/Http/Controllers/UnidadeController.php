@@ -29,6 +29,16 @@ class UnidadeController extends Controller
         return redirect()->back()->with('status', 'success')->with('message', 'Unidade cadastrada com sucesso!');
     }
 
+    public function destroy(string $id) {
+        $unidade = $this->unidadeService->delete($id);
+
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Unidade deletada com sucesso', 'data' => $unidade], 200);
+        }
+
+        return redirect('/configuracao')->with('status', 'success')->with('message', 'Unidade deletada com sucesso!');
+    }
+
     public function show(string $id){
         $unidade = $this->unidadeService->findByID($id);
         return view('status_os.show', compact('unidade'));
