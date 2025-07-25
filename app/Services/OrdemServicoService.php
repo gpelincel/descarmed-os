@@ -113,7 +113,7 @@ class OrdemServicoService {
             $novoOrdemServico['id_status'] = 2;
         }
 
-        if ($ordemServico['novo-eqp'] == "1") {
+        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
             $equipamentoService = new EquipamentoService();
             $equipamentoNovo = $equipamentoService->save($ordemServico);
             $novoOrdemServico['id_equipamento'] = $equipamentoNovo['id'];
@@ -121,7 +121,7 @@ class OrdemServicoService {
 
         $ordemReturn = $ordemServico->update($novoOrdemServico);
 
-        if ($novoOrdemServico['qtd_1'] > 0) {
+        if (isset($novoOrdemServico['qtd_1']) && $novoOrdemServico['qtd_1'] > 0) {
             for ($i = 1; $i <= $item_counter; $i++) {
                 $item['quantidade'] = $novoOrdemServico['qtd_' . $i];
                 $item['nome'] = $novoOrdemServico['nome_item_' . $i];
@@ -145,6 +145,6 @@ class OrdemServicoService {
         }
 
 
-        return $ordemReturn;
+        return $novoOrdemServico;
     }
 }

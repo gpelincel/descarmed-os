@@ -103,7 +103,7 @@ class OrdemServicoAPIController extends Controller {
     public function update(StoreOrdemServicoRequest $request, string $id) {
         $ordem = $this->osService->edit($request->all(), $id);
 
-        return response()->json(['message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
+        return response()->json(['status'=>'success','message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
     }
 
     /**
