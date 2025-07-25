@@ -19,14 +19,15 @@ class OrdemServicoResource extends JsonResource
             'titulo' => $this->titulo,
             'cliente' => $this->cliente,
             'descricao' => $this->descricao,
-            'cod_compra' => $this->codigo_compra,
+            'codigo_compra' => $this->codigo_compra,
             'nota_fiscal' => $this->nota_fiscal,
-            'valor_total' => $this->valor_total,
+            'valor_total' => (float)$this->valor_total,
             'equipamento' => $this->equipamento,
             'itens' => $this->items,
-            'status' => $this->status->descricao ?? "N/A",
-            'classificacao' => $this->classificacao->descricao ?? "N/A",
-            'data_inicio' => date_create($this->data_inicio)->format('d/m/Y')
+            'status' => $this->status,
+            'classificacao' => $this->classificacao,
+            'data_inicio' => $this->data_inicio,
+            'data_conclusao' => $this->data_conclusao,
         ];
     }
 }
