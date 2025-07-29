@@ -29,8 +29,8 @@ class StoreClienteRequest extends FormRequest {
             'nome' => 'required|string|max:255',
             'razao_social' => 'nullable|string|max:255',
             'cnpj' => 'nullable|string|max:20',
-            'email' => 'nullable|string|email|max:255|unique:clientes,email',
-            'telefone' => 'nullable|string|max:20|unique:clientes,telefone',
+            'email' => 'nullable|string|email|max:255',
+            'telefone' => 'nullable|string|max:20',
         ];
     }
 
@@ -49,11 +49,9 @@ class StoreClienteRequest extends FormRequest {
             'email.string' => 'O e-mail deve ser um texto',
             'email.email' => 'O e-mail deve ser um endereço válido',
             'email.max' => 'O e-mail deve ter no máximo 255 caracteres',
-            'email.unique' => 'Este e-mail já está cadastrado',
     
             'telefone.string' => 'O telefone deve ser um texto',
             'telefone.max' => 'O telefone deve ter no máximo 20 caracteres',
-            'telefone.unique' => 'Este telefone já está cadastrado',
         ];
     }
     
