@@ -30,6 +30,16 @@ class StatusOSController extends Controller
         return redirect()->back()->with('status', 'success')->with('message', 'Status de OS cadastrado com sucesso!');
     }
 
+    public function destroy(string $id) {
+        $status = $this->statusOSService->delete($id);
+
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Status deletado com sucesso', 'data' => $status], 200);
+        }
+
+        return redirect('/configuracao')->with('status', 'success')->with('message', 'Status deletado com sucesso!');
+    }
+
     public function show(string $id){
         $statusOS = $this->statusOSService->findByID($id);
         return view('status_os.show', compact('statusOS'));

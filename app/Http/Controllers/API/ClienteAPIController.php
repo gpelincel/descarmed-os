@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
+use App\Http\Resources\ClienteResource;
+use App\Http\Resources\OrdemServicoResource;
 use App\Services\AgendaService;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
@@ -69,7 +71,7 @@ class ClienteAPIController extends Controller {
     public function show(string $id) {
         $cliente = $this->clienteService->findByID($id);
 
-        return response()->json($cliente);
+        return response()->json(new ClienteResource($cliente));
     }
 
     /**
@@ -87,12 +89,19 @@ class ClienteAPIController extends Controller {
     public function destroy(string $id) {
         $cliente = $this->clienteService->delete($id);
 
-        return response()->json(['message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
+        return response()->json(['status' => 'success', 'message' => 'Cliente deletado com sucesso', 'data' => $cliente], 200);
     }
 
     public function getEquipamentos(string $id) {
         $cliente = $this->clienteService->findByID($id);
 
         return response()->json(['status' => 'success', 'data' => $cliente->equipamentos()->get()], 200);
+    }
+
+    public function getOSs(string $id) {
+        $cliente = $this->clienteService->findByID($id);
+        $ordens = $cliente->ordens_servico()->get();
+
+        return response()->json(OrdemServicoResource::collection($ordens), 200);
     }
 }

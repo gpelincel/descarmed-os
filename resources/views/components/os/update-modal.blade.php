@@ -125,7 +125,7 @@
                             @endif
                         </select>
                     </div>
-                    <div id="equipamento-form-os"
+                    <div id="equipamento-form-os-update"
                         class="grid gap-4 mb-4 grid-cols-2 border-gray-500 border-t border-b col-span-2 py-5 hidden">
                         <input type="hidden" id="novo-eqp" name="novo-eqp" value="0">
                         <div>
@@ -176,7 +176,7 @@
                         <label for="id_equipamento"
                             class="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             <span>Equipamento (Opcional)</span>
-                            <button id="btn-add-equipamento"
+                            <button id="btn-add-equipamento-update"
                                 class="text-white inline-flex items-center focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-1.5 pt-1 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 text-xs">
                                 <i class="fi fi-rr-plus-small"></i>
                             </button>

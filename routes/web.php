@@ -57,8 +57,13 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);
+    Route::delete('/configuracao/status/{id}', [StatusOSController::class, 'destroy']);
+
     Route::post('/configuracao/classificacao', [ClassificacaoOSController::class, 'store']);
+    Route::delete('/configuracao/classificacao/{id}', [ClassificacaoOSController::class, 'destroy']);
+
     Route::post('/configuracao/unidade', [UnidadeController::class, 'store']);
+    Route::delete('/configuracao/unidade/{id}', [UnidadeController::class, 'destroy']);
 
     Route::get('/agenda', [AgendaController::class, 'index']);
     Route::get('/agenda/{id}', [AgendaController::class,'show']);

@@ -14,6 +14,7 @@ class StoreOrdemServicoRequest extends FormRequest {
 
     protected function prepareForValidation() {
         $this->merge([
+            'titulo' => strtoupper($this->titulo),
             'data_inicio' => $this->convertDate($this->data_inicio),
             'data_conclusao' => $this->convertDate($this->data_conclusao),
             'valor_total' => $this->convertPreco($this->valor_total),
