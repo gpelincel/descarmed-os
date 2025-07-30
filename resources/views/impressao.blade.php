@@ -72,11 +72,12 @@
             margin: 10px 0;
         }
 
-        .table-itens, .table-itens td{
+        .table-itens,
+        .table-itens td {
             border: 1px solid #000;
         }
 
-        .table-itens td{
+        .table-itens td {
             padding: 4px;
         }
 
@@ -214,7 +215,9 @@
                     <td><b>Qtd.</b></td>
                     <td><b>Und.</b></td>
                     <td><b>Nome</b></td>
-                    <td><b>Valor Un.</b></td>
+                    @if (isset($valor_total) && isset($checkboxes['valor']) && $valor_total > 0)
+                        <td><b>Valor Un.</b></td>
+                    @endif
                 </tr>
                 @foreach ($items as $item)
                     <tr>
@@ -222,14 +225,16 @@
                             {{ $item['quantidade'] }}
                         </td>
                         <td>
-                            {{ $item['unidade']['descricao'] ?? "N/A" }}
+                            {{ $item['unidade']['descricao'] ?? 'N/A' }}
                         </td>
                         <td>
                             {{ $item['nome'] }}
                         </td>
-                        <td>
-                            R$ {{ number_format($item['valor_unitario'], 2, ',', '.') }}
-                        </td>
+                        @if (isset($valor_total) && isset($checkboxes['valor']) && $valor_total > 0)
+                            <td>
+                                R$ {{ number_format($item['valor_unitario'], 2, ',', '.') }}
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </table>
