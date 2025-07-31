@@ -125,11 +125,13 @@ class OrdemServicoController extends Controller {
             $ordemServico['itens'] = [];
 
             for ($i = 1; $i <= $ordemServico['item_counter']; $i++) {
-                $item['quantidade'] = $ordemServico['qtd_' . $i];
-                $item['nome'] = $ordemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
-                $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
-                array_push($ordemServico['itens'], $item);
+                if ($ordemServico['qtd_' . $i] > 0) {
+                    $item['quantidade'] = $ordemServico['qtd_' . $i];
+                    $item['nome'] = $ordemServico['nome_item_' . $i];
+                    $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
+                    $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
+                    array_push($ordemServico['itens'], $item);
+                }
             }
         }
 
@@ -160,7 +162,41 @@ class OrdemServicoController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(StoreOrdemServicoRequest $request, string $id) {
-        $ordem = $this->osService->edit($request->all(), $id);
+
+        $ordemServico = $request->all();
+
+        if (isset($ordemServico['nota_fiscal'])) {
+            $ordemServico['id_status'] = 2;
+        }
+
+        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
+            $equipamento['numero_serie'] = $ordemServico['numero_serie'];
+            $equipamento['numero_patrimonio'] = $ordemServico['numero_patrimonio'];
+            $equipamento['nome'] = $ordemServico['nome'];
+            $equipamento['id_cliente'] = $ordemServico['id_cliente'];
+            $ordemServico['equipamento'] = $equipamento;
+        }
+
+        if (isset($ordemServico['item_counter']) && (int)$ordemServico['item_counter'] > 0) {
+            $ordemServico['itens'] = [];
+
+            for ($i = 1; $i <= (int)$ordemServico['item_counter']; $i++) {
+                $item = [];
+
+                if (isset($ordemServico['id_item_' . $i])) {
+                    $item['id'] = $ordemServico['id_item_' . $i];
+                }
+
+                $item['quantidade'] = (int)$ordemServico['qtd_' . $i];
+                $item['nome'] = $ordemServico['nome_item_' . $i];
+                $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
+                $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
+                $item['id_os'] = $id;
+                array_push($ordemServico['itens'], $item);
+            }
+        }
+
+        $ordem = $this->osService->edit($ordemServico, $id);
 
         if (request()->wantsJson()) {
             return response()->json($ordem);

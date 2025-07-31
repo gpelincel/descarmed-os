@@ -56,63 +56,27 @@ class OrdemServicoService {
     }
 
     public function edit(array $novoOrdemServico, string $id) {
-        extract($novoOrdemServico);
 
-        $ordemServico = OrdemServico::findOrFail($id);
-        if (!empty($ordemServico['data_conclusao'])) {
-            $data = Date::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
-            if ($data) {
-                $novoOrdemServico['data_conclusao'] = $data->format('Y-m-d');
-            }
+        if (isset($novoOrdemServico['equipamento'])) {
+            $equipamento = $this->equipamentoService->save($novoOrdemServico['equipamento']);
+            $novoOrdemServico['id_equipamento'] = $equipamento->id;
         }
 
-        if (!empty($ordemServico['data_inicio'])) {
-            $data = Date::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
-            if ($data) {
-                $novoOrdemServico['data_inicio'] = $data->format('Y-m-d');
-            }
-        }
-
-        if ($novoOrdemServico['id_status'] == 0) {
-            $novoOrdemServico['id_status'] = null;
-        }
-
-        if (isset($novoOrdemServico['nota_fiscal'])) {
-            $novoOrdemServico['id_status'] = 2;
-        }
-
-        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
-            $equipamentoService = new EquipamentoService();
-            $equipamentoNovo = $equipamentoService->save($ordemServico);
-            $novoOrdemServico['id_equipamento'] = $equipamentoNovo['id'];
-        }
-
-        $ordemReturn = $ordemServico->update($novoOrdemServico);
-
-        if (isset($novoOrdemServico['qtd_1']) && $novoOrdemServico['qtd_1'] > 0) {
-            for ($i = 1; $i <= $item_counter; $i++) {
-                $item['quantidade'] = $novoOrdemServico['qtd_' . $i];
-                $item['nome'] = $novoOrdemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $novoOrdemServico['valor_un_' . $i];
-                $item['id_os'] = $id;
-
-                $itemService = new ItemService();
-
-                if (isset($novoOrdemServico['id_item_' . $i])) {
-                    $item['id'] = $novoOrdemServico['id_item_' . $i];
-
-                    if ($item['quantidade'] == 0) {
-                        $itemService->delete($item['id']);
-                    } else {
-                        $itemService->edit($item);
-                    }
+        if (isset($novoOrdemServico['itens'])) {
+            foreach ($novoOrdemServico['itens'] as $item) {
+                if (isset($item['id'])) {
+                    $item['quantidade'] > 0 ? $this->itemService->edit($item) : $this->itemService->delete($item['id']);
                 } else {
-                    $itemService->save($item);
+                    if ($item['quantidade'] > 0) {
+                        $this->itemService->save($item);
+                    }
                 }
             }
         }
 
+        $ordemServico = OrdemServico::findOrFail($id);
+        $ordemReturn = $ordemServico->update($novoOrdemServico);
 
-        return $novoOrdemServico;
+        return $ordemReturn;
     }
 }
