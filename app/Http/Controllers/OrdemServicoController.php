@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Resources\OrdemServicoResource;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
+use App\Services\EquipamentoService;
 use App\Services\OrdemServicoService;
 use App\Services\StatusOSService;
 use App\Services\UnidadeService;
@@ -21,13 +22,15 @@ class OrdemServicoController extends Controller {
     private $statusService;
     private $classificacaoService;
     private $unidadeService;
+    private $equipamentoService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService) {
+    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService, EquipamentoService $equipamentoService) {
         $this->osService = $osService;
         $this->clienteService = $clienteService;
         $this->statusService = $statusService;
         $this->classificacaoService = $classificacaoService;
         $this->unidadeService = $unidadeService;
+        $this->equipamentoService = $equipamentoService;
     }
 
     /**
@@ -103,10 +106,39 @@ class OrdemServicoController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(StoreOrdemServicoRequest $request) {
-        $ordem = $this->osService->save($request->all());
+
+        $ordemServico = $request->all();
+
+        if (isset($ordemServico['nota_fiscal'])) {
+            $ordemServico['id_status'] = 2;
+        }
+
+        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
+            $equipamento['numero_serie'] = $ordemServico['numero_serie'];
+            $equipamento['numero_patrimonio'] = $ordemServico['numero_patrimonio'];
+            $equipamento['nome'] = $ordemServico['nome'];
+            $equipamento['id_cliente'] = $ordemServico['id_cliente'];
+            $ordemServico['equipamento'] = $equipamento;
+        }
+
+        if (isset($ordemServico['qtd_1']) && $ordemServico['qtd_1'] > 0) {
+            $ordemServico['itens'] = [];
+
+            for ($i = 1; $i <= $ordemServico['item_counter']; $i++) {
+                if ($ordemServico['qtd_' . $i] > 0) {
+                    $item['quantidade'] = $ordemServico['qtd_' . $i];
+                    $item['nome'] = $ordemServico['nome_item_' . $i];
+                    $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
+                    $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
+                    array_push($ordemServico['itens'], $item);
+                }
+            }
+        }
+
+        $ordemServico = $this->osService->save($ordemServico);
 
         if (request()->wantsJson()) {
-            return response()->json($ordem);
+            return response()->json($ordemServico);
         }
 
         return redirect()->back()->with('status', 'success')->with('message', 'OS cadastrada com sucesso!');
@@ -130,7 +162,41 @@ class OrdemServicoController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(StoreOrdemServicoRequest $request, string $id) {
-        $ordem = $this->osService->edit($request->all(), $id);
+
+        $ordemServico = $request->all();
+
+        if (isset($ordemServico['nota_fiscal'])) {
+            $ordemServico['id_status'] = 2;
+        }
+
+        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
+            $equipamento['numero_serie'] = $ordemServico['numero_serie'];
+            $equipamento['numero_patrimonio'] = $ordemServico['numero_patrimonio'];
+            $equipamento['nome'] = $ordemServico['nome'];
+            $equipamento['id_cliente'] = $ordemServico['id_cliente'];
+            $ordemServico['equipamento'] = $equipamento;
+        }
+
+        if (isset($ordemServico['item_counter']) && (int)$ordemServico['item_counter'] > 0) {
+            $ordemServico['itens'] = [];
+
+            for ($i = 1; $i <= (int)$ordemServico['item_counter']; $i++) {
+                $item = [];
+
+                if (isset($ordemServico['id_item_' . $i])) {
+                    $item['id'] = $ordemServico['id_item_' . $i];
+                }
+
+                $item['quantidade'] = (int)$ordemServico['qtd_' . $i];
+                $item['nome'] = $ordemServico['nome_item_' . $i];
+                $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
+                $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
+                $item['id_os'] = $id;
+                array_push($ordemServico['itens'], $item);
+            }
+        }
+
+        $ordem = $this->osService->edit($ordemServico, $id);
 
         if (request()->wantsJson()) {
             return response()->json($ordem);

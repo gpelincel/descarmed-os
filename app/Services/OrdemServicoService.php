@@ -3,9 +3,18 @@
 namespace App\Services;
 
 use App\Models\OrdemServico;
-use DateTime;
+use Illuminate\Support\Facades\Date;
 
 class OrdemServicoService {
+
+    private $itemService;
+    private $equipamentoService;
+
+    public function __construct(ItemService $itemService, EquipamentoService $equipamentoService) {
+        $this->itemService = $itemService;
+        $this->equipamentoService = $equipamentoService;
+    }
+
     public function findByID(string $id) {
         return OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao', 'items.unidade'])->findOrFail($id);
     }
@@ -22,58 +31,17 @@ class OrdemServicoService {
 
     public function save(array $ordemServico) {
 
-        extract($ordemServico);
-
-        if (!empty($data_conclusao)) {
-            $data = DateTime::createFromFormat('d/m/Y', $data_conclusao);
-            if ($data) {
-                $ordemServico['data_conclusao'] = $data->format('Y-m-d');
-            }
-        }
-
-        if (!empty($data_inicio)) {
-            $data = DateTime::createFromFormat('d/m/Y', $data_inicio);
-            if ($data) {
-                $ordemServico['data_inicio'] = $data->format('Y-m-d');
-            }
-        }
-
-        if ($id_status == 0) {
-            $id_status = null;
-        }
-
-        if (isset($nota_fiscal)) {
-            $ordemServico['id_status'] = 2;
-        }
-
-        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
-            $equipamentoService = new EquipamentoService();
-            $equipamentoNovo = $equipamentoService->save($ordemServico);
-            $ordemServico['id_equipamento'] = $equipamentoNovo['id'];
+        if (isset($ordemServico['equipamento'])) {
+            $equipamento = $this->equipamentoService->save($ordemServico['equipamento']);
+            $ordemServico['id_equipamento'] = $equipamento->id;
         }
 
         $ordemReturn = OrdemServico::create($ordemServico);
 
-        if (isset($ordemServico['qtd_1']) && $ordemServico['qtd_1'] > 0) {
-            for ($i = 1; $i <= $item_counter; $i++) {
-                $item['quantidade'] = $ordemServico['qtd_' . $i];
-                $item['nome'] = $ordemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $ordemServico['valor_un_' . $i];
-                $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
+        if (isset($ordemServico['itens'])) {
+            foreach ($ordemServico['itens'] as $item) {
                 $item['id_os'] = $ordemReturn->id;
-
-                $itemService = new ItemService();
-                $itemService->save($item);
-            }
-        }
-
-        if (isset($itens)) {
-            foreach ($itens as $item) {
-                $itemService = new ItemService();
-                if ($item['quantidade']) {
-                    $item['id_os'] = $ordemReturn->id;
-                    $itemService->save($item);
-                }
+                $this->itemService->save($item);
             }
         }
 
@@ -88,63 +56,28 @@ class OrdemServicoService {
     }
 
     public function edit(array $novoOrdemServico, string $id) {
-        extract($novoOrdemServico);
 
-        $ordemServico = OrdemServico::findOrFail($id);
-        if (!empty($ordemServico['data_conclusao'])) {
-            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_conclusao']);
-            if ($data) {
-                $novoOrdemServico['data_conclusao'] = $data->format('Y-m-d');
-            }
+        if (isset($novoOrdemServico['equipamento'])) {
+            $equipamento = $this->equipamentoService->save($novoOrdemServico['equipamento']);
+            $novoOrdemServico['id_equipamento'] = $equipamento->id;
         }
 
-        if (!empty($ordemServico['data_inicio'])) {
-            $data = DateTime::createFromFormat('d/m/Y', $ordemServico['data_inicio']);
-            if ($data) {
-                $novoOrdemServico['data_inicio'] = $data->format('Y-m-d');
-            }
-        }
-
-        if ($novoOrdemServico['id_status'] == 0) {
-            $novoOrdemServico['id_status'] = null;
-        }
-
-        if (isset($novoOrdemServico['nota_fiscal'])) {
-            $novoOrdemServico['id_status'] = 2;
-        }
-
-        if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
-            $equipamentoService = new EquipamentoService();
-            $equipamentoNovo = $equipamentoService->save($ordemServico);
-            $novoOrdemServico['id_equipamento'] = $equipamentoNovo['id'];
-        }
-
-        $ordemReturn = $ordemServico->update($novoOrdemServico);
-
-        if (isset($novoOrdemServico['qtd_1']) && $novoOrdemServico['qtd_1'] > 0) {
-            for ($i = 1; $i <= $item_counter; $i++) {
-                $item['quantidade'] = $novoOrdemServico['qtd_' . $i];
-                $item['nome'] = $novoOrdemServico['nome_item_' . $i];
-                $item['valor_unitario'] = $novoOrdemServico['valor_un_' . $i];
-                $item['id_os'] = $id;
-
-                $itemService = new ItemService();
-
-                if (isset($novoOrdemServico['id_item_' . $i])) {
-                    $item['id'] = $novoOrdemServico['id_item_' . $i];
-
-                    if ($item['quantidade'] == 0) {
-                        $itemService->delete($item['id']);
-                    } else {
-                        $itemService->edit($item);
-                    }
+        if (isset($novoOrdemServico['itens'])) {
+            foreach ($novoOrdemServico['itens'] as $item) {
+                if (isset($item['id'])) {
+                    $item['quantidade'] > 0 ? $this->itemService->edit($item) : $this->itemService->delete($item['id']);
                 } else {
-                    $itemService->save($item);
+                    if ($item['quantidade'] > 0) {
+                        $item['id_os'] = $id;
+                        $this->itemService->save($item);
+                    }
                 }
             }
         }
 
+        $ordemServico = OrdemServico::findOrFail($id);
+        $ordemReturn = $ordemServico->update($novoOrdemServico);
 
-        return $novoOrdemServico;
+        return $ordemReturn;
     }
 }
