@@ -68,6 +68,7 @@ class OrdemServicoService {
                     $item['quantidade'] > 0 ? $this->itemService->edit($item) : $this->itemService->delete($item['id']);
                 } else {
                     if ($item['quantidade'] > 0) {
+                        $item['id_os'] = $id;
                         $this->itemService->save($item);
                     }
                 }
