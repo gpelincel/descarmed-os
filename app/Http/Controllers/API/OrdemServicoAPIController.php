@@ -126,11 +126,9 @@ class OrdemServicoAPIController extends Controller {
 
         $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
 
-        return response()->json([$ordemServico->toArray()], 200);
-
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         // return var_dump($pdf->stream());
         // return $pdf->stream("ordem_servico_{$id}.pdf");
-        // return $pdf->download("ordem-servico-{$id}.pdf");
+        return $pdf->download("ordem-servico-{$id}.pdf");
     }
 }
