@@ -14,6 +14,7 @@ class OrdemServico extends Model {
         "codigo_compra",
         "nota_fiscal",
         "data_inicio",
+        "data_agendamento",
         "data_conclusao",
         "valor_total",
         "id_status",

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('descricao')->nullable();
             $table->string('codigo_compra')->nullable();
             $table->string('nota_fiscal')->nullable();
+            $table->date('data_agendamento')->nullable();
             $table->date('data_inicio');
             $table->date('data_conclusao')->nullable();
             $table->decimal('valor_total', 8, 2)->nullable();

@@ -131,6 +131,6 @@ class OrdemServicoAPIController extends Controller {
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         // return var_dump($pdf->stream());
         // return $pdf->stream("ordem_servico_{$id}.pdf");
-        // return $pdf->download("ordem-servico-{$id}.pdf");
+        return $pdf->download("ordem-servico-{$id}.pdf");
     }
 }

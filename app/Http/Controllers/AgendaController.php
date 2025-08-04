@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Services\AgendaService;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
@@ -36,10 +37,6 @@ class AgendaController extends Controller {
             })
             ->paginate(10);
 
-        if (request()->wantsJson()) {
-            return $agendas;
-        }
-
         $equipamentos = $this->equipamentoService->getAll()->get();
         $status = $this->statusOSService->getAll();
         $clientes = $this->clienteService->getAll()->get();
@@ -48,24 +45,9 @@ class AgendaController extends Controller {
         return view('agenda', compact('agendas', 'equipamentos', 'status', 'clientes', 'classificacao'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {
-        $agenda = $this->agendaService->save($request->all());
-
-        if (request()->wantsJson()) {
-            return $agenda;
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Agendamento cadastrado com sucesso!');
+    public function update(StoreOrdemServicoRequest $request, string $id) {
+        $agenda = $this->agendaService->edit($request->all(), $id);
+        return redirect()->back()->with('status', 'success')->with('message', 'Agendamento atualizado com sucesso!');
     }
 
     /**
@@ -75,31 +57,5 @@ class AgendaController extends Controller {
         $agenda = $this->agendaService->findByID($id);
 
         return $agenda;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id) {
-        $agenda = $this->agendaService->edit($request->all(), $id);
-
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Agendamento atualizado com sucesso', 'data' => $agenda], 200);
-        }
-
-        return redirect()->back()->with('status', 'success')->with('message', 'Agendamento atualizado com sucesso!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id) {
-        $agenda = $this->agendaService->delete($id);
-
-        if (request()->wantsJson()) {
-            return response()->json(['message' => 'Agendamento deletado com sucesso', 'data' => $agenda], 200);
-        }
-
-        return redirect('/agenda')->with('status', 'success')->with('message', 'Agendamento deletado com sucesso!');
     }
 }

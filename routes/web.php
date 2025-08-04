@@ -68,6 +68,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/agenda', [AgendaController::class, 'index']);
     Route::get('/agenda/{id}', [AgendaController::class,'show']);
     Route::post('/agenda', [AgendaController::class,'store']);
-    Route::post('/agenda/update/{id}', [AgendaController::class,'update']);
+    Route::put('/agenda/update/{id}', [AgendaController::class,'update']);
     Route::delete('/agenda/delete/{id}', [AgendaController::class, 'destroy']);
 });

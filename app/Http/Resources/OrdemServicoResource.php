@@ -27,6 +27,7 @@ class OrdemServicoResource extends JsonResource
             'status' => $this->status,
             'classificacao' => $this->classificacao,
             'data_inicio' => $this->data_inicio,
+            'data_agendamento' => $this->data_agendamento,
             'data_conclusao' => $this->data_conclusao,
         ];
     }
