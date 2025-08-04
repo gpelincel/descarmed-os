@@ -8,73 +8,26 @@ use DateTime;
 
 class AgendaService {
     public function findByID(string $id) {
-        return Agenda::with(['ordem_servico.cliente', 'ordem_servico.equipamento'])->findOrFail($id);
+        return OrdemServico::with(['cliente', 'equipamento'])->findOrFail($id);
     }
 
     public function getAll() {
-        return Agenda::query();
+        return OrdemServico::query()->whereNotNull('data_agendamento');
     }
 
-    public function save(array $agenda) {
-        $agenda['data'] = DateTime::createFromFormat('d/m/Y', $agenda['data'])->format('Y-m-d');
-        $agenda['data_inicio'] = $agenda['data'];
-        $agenda['data_aviso'] = date('Y-m-d', strtotime($agenda['data'] . ' -' . (int)$agenda['tempo_aviso'] . ' days'));
-
-        $agenda['id_classificacao'] = 3;
-
-        $os = OrdemServico::create($agenda);
-        $agenda['id_os'] = $os['id'];
-        $agenda = Agenda::create($agenda);
-
-        return $agenda;
+    public function edit($novoAgendamento, $id){
+        $agendamento = OrdemServico::findOrFail($id);
+        $agendamento->update($novoAgendamento);
+        dd($novoAgendamento);
+        return $agendamento;
     }
-
-    public function delete(string $id) {
-        $agenda = Agenda::findOrFail($id);
-        $id_os = $agenda['id_os'];
-        $os = OrdemServico::findOrFail($id_os);
-
-        $os->delete();
-        $agenda->delete();
-
-        return $agenda;
-    }
-
-    public function edit(array $novoAgenda, string $id) {
-        // Busca a agenda existente
-        $agenda = Agenda::findOrFail($id);
-        if (isset($novoAgenda['data_reagendamento'])) {
-            $agenda_array = $agenda->toArray();
-            $agenda_array['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data_reagendamento'])->format('Y-m-d');
-            $novoAgenda = $agenda_array;
-        } else {
-            $novoAgenda['data'] = DateTime::createFromFormat('d/m/Y', $novoAgenda['data'])->format('Y-m-d');
-            $novoAgenda['data_inicio'] = $novoAgenda['data'];
-            $novoAgenda['data_aviso'] = date('Y-m-d', strtotime($novoAgenda['data'] . ' -' . (int)$novoAgenda['tempo_aviso'] . ' days'));
-        }
-
-        // Atualiza ou recria a OS associada
-        if ($agenda->id_os) {
-            $os = OrdemServico::findOrFail($agenda->id_os);
-            $os->update($novoAgenda);
-        } else {
-            $os = OrdemServico::create($novoAgenda);
-            $novoAgenda['id_os'] = $os->id;
-        }
-    
-        // Atualiza a agenda com os novos dados
-        $agenda->update($novoAgenda);
-    
-        return $agenda;
-    }
-    
 
     public function getByCliente($id_cliente) {
-        return Agenda::with(['ordem_servico.cliente'])
+        return OrdemServico::with(['cliente'])
             ->whereHas('ordem_servico', function ($query) use ($id_cliente) {
                 $query->whereHas('equipamento', function ($query) use ($id_cliente) {
                     $query->where('id_cliente', $id_cliente);
                 });
-            }); // Certifique-se de chamar get() para executar a query
+            });
     }
 }
