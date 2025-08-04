@@ -40,8 +40,10 @@ class OrdemServicoService {
 
         if (isset($ordemServico['itens'])) {
             foreach ($ordemServico['itens'] as $item) {
-                $item['id_os'] = $ordemReturn->id;
-                $this->itemService->save($item);
+                if ($item['quantidade'] > 0) {
+                    $item['id_os'] = $ordemReturn->id;
+                    $this->itemService->save($item);
+                }
             }
         }
 
