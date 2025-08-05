@@ -104,4 +104,10 @@ class ClienteAPIController extends Controller {
 
         return response()->json(OrdemServicoResource::collection($ordens), 200);
     }
+
+    public function getAgenda(string $id) {
+        $ordens = $this->agendaService->getByCliente($id)->get();
+
+        return response()->json(OrdemServicoResource::collection($ordens), 200);
+    }
 }

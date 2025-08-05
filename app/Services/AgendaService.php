@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Agenda;
 use App\Models\OrdemServico;
+use Carbon\Carbon;
 use DateTime;
 
 class AgendaService {
@@ -12,10 +13,10 @@ class AgendaService {
     }
 
     public function getAll() {
-        return OrdemServico::query()->whereNotNull('data_agendamento');
+        return OrdemServico::query()->whereNotNull('data_agendamento')->orderBy('data_agendamento', 'desc');
     }
 
-    public function edit($novoAgendamento, $id){
+    public function edit($novoAgendamento, $id) {
         $agendamento = OrdemServico::findOrFail($id);
         $agendamento->update($novoAgendamento);
         dd($novoAgendamento);
@@ -23,11 +24,6 @@ class AgendaService {
     }
 
     public function getByCliente($id_cliente) {
-        return OrdemServico::with(['cliente'])
-            ->whereHas('ordem_servico', function ($query) use ($id_cliente) {
-                $query->whereHas('equipamento', function ($query) use ($id_cliente) {
-                    $query->where('id_cliente', $id_cliente);
-                });
-            });
+        return OrdemServico::query()->whereNotNull('data_agendamento')->where('id_cliente', $id_cliente)->whereDate('data_agendamento', '>=', Carbon::today())->orderBy('data_agendamento', 'desc');
     }
 }
