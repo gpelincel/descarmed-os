@@ -20,6 +20,7 @@ Route::middleware(JwtMiddleware::class)->group(function () {
     Route::resource('agenda', AgendaAPIController::class);
 
     Route::get('/cliente/equipamento/{id}', [ClienteAPIController::class, 'getEquipamentos']);
+    Route::get('/cliente/agenda/{id}', [ClienteAPIController::class, 'getAgenda']);
     Route::get('/cliente/ordem-servico/{id}', [ClienteAPIController::class, 'getOSs']);
 
     Route::get('/configuracao/status', [StatusOSController::class, 'index']);
