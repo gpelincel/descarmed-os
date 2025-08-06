@@ -91,6 +91,10 @@
             padding: 4px;
             vertical-align: top;
         }
+
+        .absolute-center {
+            left: 50%;
+        }
     </style>
 </head>
 
@@ -254,14 +258,37 @@
             </table>
         @endif
         <hr>
-        <table class="table text-center" style="margin-top: 200px;">
-            <tr>
-                <td>__________________________</td>
-            </tr>
-            <tr>
-                <td>TÉCNICO RESPONSÁVEL</td>
-            </tr>
-        </table>
+        <div style="position: relative; margin-top: 200px;">
+            @php
+                $temTecnico = (isset($checkboxes['assinatura_tecnico']) && $checkboxes['assinatura_tecnico']);
+                $temCliente = (isset($checkboxes['assinatura_cliente']) && $checkboxes['assinatura_cliente']);
+            @endphp
+
+            @if ($temTecnico && $temCliente)
+                {{-- Ambos: técnico à esquerda, cliente à direita --}}
+                <div style="position: absolute; left: 10%; text-align:center;">
+                    <p>_________________________________</p>
+                    <p>TÉCNICO RESPONSÁVEL</p>
+                </div>
+                <div style="position: absolute; right: 10%; text-align:center;">
+                    <p>_________________________________</p>
+                    <p>CLIENTE</p>
+                </div>
+            @elseif ($temTecnico)
+                {{-- Só técnico: centralizado --}}
+                <div style="text-align: center;">
+                    <p>_________________________________</p>
+                    <p>TÉCNICO RESPONSÁVEL</p>
+                </div>
+            @elseif ($temCliente)
+                {{-- Só cliente: centralizado --}}
+                <div style="text-align: center;">
+                    <p>_________________________________</p>
+                    <p>CLIENTE</p>
+                </div>
+            @endif
+        </div>
+
     </main>
 </body>
 
