@@ -9,6 +9,7 @@ use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
 use App\Services\StatusOSService;
+use Carbon\Carbon;
 
 class AgendaAPIController extends Controller {
     protected $agendaService;
@@ -38,6 +39,9 @@ class AgendaAPIController extends Controller {
             })
             ->when($data, function ($query) use ($data) {
                 return $query->where('data_agendamento', '=', $data);
+            })
+            ->when(!$data, function ($query) use ($data) {
+                return $query->where('data_agendamento', '>=', Carbon::today());
             })
             ->get();
 
