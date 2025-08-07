@@ -260,17 +260,23 @@
         <hr>
         <div style="position: relative; margin-top: 200px;">
             @php
-                $temTecnico = (isset($checkboxes['assinatura_tecnico']) && $checkboxes['assinatura_tecnico']);
-                $temCliente = (isset($checkboxes['assinatura_cliente']) && $checkboxes['assinatura_cliente']);
+                $temTecnico = isset($checkboxes['assinatura_tecnico']) && $checkboxes['assinatura_tecnico'];
+                $temCliente = isset($checkboxes['assinatura_cliente']) && $checkboxes['assinatura_cliente'];
             @endphp
 
             @if ($temTecnico && $temCliente)
                 {{-- Ambos: técnico à esquerda, cliente à direita --}}
                 <div style="position: absolute; left: 10%; text-align:center;">
+                    @if (isset($checkboxes['assinatura_tecnico_img'] && $checkboxes['assinatura_tecnico_img']))
+                        <img src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                    @endif
                     <p>_________________________________</p>
                     <p>TÉCNICO RESPONSÁVEL</p>
                 </div>
                 <div style="position: absolute; right: 10%; text-align:center;">
+                    @if (isset($checkboxes['assinatura_cliente_img']) && $checkboxes['assinatura_cliente_img'])
+                        <img src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                    @endif
                     <p>_________________________________</p>
                     <p>CLIENTE</p>
                 </div>
