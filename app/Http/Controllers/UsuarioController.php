@@ -82,19 +82,8 @@ class UsuarioController extends Controller {
         $usuario = $this->usuarioService->login($request->all());
 
         if ($usuario) {
-            if (request()->wantsJson()) {
-                $usuario->token = $this->jwtService->generateToken($usuario);
-
-                return response()->json(["status" => "success", "message"  => "Login realizado com sucesso", "user" => $usuario, 200]);
-            }
             return redirect()->route('cliente');
         } else {
-            if (request()->wantsJson()) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Usuário ou senha inválidos!"
-                ], 400);
-            }
             return redirect()->back()->with('status', 'error')->with('message', 'Usuário ou senha inválidos!');
         }
     }

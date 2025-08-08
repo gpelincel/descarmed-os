@@ -5,13 +5,13 @@ use App\Http\Controllers\API\ClienteAPIController;
 use App\Http\Controllers\ClassificacaoOSController;
 use App\Http\Controllers\API\EquipamentoAPIController;
 use App\Http\Controllers\API\OrdemServicoAPIController;
+use App\Http\Controllers\API\UsuarioAPIController;
 use App\Http\Controllers\StatusOSController;
 use App\Http\Controllers\UnidadeController;
-use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\JwtMiddleware;
 
-Route::post('/login', [UsuarioController::class, 'login']);
+Route::post('/login', [UsuarioAPIController::class, 'login']);
 
 Route::middleware(JwtMiddleware::class)->group(function () {
     Route::resource('cliente', ClienteAPIController::class);

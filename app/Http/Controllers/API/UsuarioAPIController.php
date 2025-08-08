@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Models\Usuario;
 use App\Services\JwtService;
 use App\Services\UsuarioService;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller {
+class UsuarioAPIController extends Controller {
 
     private $usuarioService;
     private $jwtService;
@@ -80,21 +81,14 @@ class UsuarioController extends Controller {
 
     public function login(Request $request) {
         $usuario = $this->usuarioService->login($request->all());
-
         if ($usuario) {
-            if (request()->wantsJson()) {
-                $usuario->token = $this->jwtService->generateToken($usuario);
-                return response()->json($usuario);
-            }
-            return redirect()->route('cliente');
+            $usuario->token = $this->jwtService->generateToken($usuario);
+            return response()->json(["status"=>"success", "user"=>$usuario], 200);
         } else {
-            if (request()->wantsJson()) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Usuário ou senha inválidos!"
-                ], 400);
-            }
-            return redirect()->back()->with('status', 'error')->with('message', 'Usuário ou senha inválidos!');
+            return response()->json([
+                "status" => "error",
+                "message" => "Usuário ou senha inválidos!"
+            ], 400);
         }
     }
 

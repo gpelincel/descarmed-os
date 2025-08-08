@@ -95,6 +95,18 @@
         .absolute-center {
             left: 50%;
         }
+
+        .assinatura-container {
+            width: 300px;
+            height: 150px;
+            text-align: center;
+        }
+
+        .assinatura-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 
@@ -267,15 +279,19 @@
             @if ($temTecnico && $temCliente)
                 {{-- Ambos: técnico à esquerda, cliente à direita --}}
                 <div style="position: absolute; left: 10%; text-align:center;">
-                    @if (isset($checkboxes['assinatura_tecnico_img'] && $checkboxes['assinatura_tecnico_img']))
-                        <img src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                    @if (isset($checkboxes['assinatura_tecnico_img']) && $checkboxes['assinatura_tecnico_img'])
+                        <div class="assinatura-container">
+                            <img src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                        </div>
                     @endif
                     <p>_________________________________</p>
                     <p>TÉCNICO RESPONSÁVEL</p>
                 </div>
                 <div style="position: absolute; right: 10%; text-align:center;">
                     @if (isset($checkboxes['assinatura_cliente_img']) && $checkboxes['assinatura_cliente_img'])
-                        <img src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                        <div class="assinatura-container">
+                            <img src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                        </div>
                     @endif
                     <p>_________________________________</p>
                     <p>CLIENTE</p>
@@ -283,12 +299,22 @@
             @elseif ($temTecnico)
                 {{-- Só técnico: centralizado --}}
                 <div style="text-align: center;">
+                    @if (isset($checkboxes['assinatura_tecnico_img']) && $checkboxes['assinatura_tecnico_img'])
+                        <div class="assinatura-container">
+                            <img style="margin-left: 400px;" src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                        </div>
+                    @endif
                     <p>_________________________________</p>
                     <p>TÉCNICO RESPONSÁVEL</p>
                 </div>
             @elseif ($temCliente)
                 {{-- Só cliente: centralizado --}}
                 <div style="text-align: center;">
+                    @if (isset($checkboxes['assinatura_cliente_img']) && $checkboxes['assinatura_cliente_img'])
+                        <div class="assinatura-container">
+                            <img style="margin-left: 400px;" src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                        </div>
+                    @endif
                     <p>_________________________________</p>
                     <p>CLIENTE</p>
                 </div>

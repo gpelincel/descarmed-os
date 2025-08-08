@@ -16,7 +16,6 @@ class JwtMiddleware
         if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
             return response()->json(['message' => 'Token não fornecido'], 401);
         }
-
         $token = substr($authHeader, 7);
         $userId = app(JwtService::class)->parseToken($token);
 
