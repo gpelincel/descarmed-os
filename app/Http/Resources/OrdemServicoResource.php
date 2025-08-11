@@ -29,6 +29,8 @@ class OrdemServicoResource extends JsonResource
             'data_inicio' => $this->data_inicio,
             'data_agendamento' => $this->data_agendamento,
             'data_conclusao' => $this->data_conclusao,
+            'is_assinado_cliente' => !empty($this->assinatura_cliente),
+            'is_assinado_tecnico' => !empty($this->assinatura_tecnico),
         ];
     }
 }

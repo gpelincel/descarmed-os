@@ -28,5 +28,6 @@ Route::middleware(JwtMiddleware::class)->group(function () {
     Route::get('/configuracao/unidade', [UnidadeController::class, 'index']);
 
     Route::post('/ordem-servico/imprimir/{id}', [OrdemServicoAPIController::class, 'imprimir_personalizado']);
+    Route::post('/ordem-servico/assinar/{id}', [OrdemServicoAPIController::class, 'assinarOS']);
 });
 

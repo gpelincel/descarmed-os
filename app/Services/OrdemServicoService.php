@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Models\OrdemServico;
-use Illuminate\Support\Facades\Date;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class OrdemServicoService {
 
@@ -81,5 +84,47 @@ class OrdemServicoService {
         $ordemReturn = $ordemServico->update($novoOrdemServico);
 
         return $ordemReturn;
+    }
+
+    private function base64ToUploadedFile($base64, $filename = 'file.png') {
+        // Remove prefixo "data:image/png;base64,"
+        $fileData = preg_replace('/^data:.*;base64,/', '', $base64);
+        $fileData = base64_decode($fileData);
+
+        // Cria arquivo temporário
+        $tmpFilePath = sys_get_temp_dir() . '/' . $filename;
+        file_put_contents($tmpFilePath, $fileData);
+
+        // Cria UploadedFile
+        return new UploadedFile(
+            $tmpFilePath,
+            $filename,
+            mime_content_type($tmpFilePath),
+            null,
+            true // $test mode - evita mover arquivo real
+        );
+    }
+
+    public function sign(Request $request, string $id) {
+        $assinatura_cliente = $request->input('assinatura_cliente');
+        $assinatura_tecnico = $request->input('assinatura_tecnico');
+
+        $ordemServico = OrdemServico::findOrFail($id);
+
+        if ($assinatura_cliente) {
+            $uploadedFile = $this->base64ToUploadedFile($assinatura_cliente, 'assinatura_cliente.png');
+            $path = $uploadedFile->store('assinaturas', 'public');
+            $ordemServico->assinatura_cliente = $path;
+        }
+
+        if ($assinatura_tecnico) {
+            $uploadedFile = $this->base64ToUploadedFile($assinatura_tecnico, 'assinatura_tecnico.png');
+            $path = $uploadedFile->store('assinaturas', 'public');
+            $ordemServico->assinatura_tecnico = $path;
+        }
+
+        $ordemServico->save();
+
+        return $ordemServico;
     }
 }

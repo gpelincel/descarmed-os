@@ -279,18 +279,18 @@
             @if ($temTecnico && $temCliente)
                 {{-- Ambos: técnico à esquerda, cliente à direita --}}
                 <div style="position: absolute; left: 10%; text-align:center;">
-                    @if (isset($checkboxes['assinatura_tecnico_img']) && $checkboxes['assinatura_tecnico_img'])
+                    @if (isset($assinatura_tecnico) && $assinatura_tecnico)
                         <div class="assinatura-container">
-                            <img src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                            <img src="{{ public_path('storage/').$assinatura_tecnico }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
                     <p>TÉCNICO RESPONSÁVEL</p>
                 </div>
                 <div style="position: absolute; right: 10%; text-align:center;">
-                    @if (isset($checkboxes['assinatura_cliente_img']) && $checkboxes['assinatura_cliente_img'])
+                    @if (isset($assinatura_cliente) && $assinatura_cliente)
                         <div class="assinatura-container">
-                            <img src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                            <img src="{{ public_path('storage/').$assinatura_cliente }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
@@ -299,9 +299,9 @@
             @elseif ($temTecnico)
                 {{-- Só técnico: centralizado --}}
                 <div style="text-align: center;">
-                    @if (isset($checkboxes['assinatura_tecnico_img']) && $checkboxes['assinatura_tecnico_img'])
+                    @if (isset($assinatura_tecnico) && $assinatura_tecnico)
                         <div class="assinatura-container">
-                            <img style="margin-left: 400px;" src="{{ $checkboxes['assinatura_tecnico_img'] }}" alt="">
+                            <img style="margin-left: 400px;" src="{{ public_path('storage/').$assinatura_tecnico }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
@@ -310,9 +310,9 @@
             @elseif ($temCliente)
                 {{-- Só cliente: centralizado --}}
                 <div style="text-align: center;">
-                    @if (isset($checkboxes['assinatura_cliente_img']) && $checkboxes['assinatura_cliente_img'])
+                    @if (isset($assinatura_cliente) && $assinatura_cliente)
                         <div class="assinatura-container">
-                            <img style="margin-left: 400px;" src="{{ $checkboxes['assinatura_cliente_img'] }}" alt="">
+                            <img style="margin-left: 400px;" src="{{ public_path('storage/').$assinatura_cliente }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>

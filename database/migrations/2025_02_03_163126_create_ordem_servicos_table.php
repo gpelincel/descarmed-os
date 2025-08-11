@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('descricao')->nullable();
             $table->string('codigo_compra')->nullable();
             $table->string('nota_fiscal')->nullable();
+            $table->string('assinatura_cliente')->nullable();
+            $table->string('assinatura_tecnico')->nullable();
             $table->date('data_agendamento')->nullable();
             $table->date('data_inicio');
             $table->date('data_conclusao')->nullable();

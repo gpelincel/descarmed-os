@@ -114,6 +114,12 @@ class OrdemServicoAPIController extends Controller {
         return response()->json(['status'=>'success', 'message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
     }
 
+    public function assinarOS(Request $request, string $id){
+        $ordem = $this->osService->sign($request, $id);
+
+        return response()->json(['status'=>'success','message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
+    }
+
     public function imprimir_personalizado(Request $request, string $id) {
         $dados = $request->all();
 
