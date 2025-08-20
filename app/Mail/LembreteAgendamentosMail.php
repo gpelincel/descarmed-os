@@ -2,42 +2,39 @@
 
 namespace App\Mail;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class LembreteAgenda extends Mailable
-{
+class LembreteAgendamentosMail extends Mailable {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(public Collection $data) {
     }
 
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
-    {
+    public function envelope(): Envelope {
         return new Envelope(
-            subject: 'Lembrete Agenda',
+            subject: 'Ordens de Serviço agendadas para ' . Carbon::tomorrow()->format('d/m/Y'),
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
+    public function content(): Content {
         return new Content(
-            view: 'view.name',
+            view: 'email.lembrete',
         );
     }
 
@@ -46,8 +43,7 @@ class LembreteAgenda extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
-    {
+    public function attachments(): array {
         return [];
     }
 }

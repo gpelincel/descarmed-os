@@ -26,4 +26,8 @@ class AgendaService {
     public function getByCliente($id_cliente) {
         return OrdemServico::query()->whereNotNull('data_agendamento')->where('id_cliente', $id_cliente)->whereDate('data_agendamento', '>=', Carbon::today())->orderBy('data_agendamento', 'desc');
     }
+
+    public function getTomorrow(){
+        return OrdemServico::query()->whereNotNull('data_agendamento')->whereDate('data_agendamento', '=', Carbon::tomorrow())->get();
+    }
 }

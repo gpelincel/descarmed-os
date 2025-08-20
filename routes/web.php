@@ -11,6 +11,7 @@ use App\Http\Controllers\StatusOSController;
 use App\Http\Controllers\UnidadeController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 Route::redirect('/', '/login');
 
