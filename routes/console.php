@@ -6,5 +6,5 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(EmailOSDiaSeguinte::class)
-    ->everyTenSeconds()
+    ->daily()
     ->sendOutputTo(storage_path('logs/mail_schedule.log'));
