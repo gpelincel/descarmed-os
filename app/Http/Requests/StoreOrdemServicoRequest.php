@@ -61,6 +61,11 @@ class StoreOrdemServicoRequest extends FormRequest {
             'valor_total' => 'nullable|numeric|min:0',
             'id_cliente' => 'required|integer|exists:clientes,id',
             'id_equipamento' => 'nullable',
+            'itens' => 'sometimes',
+            'itens.*.nome' => 'string|min:3|max:255',
+            'itens.*.id_unidade' => 'integer|exists:unidades,id',
+            'itens.*.quantidade' => 'numeric|min:0',
+            'itens.*.valor_unitario' => 'numeric|min:0',
         ];
     }
 
@@ -91,6 +96,17 @@ class StoreOrdemServicoRequest extends FormRequest {
 
             'valor_total.numeric' => 'O valor deve ser um número',
             'valor_total.min' => 'O valor deve ser no mínimo 0',
+
+            'itens.*.nome.string'        => 'O nome do item deve ser um texto.',
+
+            'itens.*.quantidade.numeric'   => 'A quantidade deve ser um valor numérico.',
+            'itens.*.quantidade.min'        => 'A quantidade de cada item deve ser maior que zero.',
+
+            'itens.*.valor_unitario.numeric'  => 'O valor unitário deve ser um valor numérico.',
+            'itens.*.valor_unitario.min'      => 'O valor unitário não pode ser um número negativo.',
+
+            'itens.*.id_unidade.integer'   => 'A unidade de medida selecionada é inválida.',
+            'itens.*.id_unidade.exists'    => 'A unidade de medida selecionada não existe.',
         ];
     }
 }

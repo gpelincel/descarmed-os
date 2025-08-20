@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreUpdateItemRequest;
 use App\Models\OrdemServico;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class OrdemServicoService {
@@ -28,27 +30,31 @@ class OrdemServicoService {
 
 
     public function getAll() {
-        $ordens = OrdemServico::with(['equipamento', 'status', 'cliente', 'classificacao'])->orderBy('data_inicio', 'desc');
+        $ordens = OrdemServico::with(['equipamento', 'status', 'cliente', 'classificacao'])->orderBy('id', 'desc');
         return $ordens;
     }
 
     public function save(array $ordemServico) {
+        $ordemReturn = DB::transaction(function () use ($ordemServico) {
 
-        if (isset($ordemServico['equipamento'])) {
-            $equipamento = $this->equipamentoService->save($ordemServico['equipamento']);
-            $ordemServico['id_equipamento'] = $equipamento->id;
-        }
+            if (isset($ordemServico['equipamento'])) {
+                $equipamento = $this->equipamentoService->save($ordemServico['equipamento']);
+                $ordemServico['id_equipamento'] = $equipamento->id;
+            }
 
-        $ordemReturn = OrdemServico::create($ordemServico);
+            $ordemReturn = OrdemServico::create($ordemServico);
 
-        if (isset($ordemServico['itens'])) {
-            foreach ($ordemServico['itens'] as $item) {
-                if ($item['quantidade'] > 0) {
-                    $item['id_os'] = $ordemReturn->id;
-                    $this->itemService->save($item);
+            if (isset($ordemServico['itens'])) {
+                foreach ($ordemServico['itens'] as $item) {
+                    if ($item['quantidade'] > 0) {
+                        $item['id_os'] = $ordemReturn->id;
+                        $this->itemService->save($item);
+                    }
                 }
             }
-        }
+
+            return $ordemReturn;
+        });
 
         return $ordemReturn;
     }
@@ -61,29 +67,35 @@ class OrdemServicoService {
     }
 
     public function edit(array $novoOrdemServico, string $id) {
+        $resultado = DB::transaction(function () use ($novoOrdemServico, $id) {
 
-        if (isset($novoOrdemServico['equipamento'])) {
-            $equipamento = $this->equipamentoService->save($novoOrdemServico['equipamento']);
-            $novoOrdemServico['id_equipamento'] = $equipamento->id;
-        }
+            if (isset($novoOrdemServico['equipamento'])) {
+                $equipamento = $this->equipamentoService->save($novoOrdemServico['equipamento']);
+                $novoOrdemServico['id_equipamento'] = $equipamento->id;
+            }
 
-        if (isset($novoOrdemServico['itens'])) {
-            foreach ($novoOrdemServico['itens'] as $item) {
-                if (isset($item['id'])) {
-                    $item['quantidade'] > 0 ? $this->itemService->edit($item) : $this->itemService->delete($item['id']);
-                } else {
-                    if ($item['quantidade'] > 0) {
-                        $item['id_os'] = $id;
-                        $this->itemService->save($item);
+            if (isset($novoOrdemServico['itens'])) {
+                foreach ($novoOrdemServico['itens'] as $item) {
+                    if (isset($item['id'])) {
+                        $item['quantidade'] > 0
+                            ? $this->itemService->edit($item)
+                            : $this->itemService->delete($item['id']);
+                    } else {
+                        if ($item['quantidade'] > 0) {
+                            $item['id_os'] = $id;
+                            $this->itemService->save($item);
+                        }
                     }
                 }
             }
-        }
 
-        $ordemServico = OrdemServico::findOrFail($id);
-        $ordemReturn = $ordemServico->update($novoOrdemServico);
+            $ordemServico = OrdemServico::findOrFail($id);
+            $ordemReturn = $ordemServico->update($novoOrdemServico);
 
-        return $ordemReturn;
+            return $ordemReturn;
+        });
+
+        return $resultado;
     }
 
     private function base64ToUploadedFile($base64, $filename = 'file.png') {
