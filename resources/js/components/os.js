@@ -92,7 +92,7 @@ function addItemField(event, update = false) {
 
     let html = `
     <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
-    <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}"
+    <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}" min="0"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
         placeholder="0">
         <select id="id_unidade_${counter + 1}" name="id_unidade_${counter + 1}"

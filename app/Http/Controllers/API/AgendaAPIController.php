@@ -32,6 +32,7 @@ class AgendaAPIController extends Controller {
     public function index() {
         $search = request('search');
         $data = request('data');
+        $id_status = request('id_status');
 
         $agendas = $this->agendaService->getAll()
             ->when($search, function ($query) use ($search) {
@@ -42,6 +43,9 @@ class AgendaAPIController extends Controller {
             })
             ->when(!$data, function ($query) use ($data) {
                 return $query->where('data_agendamento', '>=', Carbon::today());
+            })
+            ->when($id_status, function ($query) use ($id_status) {
+                return $query->where('id_status', '=', $id_status);
             })
             ->get();
 

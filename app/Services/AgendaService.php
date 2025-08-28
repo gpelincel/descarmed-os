@@ -28,6 +28,6 @@ class AgendaService {
     }
 
     public function getTomorrow(){
-        return OrdemServico::query()->whereNotNull('data_agendamento')->whereDate('data_agendamento', '=', Carbon::tomorrow())->get();
+        return OrdemServico::query()->whereNotNull('data_agendamento')->whereDate('data_agendamento', '=', Carbon::tomorrow())->where('status', '<>', '2')->get();
     }
 }

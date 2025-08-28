@@ -163,7 +163,7 @@
                         </div>
                         <div id="items-field" class="space-y-2">
                             <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3">
-                                <input type="number" name="qtd_1" id="qtd_1"
+                                <input type="number" name="qtd_1" id="qtd_1" min="0"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                                     placeholder="0">
                                 <select id="id_unidade_1" name="id_unidade_1"
