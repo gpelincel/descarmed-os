@@ -46,31 +46,39 @@ document.querySelector("#id_cliente").addEventListener("change", (event) => {
     verifyClienteID(id_cliente, form);
 });
 
-document
-    .querySelector("#btn-add-equipamento-update")
-    .addEventListener("click", (event) => {
-        event.preventDefault();
+if (document.querySelector("#btn-add-equipamento-update")) {
+    document
+        .querySelector("#btn-add-equipamento-update")
+        .addEventListener("click", (event) => {
+            event.preventDefault();
 
-        let equipamento_form = document.querySelector("#equipamento-form-os-update");
-        let novo = document.querySelector("#novo-eqp");
+            let equipamento_form = document.querySelector(
+                "#equipamento-form-os-update"
+            );
+            let novo = document.querySelector("#novo-eqp");
 
-        novo.value = novo.value == "0" ? "1" : "0";
-        document.querySelector("#id_equipamento").disabled = novo.value == "1";
-        equipamento_form.classList.toggle("hidden");
-    });
+            novo.value = novo.value == "0" ? "1" : "0";
+            document.querySelector("#id_equipamento").disabled =
+                novo.value == "1";
+            equipamento_form.classList.toggle("hidden");
+        });
 
-document
-    .querySelector("#btn-add-equipamento")
-    .addEventListener("click", (event) => {
-        event.preventDefault();
+    document
+        .querySelector("#btn-add-equipamento")
+        .addEventListener("click", (event) => {
+            event.preventDefault();
 
-        let equipamento_form = document.querySelector("#equipamento-form-os");
-        let novo = document.querySelector("#novo-eqp");
+            let equipamento_form = document.querySelector(
+                "#equipamento-form-os"
+            );
+            let novo = document.querySelector("#novo-eqp");
 
-        novo.value = novo.value == "0" ? "1" : "0";
-        document.querySelector("#id_equipamento").disabled = novo.value == "1";
-        equipamento_form.classList.toggle("hidden");
-    });
+            novo.value = novo.value == "0" ? "1" : "0";
+            document.querySelector("#id_equipamento").disabled =
+                novo.value == "1";
+            equipamento_form.classList.toggle("hidden");
+        });
+}
 
 function addItemField(event, update = false) {
     let items_id = "#items-field";
@@ -92,7 +100,9 @@ function addItemField(event, update = false) {
 
     let html = `
     <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
-    <input type="number" name="qtd_${counter + 1}" id="qtd_${counter + 1}" min="0"
+    <input type="number" name="qtd_${counter + 1}" id="qtd_${
+        counter + 1
+    }" min="0"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
         placeholder="0">
         <select id="id_unidade_${counter + 1}" name="id_unidade_${counter + 1}"
