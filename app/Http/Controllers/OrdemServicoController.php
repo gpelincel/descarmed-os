@@ -110,7 +110,7 @@ class OrdemServicoController extends Controller {
         $ordemServico = $request->all();
 
         if (isset($ordemServico['nota_fiscal'])) {
-            $ordemServico['id_status'] = 2;
+            $ordemServico['id_status'] = 4;
         }
 
         if (isset($ordemServico['novo-eqp']) && $ordemServico['novo-eqp'] == "1") {
