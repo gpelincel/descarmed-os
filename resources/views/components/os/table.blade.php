@@ -52,7 +52,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 
-                <x-table-header :headers="['Serviço', 'Status', 'Data de Início', 'Cliente', 'Classificação']"></x-table-header>
+                <x-table-header :headers="['Serviço',  'Nº Pedido', 'Nota Fiscal', 'Status', 'Data de Início', 'Cliente', 'Classificação']"></x-table-header>
 
                 <tbody>
                     @foreach ($ordens as $ordem)
@@ -62,6 +62,8 @@
                                 class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $ordem->id }}</th>
                             <td class="px-4 py-3">{{ $ordem->titulo }}</td>
+                            <td class="px-4 py-3">{{ $ordem->numero_pedido ?? "N/A" }}</td>
+                            <td class="px-4 py-3">{{ $ordem->nota_fiscal ?? "N/A" }}</td>
                             <td class="px-4 py-3">
                                 {{ $ordem->status->descricao ?? 'N/A' }}
                             </td>
