@@ -62,10 +62,10 @@ class StoreOrdemServicoRequest extends FormRequest {
             'id_cliente' => 'required|integer|exists:clientes,id',
             'id_equipamento' => 'nullable',
             'itens' => 'nullable',
-            'itens.*.nome' => 'string|min:3|max:255',
-            'itens.*.id_unidade' => 'integer|exists:unidades,id',
-            'itens.*.quantidade' => 'numeric|min:0',
-            'itens.*.valor_unitario' => 'numeric|min:0',
+            'itens.*.nome' => 'nullable|string|min:3|max:255',
+            'itens.*.id_unidade' => 'nullable|integer|exists:unidades,id',
+            'itens.*.quantidade' => 'nullable|numeric|min:0',
+            'itens.*.valor_unitario' => 'nullable|numeric|min:0',
         ];
     }
 
