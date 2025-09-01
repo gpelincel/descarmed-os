@@ -44,7 +44,7 @@ class OrdemServicoService {
 
             $ordemReturn = OrdemServico::create($ordemServico);
 
-            if (isset($ordemServico['itens'])) {
+            if (isset($ordemServico['itens']) && count($ordemServico['itens']) > 0) {
                 foreach ($ordemServico['itens'] as $item) {
                     if ($item['quantidade'] > 0) {
                         $item['id_os'] = $ordemReturn->id;
