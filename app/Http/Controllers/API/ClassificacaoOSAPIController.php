@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\ClassificacaoOS;
+use App\Http\Controllers\Controller;
 use App\Services\ClassificacaoOSService;
 use Illuminate\Http\Request;
 
