@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\AgendaAPIController;
 use App\Http\Controllers\API\ClienteAPIController;
-use App\Http\Controllers\ClassificacaoOSController;
+use App\Http\Controllers\API\ClassificacaoOSAPIController;
 use App\Http\Controllers\API\EquipamentoAPIController;
 use App\Http\Controllers\API\OrdemServicoAPIController;
 use App\Http\Controllers\API\UsuarioAPIController;
@@ -24,7 +24,7 @@ Route::middleware(JwtMiddleware::class)->group(function () {
     Route::get('/cliente/ordem-servico/{id}', [ClienteAPIController::class, 'getOSs']);
 
     Route::get('/configuracao/status', [StatusOSController::class, 'index']);
-    Route::get('/configuracao/classificacao', [ClassificacaoOSController::class, 'index']);
+    Route::get('/configuracao/classificacao', [ClassificacaoOSAPIController::class, 'index']);
     Route::get('/configuracao/unidade', [UnidadeController::class, 'index']);
 
     Route::post('/ordem-servico/imprimir/{id}', [OrdemServicoAPIController::class, 'imprimir_personalizado']);

@@ -107,7 +107,8 @@ function getCNPJ(cnpj) {
             }
 
             getCEP(form.cep);
-        });
+        })
+        .catch((error) => alert("Não foi possível buscar os dados do cliente! Preencha manualmente ou tente novamente mais tarde."));
 }
 
 document.addEventListener("click", (e) => {
