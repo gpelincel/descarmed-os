@@ -35,7 +35,8 @@ class AgendaController extends Controller {
             ->when($search, function ($query) use ($search) {
                 return $query->where('nome', 'like', "%$search%");
             })
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         $equipamentos = $this->equipamentoService->getAll()->get();
         $status = $this->statusOSService->getAll();

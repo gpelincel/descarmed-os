@@ -34,7 +34,7 @@ class EquipamentoAPIController extends Controller {
 
         $equipamentos = $equipamentos->when($search, function ($query) use ($search, $field) {
             return $query->where($field, 'like', "%$search%");
-        })->paginate(10);
+        })->paginate(10)->withQueryString();
 
         $equipamentos->appends(request()->query());
 

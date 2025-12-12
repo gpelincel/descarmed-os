@@ -11,7 +11,7 @@ class UsuarioService {
     }
 
     public function getAll() {
-        return Usuario::query()->paginate(10);
+        return Usuario::query()->paginate(10)->withQueryString();
     }
 
     public function save(array $usuario) {

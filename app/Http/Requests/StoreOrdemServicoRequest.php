@@ -88,7 +88,6 @@ class StoreOrdemServicoRequest extends FormRequest {
             'data_inicio.required' => 'A data de início é obrigatória',
             'data_inicio.date' => 'A data de início deve estar em um formato válido',
 
-            'data_agendamento.required' => 'A data de agendamento é obrigatória',
             'data_agendamento.date' => 'A data de agendamento deve estar em um formato válido',
 
             'data_conclusao.date' => 'A data de conclusão deve estar em um formato válido',

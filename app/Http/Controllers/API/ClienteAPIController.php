@@ -50,7 +50,7 @@ class ClienteAPIController extends Controller {
         $clientes = $this->clienteService->getAll()
             ->when($search, function ($query) use ($search, $field) {
                 return $query->where($field, 'like', "%$search%");
-            })->paginate(10);
+            })->paginate(10)->withQueryString();
 
         return response()->json($clientes);
     }

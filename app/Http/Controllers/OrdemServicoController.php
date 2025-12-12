@@ -90,7 +90,7 @@ class OrdemServicoController extends Controller {
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
         $unidades = $this->unidadeService->getAll();
-        $ordens = $ordens->paginate(10);
+        $ordens = $ordens->paginate(10)->withQueryString();
 
         return view('ordem_servico', compact('ordens', 'clientes', 'status', 'classificacao', 'unidades'));
     }

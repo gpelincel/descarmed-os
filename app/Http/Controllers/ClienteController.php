@@ -61,7 +61,7 @@ class ClienteController extends Controller {
         $status = $this->statusService->getAll();
         $classificacao = $this->classificacaoService->getAll();
         $unidades = $this->unidadeService->getAll();
-        $clientes = $clientes->paginate(10);
+        $clientes = $clientes->paginate(10)->withQueryString();
 
         return view('clientes', compact('clientes', 'status', 'classificacao', 'unidades'));
     }
@@ -126,7 +126,7 @@ class ClienteController extends Controller {
                 $data_minima = $data_minima->format('Y-m-d');
                 return $query->where('data_inicio', '>=', $data_minima);
             })
-            ->paginate(10);
+            ->paginate(10)->withQueryString();
 
         if (request()->wantsJson()) {
             return $cliente;

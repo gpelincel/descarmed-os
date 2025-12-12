@@ -42,18 +42,13 @@ class OrdemServicoAPIController extends Controller {
 
         $ordens = $this->osService->getAll()
             ->when($search, function ($query) use ($search, $field) {
-                switch ($field) {
-                    case 'cliente':
-                        return $query->whereHas('cliente', function ($q) use ($search) {
-                            $q->where('nome', 'like', "%$search%");
-                        });
-                    case 'equipamento':
-                        return $query->whereHas('equipamento', function ($q) use ($search) {
-                            $q->where('nome', 'like', "%$search%");
-                        });
-                    default:
-                        return $query->where($field, 'like', "%$search%");
-                }
+                return $query->where(function ($q) use ($search) {
+                    $q->where('titulo', 'like', "%{$search}%")
+                        ->orWhereHas('cliente', function ($subQuery) use ($search) {
+                            $subQuery->where('nome', 'like', "%{$search}%");
+                        })
+                        ->orWhere('id', '=', (int)$search);
+                });
             })
             ->when($id_status && $id_status != 0, function ($query) use ($id_status) {
                 return $query->where('id_status', $id_status);
@@ -65,7 +60,7 @@ class OrdemServicoAPIController extends Controller {
                 $data_minima = DateTime::createFromFormat('d/m/Y', $data_minima);
                 $data_minima = $data_minima->format('Y-m-d');
                 return $query->where('data_inicio', '>=', $data_minima);
-            })->paginate(10);
+            })->paginate(10)->withQueryString();
 
         $ordens->appends(request()->query());
         $ordens->data = OrdemServicoResource::collection($ordens);
@@ -103,7 +98,7 @@ class OrdemServicoAPIController extends Controller {
     public function update(StoreOrdemServicoRequest $request, string $id) {
         $ordem = $this->osService->edit($request->all(), $id);
 
-        return response()->json(['status'=>'success','message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
+        return response()->json(['status' => 'success', 'message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
     }
 
     /**
@@ -111,13 +106,13 @@ class OrdemServicoAPIController extends Controller {
      */
     public function destroy(string $id) {
         $ordem = $this->osService->delete($id);
-        return response()->json(['status'=>'success', 'message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
+        return response()->json(['status' => 'success', 'message' => 'Ordem de serviço deletada com sucesso', 'data' => $ordem], 200);
     }
 
-    public function assinarOS(Request $request, string $id){
+    public function assinarOS(Request $request, string $id) {
         $ordem = $this->osService->sign($request, $id);
 
-        return response()->json(['status'=>'success','message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
+        return response()->json(['status' => 'success', 'message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
     }
 
     public function imprimir_personalizado(Request $request, string $id) {
