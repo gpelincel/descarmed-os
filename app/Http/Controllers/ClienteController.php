@@ -104,7 +104,7 @@ class ClienteController extends Controller {
         if (!in_array($field, $allowedFields)) {
             $field = 'titulo';
         }
-        $cliente->ordens_servico = $cliente->ordens_servico()->with('status')->when($search, function ($query) use ($search, $field) {
+        $cliente->ordens_servico = $cliente->ordens_servico()->orderBy('id', 'desc')->with('status')->when($search, function ($query) use ($search, $field) {
             switch ($field) {
                 case 'cliente':
                     return $query->whereHas('cliente', function ($q) use ($search) {

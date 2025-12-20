@@ -155,31 +155,37 @@
                             </button>
                             <input type="hidden" id="item_counter" name="item_counter" value="1">
                         </div>
-                        <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2">
-                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
-                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Und.</h4>
-                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
-                            <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
-                        </div>
                         <div id="items-field" class="space-y-2">
-                            <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3">
-                                <input type="number" name="qtd_1" id="qtd_1" min="0"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                                    placeholder="0">
-                                <select id="id_unidade_1" name="id_unidade_1"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    >
-                                    <option selected="" value="0">- Selecione -</option>
-                                    @foreach ($unidades as $unidade)
-                                        <option value="{{ $unidade->id }}">{{ $unidade->descricao }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="text" name="nome_item_1" id="nome_item_1"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Nome do item">
-                                <input type="text" name="valor_un_1" id="valor_un_1"
-                                    class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                                    placeholder="R$ 0,00">
+                            <div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3">
+                                <div class="col-span-3">
+                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do
+                                        item</h4>
+                                    <textarea type="text" name="nome_item_1" id="nome_item_1"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Nome do item"></textarea>
+                                </div>
+                                <div>
+                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
+                                    <input type="number" name="qtd_1" id="qtd_1" min="0"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                                        placeholder="0">
+                                </div>
+                                <div>
+                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Und.</h4>
+                                    <select id="id_unidade_1" name="id_unidade_1"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option selected="" value="0">- Selecione -</option>
+                                        @foreach ($unidades as $unidade)
+                                            <option value="{{ $unidade->id }}">{{ $unidade->descricao }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
+                                    <input type="text" name="valor_un_1" id="valor_un_1"
+                                        class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+                                        placeholder="R$ 0,00">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -207,7 +213,8 @@
                             placeholder="R$ 0,00">
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação (Opcional)</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação
+                            (Opcional)</label>
                         <textarea id="descricao" rows="4" name="descricao"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Observação da ordem de serviço..."></textarea>

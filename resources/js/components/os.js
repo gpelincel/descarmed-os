@@ -99,28 +99,70 @@ function addItemField(event, update = false) {
     let counter = Number(document.querySelector(items_counter).value);
 
     let html = `
-    <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
-    <input type="number" name="qtd_${counter + 1}" id="qtd_${
-        counter + 1
-    }" min="0"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-        placeholder="0">
-        <select id="id_unidade_${counter + 1}" name="id_unidade_${counter + 1}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
+
+    <div class="col-span-3">
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Nome do item
+        </h4>
+        <textarea
+            name="nome_item_${counter + 1}"
+            id="nome_item_${counter + 1}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Nome do item"></textarea>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Qtd.
+        </h4>
+        <input
+            type="number"
+            name="qtd_${counter + 1}"
+            id="qtd_${counter + 1}"
+            min="0"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+            placeholder="0">
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Und.
+        </h4>
+        <select
+            id="id_unidade_${counter + 1}"
+            name="id_unidade_${counter + 1}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
             ${unidades}
         </select>
-    <input type="text" name="nome_item_${counter + 1}" id="nome_item_${
-        counter + 1
-    }"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        placeholder="Nome do item">
-    <input type="text" name="valor_un_${counter + 1}" id="valor_un_${
-        counter + 1
-    }"
-        class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        placeholder="R$ 0,00">
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Valor un.
+        </h4>
+        <input
+            type="text"
+            name="valor_un_${counter + 1}"
+            id="valor_un_${counter + 1}"
+            class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+            placeholder="R$ 0,00">
+    </div>
+
 </div>
-    `;
+`;
 
     document.querySelector(items_id).insertAdjacentHTML("beforeend", html);
 
@@ -250,38 +292,74 @@ function openModalOSUpdate(id) {
                     }
 
                     html += `
-                        <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
-                        <input type="hidden" name="id_item_${
-                            counter + 1
-                        }" value="${item.id}">
-                        <input type="number" name="qtd_${
-                            counter + 1
-                        }" id="qtd_${counter + 1}"
-                            value="${item.quantidade}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                            placeholder="0">
-                        <select value="${item.id_unidade}" id="id_unidade_${
-                        counter + 1
-                    }" name="id_unidade_${counter + 1}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            ${unidades}
-                        </select>
-                        <input value="${
-                            item.nome
-                        }" type="text" name="nome_item_${
-                        counter + 1
-                    }" id="nome_item_${counter + 1}"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Nome do item">
-                        <input value="${
-                            item.valor_unitario
-                        }" type="text" name="valor_un_${
-                        counter + 1
-                    }" id="valor_un_${counter + 1}"
-                            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="R$ 0,00">
-                    </div>
-                    `;
+<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
+
+    <input type="hidden" name="id_item_${counter + 1}" value="${item.id}">
+
+    <div class="col-span-3">
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Nome do item
+        </h4>
+        <textarea
+            name="nome_item_${counter + 1}"
+            id="nome_item_${counter + 1}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Nome do item">${item.nome}</textarea>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Qtd.
+        </h4>
+        <input
+            type="number"
+            name="qtd_${counter + 1}"
+            id="qtd_${counter + 1}"
+            value="${item.quantidade}"
+            min="0"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+            placeholder="0">
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Und.
+        </h4>
+        <select
+            id="id_unidade_${counter + 1}"
+            name="id_unidade_${counter + 1}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            ${unidades}
+        </select>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Valor un.
+        </h4>
+        <input
+            type="text"
+            name="valor_un_${counter + 1}"
+            id="valor_un_${counter + 1}"
+            value="${item.valor_unitario}"
+            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="R$ 0,00">
+    </div>
+
+</div>
+`;
                 });
 
                 document.querySelector("#items-field-update").innerHTML = html;
@@ -302,22 +380,70 @@ function openModalOSUpdate(id) {
                     unidades = select.innerHTML;
                 }
                 let html = `
-                    <div class="grid grid-cols-[1fr_2fr_4fr_1fr] gap-2 col-span-3 item-fields">
-                        <input type="number" name="qtd_1" id="qtd_1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-                            placeholder="0">
-                        <select id="id_unidade_1" name="id_unidade_1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            ${unidades}
-                        </select>
-                        <input type="text" name="nome_item_1" id="nome_item_1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Nome do item">
-                        <input type="text" name="valor_un_1" id="valor_un_1"
-                            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="R$ 0,00">
-                    </div>
-                    `;
+<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
+
+    <div class="col-span-3">
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Nome do item
+        </h4>
+        <textarea
+            name="nome_item_1"
+            id="nome_item_1"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Nome do item"></textarea>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Qtd.
+        </h4>
+        <input
+            type="number"
+            name="qtd_1"
+            id="qtd_1"
+            min="0"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
+            placeholder="0">
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Und.
+        </h4>
+        <select
+            id="id_unidade_1"
+            name="id_unidade_1"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            ${unidades}
+        </select>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            Valor un.
+        </h4>
+        <input
+            type="text"
+            name="valor_un_1"
+            id="valor_un_1"
+            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="R$ 0,00">
+    </div>
+
+</div>
+`;
 
                 document.querySelector("#items-field-update").innerHTML = html;
                 document.querySelector("#item_counter_update").value = 1;
