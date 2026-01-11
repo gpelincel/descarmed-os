@@ -42,4 +42,8 @@ class OrdemServico extends Model {
     public function items(): HasMany{
         return $this->hasMany(Item::class, 'id_os');
     }
+
+    public function anexo(): HasMany{
+        return $this->hasMany(Anexo::class, 'id_os');
+    }
 }

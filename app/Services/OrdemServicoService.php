@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\StoreUpdateItemRequest;
+use App\Models\Anexo;
 use App\Models\OrdemServico;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,10 +15,12 @@ class OrdemServicoService {
 
     private $itemService;
     private $equipamentoService;
+    private $anexoService;
 
-    public function __construct(ItemService $itemService, EquipamentoService $equipamentoService) {
+    public function __construct(ItemService $itemService, EquipamentoService $equipamentoService, AnexoService $anexoService) {
         $this->itemService = $itemService;
         $this->equipamentoService = $equipamentoService;
+        $this->anexoService = $anexoService;
     }
 
     public function findByID(string $id) {
@@ -50,6 +53,12 @@ class OrdemServicoService {
                         $item['id_os'] = $ordemReturn->id;
                         $this->itemService->save($item);
                     }
+                }
+            }
+
+            if (isset($ordemServico['images']) && count($ordemServico['images']) > 0) {
+                foreach ($ordemServico['images'] as $index => $image) {
+                    $this->anexoService->store($image, $ordemReturn->id, "anexo_" . $index);
                 }
             }
 
@@ -89,6 +98,25 @@ class OrdemServicoService {
                 }
             }
 
+            if (isset($novoOrdemServico['images'])) {
+                $keepIDs = collect($novoOrdemServico['images'])->pluck('id')->filter()->toArray();
+
+                $anexosParaRemover = Anexo::where('id_os', $id)
+                    ->whereNotIn('id', $keepIDs)
+                    ->get();
+
+                foreach ($anexosParaRemover as $anexoOld) {
+                    $this->anexoService->destroy($anexoOld->id);
+                }
+
+                foreach ($novoOrdemServico['images'] as $index => $image) {
+                    if ((!isset($image['id']) || empty($image['id'])) && isset($image['data'])) {
+                        $filename = "anexo_update_" . time() . "_" . $index;
+                        $this->anexoService->store($image, $id, $filename);
+                    }
+                }
+            }
+
             $ordemServico = OrdemServico::findOrFail($id);
             $ordemReturn = $ordemServico->update($novoOrdemServico);
 
@@ -98,25 +126,6 @@ class OrdemServicoService {
         return $resultado;
     }
 
-    private function base64ToUploadedFile($base64, $filename = 'file.png') {
-        // Remove prefixo "data:image/png;base64,"
-        $fileData = preg_replace('/^data:.*;base64,/', '', $base64);
-        $fileData = base64_decode($fileData);
-
-        // Cria arquivo temporário
-        $tmpFilePath = sys_get_temp_dir() . '/' . $filename;
-        file_put_contents($tmpFilePath, $fileData);
-
-        // Cria UploadedFile
-        return new UploadedFile(
-            $tmpFilePath,
-            $filename,
-            mime_content_type($tmpFilePath),
-            null,
-            true // $test mode - evita mover arquivo real
-        );
-    }
-
     public function sign(Request $request, string $id) {
         $assinatura_cliente = $request->input('assinatura_cliente');
         $assinatura_tecnico = $request->input('assinatura_tecnico');
@@ -124,13 +133,13 @@ class OrdemServicoService {
         $ordemServico = OrdemServico::findOrFail($id);
 
         if ($assinatura_cliente) {
-            $uploadedFile = $this->base64ToUploadedFile($assinatura_cliente, 'assinatura_cliente.png');
+            $uploadedFile = $this->anexoService->base64ToUploadedFile($assinatura_cliente, 'assinatura_cliente.png');
             $path = $uploadedFile->store('assinaturas', 'public');
             $ordemServico->assinatura_cliente = $path;
         }
 
         if ($assinatura_tecnico) {
-            $uploadedFile = $this->base64ToUploadedFile($assinatura_tecnico, 'assinatura_tecnico.png');
+            $uploadedFile = $this->anexoService->base64ToUploadedFile($assinatura_tecnico, 'assinatura_tecnico.png');
             $path = $uploadedFile->store('assinaturas', 'public');
             $ordemServico->assinatura_tecnico = $path;
         }

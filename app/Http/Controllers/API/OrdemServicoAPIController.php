@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Resources\OrdemServicoResource;
+use App\Services\AnexoService;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\OrdemServicoService;
@@ -18,9 +19,11 @@ use Illuminate\Http\Request;
 class OrdemServicoAPIController extends Controller {
 
     private $osService;
+    private $anexoService;
 
-    public function __construct(OrdemServicoService $osService) {
+    public function __construct(OrdemServicoService $osService, AnexoService $anexoService) {
         $this->osService = $osService;
+        $this->anexoService = $anexoService;
     }
 
     /**
@@ -113,6 +116,15 @@ class OrdemServicoAPIController extends Controller {
         $ordem = $this->osService->sign($request, $id);
 
         return response()->json(['status' => 'success', 'message' => 'Ordem de serviço atualizada com sucesso', 'data' => $ordem], 200);
+    }
+
+    public function getAnexos(string $id){
+        $anexos = $this->anexoService->getAll($id);
+
+        return response()->json([
+            "status" => "success",
+            "data" => $anexos
+        ]);
     }
 
     public function imprimir_personalizado(Request $request, string $id) {

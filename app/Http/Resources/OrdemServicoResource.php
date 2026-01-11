@@ -24,6 +24,7 @@ class OrdemServicoResource extends JsonResource
             'valor_total' => (float)$this->valor_total,
             'equipamento' => $this->equipamento,
             'itens' => $this->items,
+            'anexos' => $this->anexo,
             'status' => $this->status,
             'classificacao' => $this->classificacao,
             'data_inicio' => $this->data_inicio,

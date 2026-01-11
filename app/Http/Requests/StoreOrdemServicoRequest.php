@@ -66,6 +66,9 @@ class StoreOrdemServicoRequest extends FormRequest {
             'itens.*.id_unidade' => 'nullable|integer|exists:unidades,id',
             'itens.*.quantidade' => 'nullable|numeric|min:0',
             'itens.*.valor_unitario' => 'nullable|numeric|min:0',
+            'images' => 'nullable',
+            'images.*.format' => 'nullable|string',
+            'images.*.data' => 'nullable|string',
         ];
     }
 
