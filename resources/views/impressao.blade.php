@@ -258,6 +258,25 @@
                 @endforeach
             </table>
         @endif
+        @if (isset($anexos) && count($anexos) > 0 && isset($checkboxes['anexos']) && $checkboxes['anexos'])
+            <hr>
+            <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
+                @foreach (collect($anexos)->chunk(2) as $linha)
+                    <tr>
+                        @foreach ($linha as $anexo)
+                            <td style="padding: 10px; text-align: center; vertical-align: top;">
+                                <img src="{{ public_path('storage/' . $anexo['path']) }}"
+                                    style="width: 100%; max-width: 280px; height: auto; border: 1px solid #ccc;">
+                            </td>
+                        @endforeach
+
+                        @if ($linha->count() < 2)
+                            <td></td>
+                        @endif
+                    </tr>
+                @endforeach
+            </table>
+        @endif
         @if (isset($valor_total) && isset($checkboxes['valor']) && $valor_total > 0 && $checkboxes['valor'])
             <hr>
             <table>
@@ -281,7 +300,7 @@
                 <div style="position: absolute; left: 10%; text-align:center;">
                     @if (isset($assinatura_tecnico) && $assinatura_tecnico)
                         <div class="assinatura-container">
-                            <img src="{{ public_path('storage/').$assinatura_tecnico }}" alt="">
+                            <img src="{{ public_path('storage/') . $assinatura_tecnico }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
@@ -290,7 +309,7 @@
                 <div style="position: absolute; right: 10%; text-align:center;">
                     @if (isset($assinatura_cliente) && $assinatura_cliente)
                         <div class="assinatura-container">
-                            <img src="{{ public_path('storage/').$assinatura_cliente }}" alt="">
+                            <img src="{{ public_path('storage/') . $assinatura_cliente }}" alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
@@ -301,7 +320,8 @@
                 <div style="text-align: center;">
                     @if (isset($assinatura_tecnico) && $assinatura_tecnico)
                         <div class="assinatura-container">
-                            <img style="margin-left: 400px;" src="{{ public_path('storage/').$assinatura_tecnico }}" alt="">
+                            <img style="margin-left: 400px;" src="{{ public_path('storage/') . $assinatura_tecnico }}"
+                                alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>
@@ -312,7 +332,8 @@
                 <div style="text-align: center;">
                     @if (isset($assinatura_cliente) && $assinatura_cliente)
                         <div class="assinatura-container">
-                            <img style="margin-left: 400px;" src="{{ public_path('storage/').$assinatura_cliente }}" alt="">
+                            <img style="margin-left: 400px;" src="{{ public_path('storage/') . $assinatura_cliente }}"
+                                alt="">
                         </div>
                     @endif
                     <p>_________________________________</p>

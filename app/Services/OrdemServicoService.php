@@ -2,12 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Requests\StoreUpdateItemRequest;
 use App\Models\Anexo;
 use App\Models\OrdemServico;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,6 +18,17 @@ class OrdemServicoService {
         $this->itemService = $itemService;
         $this->equipamentoService = $equipamentoService;
         $this->anexoService = $anexoService;
+    }
+
+    public function findWithAnexos(string $id) {
+        $os = OrdemServico::with(['equipamento', 'cliente.endereco', 'status', 'classificacao', 'items.unidade', 'anexos'])->findOrFail($id);
+
+        $os->anexos->map(function ($anexo) {
+            $anexo->url = asset(Storage::url($anexo->path));
+            return $anexo;
+        });
+
+        return $os;
     }
 
     public function findByID(string $id) {

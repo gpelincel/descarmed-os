@@ -55,6 +55,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // Route::get('/imprimir/{id}', [OrdemServicoController::class, 'imprimir']);
     Route::post('/imprimir', [OrdemServicoController::class, 'imprimir_personalizado']);
+    Route::get('/ordem-servico/anexos/{id}', [OrdemServicoController::class, 'getAnexos']);
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);

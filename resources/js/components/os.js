@@ -1,4 +1,5 @@
 import IMask from "imask";
+import Dropzone from "dropzone";
 
 function toBRL(valor) {
     return valor.toLocaleString("pt-BR", {
@@ -562,6 +563,21 @@ function openModalRead(id) {
                 document.querySelector("#items-container").hidden = true;
             }
 
+            console.log(result.anexos, result.anexos.length);
+
+            if (result.anexos.length > 0) {
+                document.querySelector("#anexos-container").hidden = false;
+                let grid = document.querySelector("#anexos-grid");
+                grid.innerHTML = "";
+
+                result.anexos.map(anexo => {
+                    let image = new Image();
+                    image.src = anexo.url;
+                    image.className = 'w-full rounded-md object-cover';
+                    grid.appendChild(image);
+                })
+            }
+
             document.querySelector("#data-inicio-os").innerHTML = new Date(
                 result.data_inicio
             ).toLocaleDateString("pt-BR");
@@ -619,4 +635,65 @@ document.addEventListener("change", (event) => {
     if (event.target.matches(".valor-item")) {
         atualizarTotalOS(event.target.form);
     }
+});
+
+Dropzone.autoDiscover = false;
+
+const previewContainer = document.getElementById("anexos-preview");
+const dz = new Dropzone("#anexos-dropzone", {
+    url: "/", // não usado
+    autoProcessQueue: false,
+    clickable: true,
+    previewsContainer: previewContainer,
+    acceptedFiles: "image/*",
+    previewTemplate: `
+        <div class="flex flex-col">
+            <img data-dz-thumbnail class="w-full object-cover rounded mb-2">
+            <button data-dz-remove class="dz-remove text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded text-sm px-2 py-1 text-center bg-red-600 hover:bg-red-700 dark:focus:ring-primary-800">
+                Remover
+            </button>
+        </div>
+    `,
+});
+
+// Função auxiliar: converte File em Base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64String = reader.result.split(",")[1]; // remove "data:image/png;base64,"
+            resolve({
+                format: file.type.split("/")[1] || "png",
+                data: base64String,
+            });
+        };
+        reader.onerror = (err) => reject(err);
+        reader.readAsDataURL(file);
+    });
+}
+
+const form = document.querySelector("#formCadOS");
+
+form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // previne submit normal
+
+    const formData = new FormData(form);
+
+    // Converte todos os arquivos do Dropzone para Base64
+    const base64Files = await Promise.all(dz.files.map(file => fileToBase64(file)));
+
+    // Adiciona como JSON no FormData
+    formData.set("images", JSON.stringify(base64Files));
+
+    fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector("input[name=_token]").value,
+        },
+    })
+    .then(res => res.json())
+    .then(data => {
+        location.reload();
+    });
 });

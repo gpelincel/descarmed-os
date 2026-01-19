@@ -19,7 +19,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="formCadOS" action="/ordem-servico" method="POST">
+            <form id="formCadOS" action="/ordem-servico" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div>
@@ -145,6 +145,26 @@
                                 placeholder="Nome do equipamento">
                         </div>
                     </div>
+                    <div id="anexos-list" class="col-span-2 space-y-2">
+                        <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
+                            <h4 class="block font-medium text-gray-900 dark:text-white">
+                                Anexos (Opcional)</h4>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3">
+                            <div id="anexos-preview" class="flex flex-wrap items-center justify-center gap-3">
+
+                            </div>
+                            <div id="anexos-dropzone"
+                                class="dropzone text-gray-900 dark:text-white border-gray-900 dark:border-white rounded-lg border-dashed border p-8">
+                                <div class="dz-message">
+                                    Arraste as imagens ou clique aqui
+                                </div>
+                            </div>
+
+                            <!-- input real (escondido) -->
+                            <input type="file" name="images[]" id="anexos-input" multiple hidden>
+                        </div>
+                    </div>
                     <div id="items-list" class="col-span-2 space-y-2">
                         <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
                             <h4 class="block font-medium text-gray-900 dark:text-white">
@@ -181,7 +201,8 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
+                                    <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.
+                                    </h4>
                                     <input type="text" name="valor_un_1" id="valor_un_1"
                                         class="valor-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
                                         placeholder="R$ 0,00">

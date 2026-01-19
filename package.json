@@ -20,6 +20,7 @@
     "dependencies": {
         "@flaticon/flaticon-uicons": "^3.3.1",
         "choices.js": "^11.1.0",
+        "dropzone": "^6.0.0-beta.2",
         "imask": "^7.6.1",
         "tom-select": "^2.4.3"
     }

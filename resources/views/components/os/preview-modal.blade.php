@@ -189,11 +189,20 @@
                             </p>
                         </div>
                     </div>
+                    <div  id="anexos-container" hidden>
+                        <h4
+                            class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                            <input checked type="checkbox" value="true" readonly name="anexos" id="anexos"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Anexos
+                        </h4>
+                        <div id="anexos-grid" class="grid grid-cols-3 gap-2">
+
+                        </div>
+                    </div>
                     <div class="mb-6" id="items-container" hidden>
                         <h4
                             class="flex gap-2 items-center mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                            <input checked type="checkbox" value="true" readonly name="items"
-                                id="items"
+                            <input checked type="checkbox" value="true" readonly name="items" id="items"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">Itens
                         </h4>
                         <table class="w-full text-white">

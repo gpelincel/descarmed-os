@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Resources\OrdemServicoResource;
+use App\Services\AnexoService;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
 use App\Services\EquipamentoService;
@@ -23,14 +24,16 @@ class OrdemServicoController extends Controller {
     private $classificacaoService;
     private $unidadeService;
     private $equipamentoService;
+    private $anexosService;
 
-    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService, EquipamentoService $equipamentoService) {
+    public function __construct(OrdemServicoService $osService, ClienteService $clienteService, StatusOSService $statusService, ClassificacaoOSService $classificacaoService, UnidadeService $unidadeService, EquipamentoService $equipamentoService, AnexoService $anexosService) {
         $this->osService = $osService;
         $this->clienteService = $clienteService;
         $this->statusService = $statusService;
         $this->classificacaoService = $classificacaoService;
         $this->unidadeService = $unidadeService;
         $this->equipamentoService = $equipamentoService;
+        $this->anexosService = $anexosService;
     }
 
     /**
@@ -135,6 +138,8 @@ class OrdemServicoController extends Controller {
             }
         }
 
+        $ordemServico['images'] = json_decode($ordemServico['images'] ?? '[]', true);
+
         $ordemServico = $this->osService->save($ordemServico);
 
         if (request()->wantsJson()) {
@@ -148,7 +153,8 @@ class OrdemServicoController extends Controller {
      * Display the specified resource.
      */
     public function show(string $id) {
-        $ordem = $this->osService->findByID($id);
+        $ordem = $this->osService->findWithAnexos($id);
+
         return $ordem;
     }
 
@@ -238,6 +244,6 @@ class OrdemServicoController extends Controller {
         $ordemServico->cliente->endereco = $ordemServico->cliente->endereco->toArray();
         $pdf = Pdf::loadView('impressao', $ordemServico->toArray());
         return $pdf->stream();
-        // return view('impressao', compact('ordemServico'));
+        // return view('impressao', $ordemServico->toArray());
     }
 }
