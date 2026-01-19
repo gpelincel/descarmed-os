@@ -18,12 +18,14 @@ class AnexoService {
 
     public function getAll($idOS) {
         $anexos = Anexo::all()->where('id_os', '=', $idOS);
+        $anexosArray = [];
 
         foreach ($anexos as $anexo) {
-            $anexo->path = asset(Storage::url($anexo->path));
+            $anexo->url = asset(Storage::url($anexo->path));
+            array_push($anexosArray, $anexo);
         }
 
-        return $anexos;
+        return $anexosArray;
     }
 
     public function store($image, $idOS, $filename = "anexo_os") {

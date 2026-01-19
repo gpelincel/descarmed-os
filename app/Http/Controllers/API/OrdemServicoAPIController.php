@@ -131,6 +131,7 @@ class OrdemServicoAPIController extends Controller {
         $dados = $request->all();
 
         $ordemServico = $this->osService->findByID($id);
+        $ordemServico->anexos = $this->anexoService->getAll($id);
         $ordemServico->checkboxes = $dados;
 
         if ($ordemServico->equipamento) {
