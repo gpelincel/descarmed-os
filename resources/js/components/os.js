@@ -1,6 +1,15 @@
 import IMask from "imask";
 import Dropzone from "dropzone";
 
+const imagePreview = `
+        <div class="flex flex-col justify-between h-full">
+            <img data-dz-thumbnail class="w-full h-full object-cover rounded mb-2 max-w-[250px]">
+            <button data-dz-remove class="dz-remove text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded text-sm px-2 py-1 text-center bg-red-600 hover:bg-red-700 dark:focus:ring-primary-800">
+                Remover
+            </button>
+        </div>
+    `;
+
 function toBRL(valor) {
     return valor.toLocaleString("pt-BR", {
         style: "currency",
@@ -37,7 +46,7 @@ if (
 ) {
     verifyClienteID(
         document.querySelector("#id_cliente").value,
-        document.querySelector("#formCadOS")
+        document.querySelector("#formCadOS"),
     );
 }
 
@@ -54,7 +63,7 @@ if (document.querySelector("#btn-add-equipamento-update")) {
             event.preventDefault();
 
             let equipamento_form = document.querySelector(
-                "#equipamento-form-os-update"
+                "#equipamento-form-os-update",
             );
             let novo = document.querySelector("#novo-eqp");
 
@@ -70,7 +79,7 @@ if (document.querySelector("#btn-add-equipamento-update")) {
             event.preventDefault();
 
             let equipamento_form = document.querySelector(
-                "#equipamento-form-os"
+                "#equipamento-form-os",
             );
             let novo = document.querySelector("#novo-eqp");
 
@@ -241,243 +250,190 @@ function verifyClienteID(id_cliente, form, selected = null) {
             });
     } else {
         select.disabled = true;
-        document.querySelector(
-            "#id_equipamento"
-        ).innerHTML += `<option value="" selected="">- Selecione um cliente -</option>`;
+        document.querySelector("#id_equipamento").innerHTML +=
+            `<option value="" selected="">- Selecione um cliente -</option>`;
     }
 }
 
+function renderItem(item, index) {
+    const unidadesSelect = document.querySelector("#id_unidade_1");
+    let unidadesHTML = "";
+
+    if (unidadesSelect) {
+        unidadesHTML = Array.from(unidadesSelect.children)
+            .map((option) => {
+                const selected =
+                    Number(option.value) === item.id_unidade ? "selected" : "";
+                return `<option value="${option.value}" ${selected}>${option.textContent}</option>`;
+            })
+            .join("");
+    }
+
+    return `
+<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
+    <input type="hidden" name="id_item_${index}" value="${item.id ?? ""}">
+
+    <div class="col-span-3">
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do item</h4>
+        <textarea
+            name="nome_item_${index}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Nome do item">${item.nome ?? ""}</textarea>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qtd.</h4>
+        <input
+            type="number"
+            name="qtd_${index}"
+            value="${item.quantidade ?? ""}"
+            min="0"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 valor-item"
+            placeholder="0">
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Und.</h4>
+        <select
+            name="id_unidade_${index}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
+                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            ${unidadesHTML}
+        </select>
+    </div>
+
+    <div>
+        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor un.</h4>
+        <input
+            type="text"
+            name="valor_un_${index}"
+            value="${item.valor_unitario ?? ""}"
+            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+            placeholder="R$ 0,00">
+    </div>
+</div>`;
+}
+
+Dropzone.autoDiscover = false;
+let dzUpdate = null;
+
 function openModalOSUpdate(id) {
-    var formUpdate = document.querySelector("#formUpdateOS");
-    let spinner = document.querySelector("#update-spinner");
+    const formUpdate = document.querySelector("#formUpdateOS");
+    const spinner = document.querySelector("#update-spinner");
+    const previewContainer = document.getElementById("anexos-preview-update");
+    const removedInput = document.querySelector("#removed_images");
 
     formUpdate.setAttribute("action", "/ordem-servico/update/" + id);
     formUpdate.classList.add("hidden");
     spinner.classList.remove("hidden");
 
-    fetch("/ordem-servico/" + id)
-        .then((response) => response.json())
-        .then((result) => {
-            let form = formUpdate.elements;
-            let os_data = new Date(result.data).toLocaleString().split(",")[0];
-            let items = result.items;
+    // limpa anexos antigos
+    removedInput.value = "";
+    if (dzUpdate) dzUpdate.removeAllFiles(true);
 
-            verifyClienteID(
-                result.id_cliente,
-                formUpdate,
-                result.id_equipamento
-            );
+    // inicializa Dropzone apenas uma vez
+    if (!dzUpdate) {
+        dzUpdate = new Dropzone("#anexos-dropzone-update", {
+            url: formUpdate.action, // o Dropzone vai enviar para a action do form
+            autoProcessQueue: false, // não processa automaticamente
+            uploadMultiple: true,
+            parallelUploads: 10, // quantos arquivos envia de uma vez
+            clickable: true,
+            previewsContainer: previewContainer,
+            acceptedFiles: "image/*",
+            previewTemplate: imagePreview,
+        });
 
-            if (items.length > 0) {
-                let html = "";
-
-                document.querySelector("#item_counter_update").value =
-                    items.length;
-
-                items.map((item, counter) => {
-                    let unidades = "";
-
-                    if (document.querySelector("#id_unidade_1")) {
-                        let select = document.querySelector("#id_unidade_1");
-                        unidades = select;
-
-                        for (let e of unidades.children) {
-                            e.removeAttribute("selected");
-
-                            if (Number(e.value) == item.id_unidade) {
-                                e.setAttribute("selected", "");
-                            }
-                        }
-
-                        unidades = unidades.innerHTML;
-                    }
-
-                    html += `
-<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
-
-    <input type="hidden" name="id_item_${counter + 1}" value="${item.id}">
-
-    <div class="col-span-3">
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Nome do item
-        </h4>
-        <textarea
-            name="nome_item_${counter + 1}"
-            id="nome_item_${counter + 1}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Nome do item">${item.nome}</textarea>
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Qtd.
-        </h4>
-        <input
-            type="number"
-            name="qtd_${counter + 1}"
-            id="qtd_${counter + 1}"
-            value="${item.quantidade}"
-            min="0"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-            placeholder="0">
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Und.
-        </h4>
-        <select
-            id="id_unidade_${counter + 1}"
-            name="id_unidade_${counter + 1}"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            ${unidades}
-        </select>
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Valor un.
-        </h4>
-        <input
-            type="text"
-            name="valor_un_${counter + 1}"
-            id="valor_un_${counter + 1}"
-            value="${item.valor_unitario}"
-            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="R$ 0,00">
-    </div>
-
-</div>
-`;
-                });
-
-                document.querySelector("#items-field-update").innerHTML = html;
-
-                addValorMask();
-
-                items.map((item, counter) => {
-                    if (document.querySelector("#valor_un_" + (counter + 1))) {
-                        document.querySelector(
-                            "#valor_un_" + (counter + 1)
-                        ).mask.typedValue = item.valor_unitario;
-                    }
-                });
-            } else {
-                let unidades = "";
-                if (document.querySelector("#id_unidade_1")) {
-                    let select = document.querySelector("#id_unidade_1");
-                    unidades = select.innerHTML;
-                }
-                let html = `
-<div class="grid grid-cols-[1fr_4fr_2fr] gap-2 col-span-3 item-fields">
-
-    <div class="col-span-3">
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Nome do item
-        </h4>
-        <textarea
-            name="nome_item_1"
-            id="nome_item_1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Nome do item"></textarea>
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Qtd.
-        </h4>
-        <input
-            type="number"
-            name="qtd_1"
-            id="qtd_1"
-            min="0"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 valor-item"
-            placeholder="0">
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Und.
-        </h4>
-        <select
-            id="id_unidade_1"
-            name="id_unidade_1"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            ${unidades}
-        </select>
-    </div>
-
-    <div>
-        <h4 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Valor un.
-        </h4>
-        <input
-            type="text"
-            name="valor_un_1"
-            id="valor_un_1"
-            class="valor-input valor-item bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
-                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                   dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="R$ 0,00">
-    </div>
-
-</div>
-`;
-
-                document.querySelector("#items-field-update").innerHTML = html;
-                document.querySelector("#item_counter_update").value = 1;
-
-                addValorMask();
+        dzUpdate.on("removedfile", function (file) {
+            const removedImages = removedInput.value ? JSON.parse(removedInput.value) : [];
+            if (file.existing && file.imageId) {
+                removedImages.push(file.imageId);
+                removedInput.value = JSON.stringify(removedImages);
             }
+        });
 
+        // Antes de enviar, adiciona os campos do form ao FormData
+        dzUpdate.on("sendingmultiple", function (files, xhr, formData) {
+            new FormData(formUpdate).forEach((value, key) => {
+                formData.append(key, value);
+            });
+        });
+
+        // Quando enviar com sucesso, recarrega ou redireciona
+        dzUpdate.on("successmultiple", function () {
+            window.location.reload();
+        });
+
+        dzUpdate.on("errormultiple", function(files, response) {
+            console.error("Erro ao enviar arquivos:", response);
+        });
+    }
+
+    // Fetch dados da OS
+    fetch("/ordem-servico/" + id)
+        .then(res => res.json())
+        .then(result => {
+            const form = formUpdate.elements;
+
+            // campos básicos
             form.titulo.value = result.titulo;
             form.id_status.value = result.id_status ?? 0;
             form.id_cliente.choices.setChoiceByValue(String(result.id_cliente));
             form.descricao.value = result.descricao;
             form.codigo_compra.value = result.codigo_compra;
             form.nota_fiscal.value = result.nota_fiscal;
-            if (result.data_conclusao) {
-                form.data_conclusao.value = result.data_conclusao
-                    .replaceAll("-", "/")
-                    .split("/")
-                    .reverse()
-                    .join("/");
-            }
-            form.data_inicio.value = result.data_inicio
-                .replaceAll("-", "/")
-                .split("/")
-                .reverse()
-                .join("/");
+            form.data_inicio.value = result.data_inicio ? result.data_inicio.split("-").reverse().join("/") : "";
+            form.data_conclusao.value = result.data_conclusao ? result.data_conclusao.split("-").reverse().join("/") : "";
             form.id_classificacao.value = result.id_classificacao;
-            if (result.valor_total) {
-                form.valor_total.mask.unmaskedValue = result.valor_total;
-            }
+            if (result.valor_total) form.valor_total.mask.unmaskedValue = result.valor_total;
+
+            // mockFiles para anexos existentes
+            result.anexos.forEach(image => {
+                const mockFile = { name: image.name, size: image.size, accepted: true, existing: true, imageId: image.id };
+                dzUpdate.emit("addedfile", mockFile);
+                dzUpdate.emit("thumbnail", mockFile, image.url);
+                dzUpdate.emit("complete", mockFile);
+            });
+
+            verifyClienteID(result.id_cliente, formUpdate, result.id_equipamento);
+
+            // renderiza itens
+            const items = result.items || [];
+            const itemsHTML = items.length > 0
+                ? items.map((item, i) => renderItem(item, i + 1)).join("")
+                : renderItem({}, 1);
+
+            document.querySelector("#items-field-update").innerHTML = itemsHTML;
+            document.querySelector("#item_counter_update").value = items.length || 1;
+
+            addValorMask();
+            items.forEach((item, i) => {
+                const input = document.querySelector(`input[name="valor_un_${i + 1}"]`);
+                if (input) input.mask.typedValue = item.valor_unitario ?? 0;
+            });
 
             formUpdate.classList.remove("hidden");
             spinner.classList.add("hidden");
         });
+
+    // Submit: envia os arquivos do Dropzone + campos do form
+    formUpdate.onsubmit = function (e) {
+        e.preventDefault();
+
+        if (dzUpdate.getQueuedFiles().length > 0) {
+            dzUpdate.processQueue(); // envia os arquivos
+        } else {
+            // se não tiver arquivos novos, envia o form normal
+            formUpdate.submit();
+        }
+    };
 }
 
 function openModalRead(id) {
@@ -527,10 +483,10 @@ function openModalRead(id) {
                 document.querySelector("#nome-equipamento-os").innerHTML =
                     equipamento.nome;
                 document.querySelector(
-                    "#numero-serie-equipamento-os"
+                    "#numero-serie-equipamento-os",
                 ).innerHTML = equipamento.numero_serie;
                 document.querySelector(
-                    "#numero-patrimonio-equipamento-os"
+                    "#numero-patrimonio-equipamento-os",
                 ).innerHTML = equipamento.numero_patrimonio;
                 document.querySelector("#id-equipamento-os").innerHTML =
                     equipamento.id;
@@ -570,28 +526,26 @@ function openModalRead(id) {
                 let grid = document.querySelector("#anexos-grid");
                 grid.innerHTML = "";
 
-                result.anexos.map(anexo => {
+                result.anexos.map((anexo) => {
                     let image = new Image();
                     image.src = anexo.url;
-                    image.className = 'w-full rounded-md object-cover';
+                    image.className = "w-full rounded-md object-cover";
                     grid.appendChild(image);
-                })
+                });
             }
 
             document.querySelector("#data-inicio-os").innerHTML = new Date(
-                result.data_inicio
+                result.data_inicio,
             ).toLocaleDateString("pt-BR");
 
             if (result.data_conclusao) {
-                document.querySelector(
-                    "#data-conclusao-container"
-                ).hidden = false;
+                document.querySelector("#data-conclusao-container").hidden =
+                    false;
                 document.querySelector("#data-conclusao-os").innerHTML =
                     new Date(result.data_conclusao).toLocaleDateString("pt-BR");
             } else {
-                document.querySelector(
-                    "#data-conclusao-container"
-                ).hidden = true;
+                document.querySelector("#data-conclusao-container").hidden =
+                    true;
             }
 
             document.querySelector("#classificacao-os").innerHTML =
@@ -643,57 +597,28 @@ const previewContainer = document.getElementById("anexos-preview");
 const dz = new Dropzone("#anexos-dropzone", {
     url: "/", // não usado
     autoProcessQueue: false,
+    uploadMultiple: true,
     clickable: true,
     previewsContainer: previewContainer,
     acceptedFiles: "image/*",
-    previewTemplate: `
-        <div class="flex flex-col">
-            <img data-dz-thumbnail class="w-full object-cover rounded mb-2">
-            <button data-dz-remove class="dz-remove text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded text-sm px-2 py-1 text-center bg-red-600 hover:bg-red-700 dark:focus:ring-primary-800">
-                Remover
-            </button>
-        </div>
-    `,
+    previewTemplate: imagePreview,
 });
-
-// Função auxiliar: converte File em Base64
-function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64String = reader.result.split(",")[1]; // remove "data:image/png;base64,"
-            resolve({
-                format: file.type.split("/")[1] || "png",
-                data: base64String,
-            });
-        };
-        reader.onerror = (err) => reject(err);
-        reader.readAsDataURL(file);
-    });
-}
 
 const form = document.querySelector("#formCadOS");
 
-form.addEventListener("submit", async function (e) {
-    e.preventDefault(); // previne submit normal
+form.addEventListener("submit", function () {
+    dz.files.forEach((file, index) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.name = "images[]";
 
-    const formData = new FormData(form);
+        // Dropzone guarda o arquivo original aqui
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
 
-    // Converte todos os arquivos do Dropzone para Base64
-    const base64Files = await Promise.all(dz.files.map(file => fileToBase64(file)));
+        input.files = dataTransfer.files;
+        input.style.display = "none";
 
-    // Adiciona como JSON no FormData
-    formData.set("images", JSON.stringify(base64Files));
-
-    fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector("input[name=_token]").value,
-        },
-    })
-    .then(res => res.json())
-    .then(data => {
-        location.reload();
+        form.appendChild(input);
     });
 });

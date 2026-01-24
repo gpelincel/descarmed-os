@@ -26,7 +26,7 @@
                 <x-spinner></x-spinner>
             </div>
 
-            <form id="formUpdateOS" method="POST" class="hidden">
+            <form id="formUpdateOS" method="POST" class="hidden" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div>
@@ -152,6 +152,20 @@
                                 placeholder="Nome do equipamento">
                         </div>
                     </div>
+                    <div id="anexos-list-update" class="col-span-2 space-y-2">
+                        <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
+                            <h4 class="block font-medium text-gray-900 dark:text-white">
+                                Anexos (Opcional)</h4>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3">
+                            <div id="anexos-preview-update" class="flex flex-wrap gap-3"></div>
+                            <div id="anexos-dropzone-update" class="dropzone border-dashed border p-8 rounded-lg">
+                                <div class="dz-message">Arraste imagens ou clique aqui</div>
+                            </div>
+
+                            <input type="hidden" name="removed_images" id="removed_images">
+                        </div>
+                    </div>
                     <div id="items-list-update" class="col-span-2 space-y-2">
                         <div class="flex gap-2 items-center border-b border-gray-600 pb-2">
                             <h4 class="block font-medium text-gray-900 dark:text-white">
@@ -190,7 +204,8 @@
                             placeholder="R$ 0,00">
                     </div>
                     <div class="sm:col-span-2"><label for="descricao"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação (Opicional)</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observação
+                            (Opicional)</label>
                         <textarea id="descricao" rows="4" name="descricao"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Observação da ordem de serviço..."></textarea>

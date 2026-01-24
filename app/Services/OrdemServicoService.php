@@ -64,9 +64,13 @@ class OrdemServicoService {
                 }
             }
 
-            if (isset($ordemServico['images']) && count($ordemServico['images']) > 0) {
+            if (!empty($ordemServico['images'])) {
                 foreach ($ordemServico['images'] as $index => $image) {
-                    $this->anexoService->store($image, $ordemReturn->id, "anexo_" . $index);
+                    $this->anexoService->store(
+                        $image,
+                        $ordemReturn->id,
+                        "anexo_" . $index
+                    );
                 }
             }
 
@@ -102,25 +106,6 @@ class OrdemServicoService {
                             $item['id_os'] = $id;
                             $this->itemService->save($item);
                         }
-                    }
-                }
-            }
-
-            if (isset($novoOrdemServico['images'])) {
-                $keepIDs = collect($novoOrdemServico['images'])->pluck('id')->filter()->toArray();
-
-                $anexosParaRemover = Anexo::where('id_os', $id)
-                    ->whereNotIn('id', $keepIDs)
-                    ->get();
-
-                foreach ($anexosParaRemover as $anexoOld) {
-                    $this->anexoService->destroy($anexoOld->id);
-                }
-
-                foreach ($novoOrdemServico['images'] as $index => $image) {
-                    if ((!isset($image['id']) || empty($image['id'])) && isset($image['data'])) {
-                        $filename = "anexo_update_" . time() . "_" . $index;
-                        $this->anexoService->store($image, $id, $filename);
                     }
                 }
             }

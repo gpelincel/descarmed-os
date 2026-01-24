@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrdemServico;
 use App\Http\Requests\StoreOrdemServicoRequest;
 use App\Http\Resources\OrdemServicoResource;
+use App\Models\Anexo;
 use App\Services\AnexoService;
 use App\Services\ClassificacaoOSService;
 use App\Services\ClienteService;
@@ -15,6 +16,8 @@ use App\Services\UnidadeService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class OrdemServicoController extends Controller {
 
@@ -138,8 +141,6 @@ class OrdemServicoController extends Controller {
             }
         }
 
-        $ordemServico['images'] = json_decode($ordemServico['images'] ?? '[]', true);
-
         $ordemServico = $this->osService->save($ordemServico);
 
         if (request()->wantsJson()) {
@@ -171,6 +172,7 @@ class OrdemServicoController extends Controller {
 
         $ordemServico = $request->all();
 
+
         if (isset($ordemServico['nota_fiscal'])) {
             $ordemServico['id_status'] = 2;
         }
@@ -199,6 +201,23 @@ class OrdemServicoController extends Controller {
                 $item['id_unidade'] = $ordemServico['id_unidade_' . $i];
                 $item['id_os'] = $id;
                 array_push($ordemServico['itens'], $item);
+            }
+        }
+
+        if ($request->filled('removed_images')) {
+            $ids = json_decode($request->removed_images, true);
+
+            Anexo::whereIn('id', $ids)->each(function ($anexo) {
+                Storage::disk('public')->delete($anexo->path);
+                $anexo->delete();
+            });
+        }
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $image) {
+                if ($image instanceof UploadedFile) {
+                    $this->anexosService->store($image, $id);
+                }
             }
         }
 

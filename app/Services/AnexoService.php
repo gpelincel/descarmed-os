@@ -28,25 +28,30 @@ class AnexoService {
         return $anexosArray;
     }
 
-    public function store($image, $idOS, $filename = "anexo_os") {
+    public function store(UploadedFile $image, int $idOS, string $filename = 'anexo_os') {
         $anexo = new Anexo();
 
-        $uploadedFile = $this->base64ToUploadedFile($image['data'], $filename . "." . $image['format']);
-        $path = $uploadedFile->store('anexos/' . $idOS, 'public');
+        $extension = $image->getClientOriginalExtension();
+        $finalName = $filename . '.' . $extension;
+
+        $path = $image->storeAs(
+            'anexos/' . $idOS,
+            $finalName,
+            'public'
+        );
 
         $anexo->path = $path;
         $anexo->id_os = $idOS;
-
         $anexo->save();
     }
 
     public function destroy($id) {
-    $anexo = Anexo::findOrFail($id);
-    
-    Storage::disk('public')->delete($anexo->path);
-    
-    return $anexo->delete();
-}
+        $anexo = Anexo::findOrFail($id);
+
+        Storage::disk('public')->delete($anexo->path);
+
+        return $anexo->delete();
+    }
 
     public function base64ToUploadedFile($base64, $filename = 'file.png') {
         $fileData = preg_replace('/^data:.*;base64,/', '', $base64);
