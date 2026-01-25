@@ -15,7 +15,7 @@ class StatusOSController extends Controller
     }
 
     public function index(){
-        $status = $this->statusOSService->getAll();
+        $status = $this->statusOSService->getAll()->where('ativo', '=', '1');
         if (request()->wantsJson()) {
             return response()->json([
                 "status" => "success",

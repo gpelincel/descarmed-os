@@ -41,7 +41,7 @@ function addValorMask() {
 addValorMask();
 
 if (
-    document.querySelector("#id_cliente").value &&
+    document.querySelector("#id_cliente") &&
     document.querySelector("#formCadOS")
 ) {
     verifyClienteID(
@@ -50,11 +50,15 @@ if (
     );
 }
 
-document.querySelector("#id_cliente").addEventListener("change", (event) => {
-    let id_cliente = event.target.value;
-    let form = event.target.form;
-    verifyClienteID(id_cliente, form);
-});
+if (document.querySelector("#id_cliente")) {
+    document
+        .querySelector("#id_cliente")
+        .addEventListener("change", (event) => {
+            let id_cliente = event.target.value;
+            let form = event.target.form;
+            verifyClienteID(id_cliente, form);
+        });
+}
 
 if (document.querySelector("#btn-add-equipamento-update")) {
     document
@@ -322,9 +326,9 @@ function renderItem(item, index) {
 }
 
 Dropzone.autoDiscover = false;
-let dzUpdate = null;
 
 function openModalOSUpdate(id) {
+    let dzUpdate = null;
     const formUpdate = document.querySelector("#formUpdateOS");
     const spinner = document.querySelector("#update-spinner");
     const previewContainer = document.getElementById("anexos-preview-update");
@@ -352,7 +356,9 @@ function openModalOSUpdate(id) {
         });
 
         dzUpdate.on("removedfile", function (file) {
-            const removedImages = removedInput.value ? JSON.parse(removedInput.value) : [];
+            const removedImages = removedInput.value
+                ? JSON.parse(removedInput.value)
+                : [];
             if (file.existing && file.imageId) {
                 removedImages.push(file.imageId);
                 removedInput.value = JSON.stringify(removedImages);
@@ -371,15 +377,15 @@ function openModalOSUpdate(id) {
             window.location.reload();
         });
 
-        dzUpdate.on("errormultiple", function(files, response) {
+        dzUpdate.on("errormultiple", function (files, response) {
             console.error("Erro ao enviar arquivos:", response);
         });
     }
 
     // Fetch dados da OS
     fetch("/ordem-servico/" + id)
-        .then(res => res.json())
-        .then(result => {
+        .then((res) => res.json())
+        .then((result) => {
             const form = formUpdate.elements;
 
             // campos básicos
@@ -389,33 +395,52 @@ function openModalOSUpdate(id) {
             form.descricao.value = result.descricao;
             form.codigo_compra.value = result.codigo_compra;
             form.nota_fiscal.value = result.nota_fiscal;
-            form.data_inicio.value = result.data_inicio ? result.data_inicio.split("-").reverse().join("/") : "";
-            form.data_conclusao.value = result.data_conclusao ? result.data_conclusao.split("-").reverse().join("/") : "";
+            form.data_inicio.value = result.data_inicio
+                ? result.data_inicio.split("-").reverse().join("/")
+                : "";
+            form.data_conclusao.value = result.data_conclusao
+                ? result.data_conclusao.split("-").reverse().join("/")
+                : "";
             form.id_classificacao.value = result.id_classificacao;
-            if (result.valor_total) form.valor_total.mask.unmaskedValue = result.valor_total;
+            if (result.valor_total)
+                form.valor_total.mask.unmaskedValue = result.valor_total;
 
             // mockFiles para anexos existentes
-            result.anexos.forEach(image => {
-                const mockFile = { name: image.name, size: image.size, accepted: true, existing: true, imageId: image.id };
+            result.anexos.forEach((image) => {
+                const mockFile = {
+                    name: image.name,
+                    size: image.size,
+                    accepted: true,
+                    existing: true,
+                    imageId: image.id,
+                };
                 dzUpdate.emit("addedfile", mockFile);
                 dzUpdate.emit("thumbnail", mockFile, image.url);
                 dzUpdate.emit("complete", mockFile);
             });
 
-            verifyClienteID(result.id_cliente, formUpdate, result.id_equipamento);
+            verifyClienteID(
+                result.id_cliente,
+                formUpdate,
+                result.id_equipamento,
+            );
 
             // renderiza itens
             const items = result.items || [];
-            const itemsHTML = items.length > 0
-                ? items.map((item, i) => renderItem(item, i + 1)).join("")
-                : renderItem({}, 1);
+            const itemsHTML =
+                items.length > 0
+                    ? items.map((item, i) => renderItem(item, i + 1)).join("")
+                    : renderItem({}, 1);
 
             document.querySelector("#items-field-update").innerHTML = itemsHTML;
-            document.querySelector("#item_counter_update").value = items.length || 1;
+            document.querySelector("#item_counter_update").value =
+                items.length || 1;
 
             addValorMask();
             items.forEach((item, i) => {
-                const input = document.querySelector(`input[name="valor_un_${i + 1}"]`);
+                const input = document.querySelector(
+                    `input[name="valor_un_${i + 1}"]`,
+                );
                 if (input) input.mask.typedValue = item.valor_unitario ?? 0;
             });
 
@@ -592,33 +617,34 @@ document.addEventListener("change", (event) => {
 });
 
 Dropzone.autoDiscover = false;
-
-const previewContainer = document.getElementById("anexos-preview");
-const dz = new Dropzone("#anexos-dropzone", {
-    url: "/", // não usado
-    autoProcessQueue: false,
-    uploadMultiple: true,
-    clickable: true,
-    previewsContainer: previewContainer,
-    acceptedFiles: "image/*",
-    previewTemplate: imagePreview,
-});
-
-const form = document.querySelector("#formCadOS");
-
-form.addEventListener("submit", function () {
-    dz.files.forEach((file, index) => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.name = "images[]";
-
-        // Dropzone guarda o arquivo original aqui
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-
-        input.files = dataTransfer.files;
-        input.style.display = "none";
-
-        form.appendChild(input);
+if (document.getElementById("anexos-preview")) {
+    const previewContainer = document.getElementById("anexos-preview");
+    const dz = new Dropzone("#anexos-dropzone", {
+        url: "/", // não usado
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        clickable: true,
+        previewsContainer: previewContainer,
+        acceptedFiles: "image/*",
+        previewTemplate: imagePreview,
     });
-});
+
+    const form = document.querySelector("#formCadOS");
+
+    form.addEventListener("submit", function () {
+        dz.files.forEach((file, index) => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.name = "images[]";
+
+            // Dropzone guarda o arquivo original aqui
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+
+            input.files = dataTransfer.files;
+            input.style.display = "none";
+
+            form.appendChild(input);
+        });
+    });
+}

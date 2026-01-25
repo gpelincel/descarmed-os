@@ -11,6 +11,11 @@ class ClassificacaoOSService
         return ClassificacaoOS::findOrFail($id);
     }
 
+    public function getAtivos()
+    {
+        return ClassificacaoOS::all()->where('ativo', '=', '1');
+    }
+
     public function getAll()
     {
         return ClassificacaoOS::all();

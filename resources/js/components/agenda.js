@@ -92,11 +92,13 @@ function openAgendaModalReagendar(id) {
     formUpdate.setAttribute('action', '/agenda/update/' + id);
 }
 
-document.querySelector("#id_cliente").addEventListener("change", (event) => {
-    let id_cliente = event.target.value;
-    let form = event.target.form;
-    verifyClienteID(id_cliente, form);
-});
+if (document.querySelector("#id_cliente")) {
+    document.querySelector("#id_cliente").addEventListener("change", (event) => {
+        let id_cliente = event.target.value;
+        let form = event.target.form;
+        verifyClienteID(id_cliente, form);
+    });
+}
 
 function verifyClienteID(id_cliente, form, selected = null) {
     var select = form.id_equipamento;

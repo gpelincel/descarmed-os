@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StatusOS extends Model
 {
     protected $fillable = [
+        'ativo',
         'descricao',
     ];
 

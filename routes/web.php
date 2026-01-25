@@ -58,6 +58,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/ordem-servico/anexos/{id}', [OrdemServicoController::class, 'getAnexos']);
 
     Route::get('/configuracao', [ConfigController::class, 'index']);
+    Route::get('/configuracao/{type}/{id}', [ConfigController::class, 'show']);
+    Route::post('/configuracao/{type}/{id}', [ConfigController::class, 'edit']);
     Route::post('/configuracao/status', [StatusOSController::class, 'store']);
     Route::delete('/configuracao/status/{id}', [StatusOSController::class, 'destroy']);
 

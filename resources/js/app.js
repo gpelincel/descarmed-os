@@ -10,6 +10,7 @@ import "./components/agenda.js";
 import "./components/clientes.js";
 import "./components/equipamento.js";
 import "./components/os.js";
+import "./components/config.js"
 
 window.Alpine = Alpine;
 

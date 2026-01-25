@@ -11,6 +11,11 @@ class UnidadeService
         return Unidade::findOrFail($id);
     }
 
+    public function getAtivos()
+    {
+        return Unidade::all()->where('ativo', '=', '1');
+    }
+
     public function getAll()
     {
         return Unidade::all();

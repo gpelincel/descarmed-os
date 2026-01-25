@@ -8,7 +8,6 @@
     <x-config.unidade-cadastro-modal></x-config.unidade-cadastro-modal>
     <x-config.status-os-cadastro-modal></x-config.status-os-cadastro-modal>
     <x-config.classificacao-os-cadastro-modal></x-config.classificacao-os-cadastro-modal>
-    <x-delete-modal></x-delete-modal>
 
     <script>
         document.addEventListener("click", (event) => {

@@ -25,6 +25,18 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Digite aqui..." required="">
                 </div>
+                <div class="m-4">
+                    <label for="ativo"
+                        class="flex items-center gap-2 mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Ativo/Inativo
+                    </label>
+                    <select id="ativo" name="ativo"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        >
+                        <option value="1" selected="">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>
                 <div class="flex w-full justify-end">
                     <button type="submit"
                         class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 dark:focus:ring-primary-800 self-end">
